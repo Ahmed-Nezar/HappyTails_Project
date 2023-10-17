@@ -11,9 +11,6 @@
 4. Write the following commands one by one:
    ```bash
    mv commit-msg .git/hooks
-   cd .git/hooks
-   cd ..
-   cd ..
    ```
 
 Now, commits must start with one of the following prefixes:
