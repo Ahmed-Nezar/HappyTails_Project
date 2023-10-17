@@ -8,7 +8,7 @@
 
 3. Open the terminal in VSCode.
 
-4. Write the following commands one by one:
+4. Write the following command Line:
    ```bash
    mv commit-msg .git/hooks
    ```
