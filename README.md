@@ -15,6 +15,7 @@
 
 Now, commits must start with one of the following prefixes:
 - `add:`
+- `fix:`
 - `feat:`
 - `update:`
 - `delete:`
