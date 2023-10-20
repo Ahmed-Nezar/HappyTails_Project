@@ -20,4 +20,3 @@ Now, commits must start with one of the following prefixes:
 - `update:`
 - `delete:`
 - `merged:`
-Author: Ahmed Nezar
