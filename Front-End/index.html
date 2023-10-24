@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&family=Inter:wght@400;500;700&family=Roboto+Serif:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>HappyTails</title>
   </head>
   <body>
     <div class="background-img">
       <header>
-        <nav class="nav container">
+        <nav class="nav">
           <div class="nav-flex-1">
             <a href="#"
               ><svg
@@ -27,20 +33,28 @@
                 />
               </svg>
             </a>
-            <a href="#">Home</a>
-            <a href="#">Pet Shop</a>
-            <a href="#">Vet</a>
+            <a class="left-nav" href="#">Home</a>
+            <a class="left-nav" href="#">Pet Shop</a>
+            <a class="left-nav" href="#">Vet</a>
           </div>
           <img src="logo1.png" alt="HappyTails Logo" class="logo-img" />
           <div class="nav-flex-2">
-            <a href="#">Profile</a>
-            <a href="#">About Us</a>
+            <a class="right-nav" href="#">Profile</a>
+            <a class="right-nav" href="#">About Us</a>
           </div>
         </nav>
       </header>
       <div class="hero-section">
+        <img class="happyimg" src="Happy.png" alt="Happy Word" />
+        <img class="tailimg" src="Tails.png" alt="Tails Word" />
         <p class="slogan">Every Tail Deserves a Happy Ending!</p>
       </div>
+    </div>
+    <div class="category container">
+      <div class="cat"><img src="cat.jpg" alt="cat" /></div>
+      <div class="dog">dog</div>
+      <div class="hamster">hamster</div>
+      <div class="bird">bird</div>
     </div>
   </body>
 </html>
