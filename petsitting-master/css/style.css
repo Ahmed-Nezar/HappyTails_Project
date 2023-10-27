@@ -8427,9 +8427,10 @@ h1, h2, h3, h4, h5,
     border: 1px solid #2a437a;
     color: #fff; }
     .btn.btn-primary:hover {
-      border: 1px solid #2a437a;
-      background: transparent;
-      color: #2a437a; }
+      border: 1px solid #bb7d2c;
+      color: white;
+      background-color: rgba(187, 125, 44, 0.5);
+    }
     .btn.btn-primary.btn-outline-primary {
       border: 1px solid #2a437a;
       background: transparent;
@@ -8946,7 +8947,7 @@ textarea.form-control {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a437a', endColorstr='#bb7d2c', GradientType=1 ); }
     @media (min-width: 992px) {
       .ftco-appointment .overlay {
-        width: 50%; } }
+        width: 100%; } }
     @media (max-width: 991.98px) {
       .ftco-appointment .overlay {
         opacity: .8; } }
