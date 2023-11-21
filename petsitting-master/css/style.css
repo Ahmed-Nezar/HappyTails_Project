@@ -1547,7 +1547,20 @@ pre {
     .table-responsive-sm > .table-bordered {
       border: 0; } }
 
+@media (min-width: 767.98px) {
+  .shop_by_animal {
+    grid-template-columns: repeat(2, minmax(33vw, max-content));
+  }
+}
 @media (max-width: 767.98px) {
+  .shop_by_animal {
+    grid-template-columns: repeat(1, minmax(20vw, max-content));
+  }
+
+  .row> * {
+    margin-bottom: 5rem;
+  }
+  
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -9776,6 +9789,19 @@ textarea.form-control {
   -webkit-animation: loader-dash 1.5s ease-in-out infinite;
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
+
+  .shop_by_animal {
+    margin: 0 0 8rem;
+    display: grid;
+    grid-gap: 2rem;
+    justify-content: center;
+    grid-template-rows: repeat(2, minmax(fit-content, min-content));
+  }
+  
+  .animal_card {
+    width: 100%;
+    border-radius: 15px;
+  }
 
 @-webkit-keyframes loader-rotate {
   100% {
