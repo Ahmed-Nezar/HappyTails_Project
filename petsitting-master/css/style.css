@@ -8499,7 +8499,9 @@ h1, h2, h3, h4, h5,
   @media (min-width: 992px) {
     .ftco-intro .services {
       margin-top: -50px; } }
-
+.header-2_color {
+  color: #2a437a; 
+}
 .services {
   display: block;
   width: 100%;
@@ -8539,7 +8541,7 @@ h1, h2, h3, h4, h5,
     .services .media-body h3 {
       font-weight: 700;
       font-size: 20px;
-      color: #000000;
+      color: #2a437a;
       -moz-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
       -webkit-transition: all 0.3s ease;
