@@ -1557,9 +1557,9 @@ pre {
     grid-template-columns: repeat(1, minmax(20vw, max-content));
   }
 
-  .row> * {
+  /* .row> * {
     margin-bottom: 5rem;
-  }
+  } */
   
   .table-responsive-md {
     display: block;
@@ -3622,7 +3622,10 @@ input[type="button"].btn-block {
   .navbar-expand-lg > .container,
   .navbar-expand-lg > .container-fluid {
     padding-right: 0;
-    padding-left: 0; } }
+    padding-left: 0; } 
+    .navbar > .container,
+  .navbar > .container-fluid {
+    justify-content: center; }}
 
 @media (min-width: 992px) {
   .navbar-expand-lg {
@@ -10329,6 +10332,18 @@ input.variation + label {
   border-top: 0.5px solid var(--lightGrayColor);
   margin-top: 25px;
 }
+
+ /* profile button  */
+ .edit-profile{
+  display: flex;
+  justify-content: flex-end;
+ }
+ .profile-button{
+  font-size: 1.1rem;
+  width: fit-content;
+  display: flex;
+ }
+
 
 @media (min-width: 500px) and (max-width: 992px) {
   .filter-section {
