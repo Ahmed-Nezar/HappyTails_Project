@@ -10487,6 +10487,194 @@ input.variation + label {
   }
 }
 
+/* view Pet Page */
+.dog-info {
+  padding: 30px;
+}
+
+.dog-name {
+  margin: 10px 0;
+}
+.dog-name a.button {
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.dog-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-auto-flow: dense;
+  margin-bottom: 50px;
+}
+.dog-gallery__input {
+  display: none;
+}
+.dog-gallery__input + label {
+  display: inline-block;
+  width: 100%;
+  height: 120px;
+  margin: 20px auto;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.2s ease;
+}
+.dog-gallery__input + label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.dog-gallery__input:checked + label {
+  box-shadow: 0 0 0 1.5px var(--neutralShade6), 0 6px 12px -6px var(--neutralShade7);
+}
+.dog-gallery__images {
+  grid-column: 1/-1;
+  grid-row: 2/3;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+.dog-gallery__images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  position: absolute;
+  top: 0;
+  transform: translateY(500px);
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+#gallery-image-1:checked ~ .dog-gallery__images img:nth-child(1) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#gallery-image-2:checked ~ .dog-gallery__images img:nth-child(2) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#gallery-image-3:checked ~ .dog-gallery__images img:nth-child(3) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#gallery-image-4:checked ~ .dog-gallery__images img:nth-child(4) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.dog-manythings {
+  line-height: 1.8;
+}
+.dog-manythings__stats p {
+  color: var(--grayColor);
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.dog-manythings__stats h5 {
+  font: 500 18px/1.2 "Poppins", sans-serif;
+  margin: 0 0 20px;
+}
+.dog-manythings__location {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 10px;
+  text-align: left;
+  background: var(--secondaryShade1);
+}
+.dog-manythings__location h5 {
+  color: var(--secondaryShade5);
+  margin: 5px 0 2px;
+  font-size: 19px;
+}
+.dog-manythings__location i {
+  font-size: 14px;
+  margin: -4px 3px 0 0;
+}
+.dog-manythings__location__info {
+  flex: 1;
+}
+.dog-manythings__location__icon {
+  flex: 0 0 55px;
+}
+.dog-manythings__location__icon img {
+  width: 100%;
+  margin-top: 8px;
+}
+.dog-manythings__more {
+  padding-top: 30px;
+  margin: 30px 0;
+}
+.dog-manythings__more p {
+  margin-bottom: 12px;
+}
+.dog-manythings__more strong {
+  display: inline-block;
+  margin-right: 8px;
+}
+.dog-manythings h3 {
+  border-bottom: 0.5px solid var(--lightGrayColor);
+  padding-bottom: 15px;
+  margin: 0 0 30px;
+}
+
+@media (min-width: 768px) {
+  .dog-info {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    grid-gap: 30px;
+    align-items: flex-start;
+    grid-template-areas: "dog-name dog-name" "dog-gallery dog-manythings" "dog-askabout dog-manythings" ". dog-manythings";
+  }
+
+  .dog-name {
+    grid-column: 1/span 2;
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: center;
+    grid-area: dog-name;
+  }
+
+  .dog-gallery {
+    grid-area: dog-gallery;
+    margin: 0;
+  }
+  .dog-gallery__input + label {
+    height: 110px;
+    margin-bottom: 0;
+  }
+  .dog-gallery__images {
+    grid-row: 1/2;
+  }
+
+  .dog-askabout {
+    grid-area: dog-askabout;
+  }
+
+  .dog-manythings {
+    grid-area: dog-manythings;
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 50%));
+    grid-gap: 10px;
+  }
+  .dog-manythings__more {
+    grid-column: 1/span 2;
+    margin: 10px 0;
+  }
+  .dog-manythings__location {
+    grid-column: 1/span 2;
+  }
+} 
 
 
 @-webkit-keyframes loader-rotate {
