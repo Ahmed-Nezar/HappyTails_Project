@@ -1,4 +1,7 @@
 # HappyTails_Project
+Local Server Administrator Account:
+Username: admin
+Password: admin
 ### Guidelines for Commits:
 
 1. Download the following file and copy it to the local directory of your repository:
