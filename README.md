@@ -1,6 +1,7 @@
 # HappyTails_Project
 ### Local Server Administrator Account
 Username: admin
+<br />
 Password: admin
 ### Guidelines for Commits:
 
