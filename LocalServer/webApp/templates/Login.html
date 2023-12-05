@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+  <body>
+    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate mx-auto">
+                    <h2 class="mb-4">Login or Sign Up</h2>
+                    <form action="#" class="appointment">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe" style="color: white;">Remember Me</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn btn-primary py-3 px-4">
+                        </div>
+                    </form>
+                    <p class="" style="color: white;"> <a href="{% url 'signup' %}" style="color: white; text-decoration: none;"><u><b>Don't have an account? Sign Up</b></u></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+  </body>
+{% endblock body %}
+{% block scripts %}
+    <script>
+        $(".nav-link").each(function () {
+            if ($(this).text() === "Login"){
+                $(this).parent(".nav-item").addClass('active');
+            }else{
+                $(this).parent(".nav-item").removeClass('active');
+            }
+        });
+    </script>
+{% endblock scripts %}

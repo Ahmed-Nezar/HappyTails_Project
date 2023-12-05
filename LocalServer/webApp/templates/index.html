@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+  <body>
+    <div class="hero-wrap js-fullheight" style="background-image: url({% static 'images/bg_1.jpg' %});" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-11 ftco-animate text-center">
+          	<h1 class="mb-4">Happy Tails Where Pets Are Happy</h1>
+            <p><a href="{% url 'about' %}" class="btn btn-primary mr-md-4 py-3 px-4">Learn more <span class="ion-ios-arrow-forward"></span></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section bg-light ftco-no-pt ftco-intro">
+    	<div class="container">
+    		<div class="row">
+          <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+            <div class="d-block services text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-blind"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Dog Walking</h3>
+                <p>Experience the joy of dog walking through scenic trails, surrounded by lush greenery and nature's beauty. Create memories and bond with your loyal companion.</p>
+                <a class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+            <div class="d-block services text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-dog-eating"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Pet Daycare</h3>
+                <p>Our premium pet daycare center provides a secure, personalized environment for your pets to play, socialize, and relax, ensuring a happy and enjoyable experience for all.</p>
+                <a class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
+              </div>
+            </div>    
+          </div>
+          <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+            <div class="d-block services text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-grooming"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Pet Grooming</h3>
+                <p>Our pet grooming salon offers luxurious services, enhancing pet well-being and beauty. Skilled groomers provide expert styling, luxurious baths, and a serene environment for a stress-free experience.</p>
+                <a class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
+              </div>
+            </div>      
+          </div>
+        </div>
+    	</div>
+    </section>
+
+    <section class="ftco-section ftco-no-pb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2 class="header-2_color">Shop By Animal</h2>
+				</div>
+			</div>
+			<div class="shop_by_animal">
+				<a href="#">
+					<img class="animal_card ftco-animate" src="https://image3.jdomni.in/banner/24042021/E8/B6/40/430B11202A1AB0E4A51D0B5754_1619250722606.png?output-format=webp"></img>
+				</a>
+				<a href="#">
+					<img class="animal_card ftco-animate" src="https://image3.jdomni.in/banner/24042021/83/E8/01/C19E5135C136DE248C388FE00E_1619270989516.png?output-format=webp"></img>
+				</a>
+				<a href="#">
+					<img class="animal_card ftco-animate" src="https://image2.jdomni.in/banner/24042021/38/E2/7B/6D48C2F60AD7C675BB2BA4BF5B_1619272003231.png?output-format=webp"></img>
+				</a>
+				<a href="#">
+					<img class="animal_card ftco-animate" src="https://image3.jdomni.in/banner/24042021/68/EE/9E/9AB494C81E0CD2D69BEEE642E1_1619273606500.png?output-format=webp"></img>
+				</a>
+			</div>
+		</div>
+	</section>
+
+    <section class="ftco-section testimony-section bg-light">
+    	<div class="overlay"></div>
+      <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="header-2_color">Happy Clients &amp; Feedbacks</h2>
+          </div>
+        </div>
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-testimony owl-carousel ftco-owl">
+              <div class="item">
+                <div class="testimony-wrap py-4">
+                	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                  <div class="text">
+                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <div class="d-flex align-items-center">
+                    	<div class="user-img" style="background-image: url({% static 'images/person_1.jpg' %})"></div>
+                    	<div class="pl-3">
+		                    <p class="name">Roger Scott</p>
+		                    <span class="position">Marketing Manager</span>
+		                  </div>
+	                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap py-4">
+                	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                  <div class="text">
+                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <div class="d-flex align-items-center">
+                    	<div class="user-img" style="background-image: url({% static 'images/person_2.jpg' %})"></div>
+                    	<div class="pl-3">
+		                    <p class="name">Roger Scott</p>
+		                    <span class="position">Marketing Manager</span>
+		                  </div>
+	                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap py-4">
+                	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                  <div class="text">
+                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <div class="d-flex align-items-center">
+                    	<div class="user-img" style="background-image: url({% static 'images/person_3.jpg' %})"></div>
+                    	<div class="pl-3">
+		                    <p class="name">Roger Scott</p>
+		                    <span class="position">Marketing Manager</span>
+		                  </div>
+	                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap py-4">
+                	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                  <div class="text">
+                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <div class="d-flex align-items-center">
+                    	<div class="user-img" style="background-image: url({% static 'images/person_1.jpg' %})"></div>
+                    	<div class="pl-3">
+		                    <p class="name">Roger Scott</p>
+		                    <span class="position">Marketing Manager</span>
+		                  </div>
+	                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap py-4">
+                	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                  <div class="text">
+                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <div class="d-flex align-items-center">
+                    	<div class="user-img" style="background-image: url({% static 'images/person_2.jpg' %})"></div>
+                    	<div class="pl-3">
+		                    <p class="name">Roger Scott</p>
+		                    <span class="position">Marketing Manager</span>
+		                  </div>
+	                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section bg-light">
+    	<div class="container">
+    		<div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="header-2_color">Affordable Packages</h2>
+          </div>
+        </div>
+    		<div class="row">
+    			<div class="col-md-6 ftco-animate">
+	          <div class="block-7">
+	          	<div class="img" style="background-image: url({% static 'images/pricing-1.jpg' %});"></div>
+	            <div class="text-center p-4">
+	            	<span class="excerpt d-block">Free</span>
+	            	<span class="price"><sup>$</sup> <span class="number">0</span> <sub>/mos</sub></span>
+	            
+		            <ul class="pricing-text mb-5">
+		              <li><span class="fa fa-check mr-2"></span>Max Limit 5 Pets</li>
+		              <li><span class="fa fa-check mr-2"></span>No Exclusive Membership</li>
+                  <li><span class="fa fa-check mr-2"></span>Limited Supports</li>
+                  <li><span class="fa fa-check mr-2"></span>No Offers or special deals</li>
+		            </ul>
+
+	            	<a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-md-6 ftco-animate">
+	          <div class="block-7">
+	          	<div class="img" style="background-image: url({% static 'images/pricing-2.jpg' %});"></div>
+	            <div class="text-center p-4">
+	            	<span class="excerpt d-block">Premuim</span>
+		            <span class="price"><sup>$</sup> <span class="number">25</span> <sub>/mos</sub></span>
+		            
+		            <ul class="pricing-text mb-5">
+		              <li><span class="fa fa-check mr-2"></span>Unlimited Number of Pets</li>
+		              <li><span class="fa fa-check mr-2"></span>5 Vet Visit for free</li>
+		              <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
+		              <li><span class="fa fa-check mr-2"></span>Free Supports</li>
+		            </ul>
+
+		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	            </div>
+	          </div>
+	        </div>
+            </div>
+        </div>
+    </section>
+		
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="header-2_color">Pets Gallery</h2>
+          </div>
+        </div>
+				<div class="row">
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-1.jpg' %});">
+            	<a href="{% static 'images/gallery-1.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Cat</span>
+	              	<h2><a href="#">Persian Cat</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-2.jpg' %});">
+            	<a href="{% static 'images/gallery-2.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Dog</span>
+	              	<h2><a href="#">Pomeranian</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-3.jpg' %});">
+            	<a href="{% static 'images/gallery-3.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Cat</span>
+	              	<h2><a href="#">Sphynx Cat</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-4.jpg' %});">
+            	<a href="{% static 'images/gallery-4.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Cat</span>
+	              	<h2><a href="#">British Shorthair</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-5.jpg' %});">
+            	<a href="{% static 'images/gallery-5.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Dog</span>
+	              	<h2><a href="#">Beagle</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="work mb-4 img d-flex align-items-end" style="background-image: url({% static 'images/gallery-6.jpg' %});">
+            	<a href="{% static 'images/gallery-6.jpg' %}" class="icon image-popup d-flex justify-content-center align-items-center">
+	    					<span class="fa fa-expand"></span>
+	    				</a>
+            	<div class="desc w-100 px-4">
+	              <div class="text w-100 mb-3">
+	              	<span>Dog</span>
+	              	<h2><a href="#">Pug</a></h2>
+	              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+			</div>
+		</section>
+
+    <section class="ftco-section journey-section bg-light">
+      <div class="container">
+				<div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <p><a href="{% url 'login' %}" class="btn btn-primary mr-md-4 py-3 px-4">Begin Journey <span class="ion-ios-arrow-forward"></span></a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock body %}
+
+{% block scripts %}
+
+{% endblock scripts %}

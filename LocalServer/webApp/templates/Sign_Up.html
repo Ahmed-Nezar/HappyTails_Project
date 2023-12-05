@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+  <body>
+    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img text-center">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate mx-auto">
+                <h2 class="mb-4">Sign Up</h2>
+                <form action="#" class="appointment" style="max-width: 500px; margin: 0 auto;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Address" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Sign Up" class="btn btn-primary py-3 px-4">
+                    </div>
+                </form>
+                <p style="color: white;"><a href="{% url 'login' %}" style="color: white; text-decoration: none;"><u><b>Already have an account? Login</b></u></a></p>
+            </div>
+        </div>
+    </div>
+</section>
+  </body>
+{% endblock body %}
+{% block scripts %}
+
+{% endblock scripts %}
