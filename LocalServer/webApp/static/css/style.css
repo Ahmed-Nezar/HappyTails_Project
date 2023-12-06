@@ -8448,7 +8448,7 @@ h1, h2, h3, h4, h5,
     .btn.btn-primary:hover {
       border: 1px solid #bb7d2c;
       color: white;
-      background-color: rgba(187, 125, 44, 0.5);
+      background-color: rgb(187 125 44);
     }
     .btn.btn-primary.btn-outline-primary {
       border: 1px solid #2a437a;
@@ -8939,7 +8939,6 @@ textarea.form-control {
     width: 60%;
     margin: 0 auto; }
     .block-7 .btn-primary:hover, .block-7 .btn-primary:focus {
-      background: #2a437a !important;
       color: #fff; }
   .block-7:hover, .block-7:focus {
     -webkit-box-shadow: 0px 24px 48px -13px rgba(0, 0, 0, 0.11);
@@ -9213,6 +9212,12 @@ textarea.form-control {
     z-index: -1; }
   .testimony-section .owl-carousel {
     margin: 0; }
+  .owl-carousel.owl-grab {
+    cursor: grabbing !important;
+  }
+  .owl-carousel.owl-drag {
+    cursor: grab;
+  }
   .testimony-section .owl-carousel .owl-stage-outer {
     padding: 20px 0 2em 0;
     position: relative; }

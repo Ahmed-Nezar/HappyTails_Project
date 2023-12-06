@@ -67,3 +67,11 @@ def signup(request):
         'page_name': "Register",
     }
     return render(request, 'Sign_Up.html', context)
+
+
+def viewPet(request, id):
+    context = {
+        'nav': True,
+        'page_name': "Pet View",
+    }
+    return render(request, 'Pet View.html', context)
