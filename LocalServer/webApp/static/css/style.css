@@ -8444,7 +8444,7 @@ h1, h2, h3, h4, h5,
   background: #2a437a !important; }
 
 .btn {
-  padding: 12px 16px;
+  padding: 11px 13px 8px;
   cursor: pointer;
   border-radius: 4px;
   -webkit-box-shadow: none !important;
@@ -10326,9 +10326,113 @@ input.variation + label {
   display: flex;
  }
 
+ .dog-manythings__stats .editProf{
+  display: none;
+ }
+
 /* Owner's pets section */
 .item{
   padding: 4rem 1.2rem 0; 
+}
+/* Add Pet Popup */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity .2s;
+  visibility: hidden;
+  opacity: 0;
+}
+.showPopup {
+  visibility: visible;
+  opacity: 1;
+  z-index: 3;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 60%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+/*Dropdown*/
+.dropdown {
+  position: absolute;
+  width: 100%;
+  background: white; 
+  border: 0.1em solid #c0cdd1;
+  border-radius: .25rem;
+}
+
+/*List*/
+ul {
+  display: none;
+  border-top: 0.1em solid #c0cdd1;
+  list-style-type: none;
+}
+
+.js-dropdown-list li {
+  padding: 0.5em 1rem;
+  cursor: pointer;
+}
+.js-dropdown-list li:not(:first-child) {
+  border-top: 0.1em dashed #dde4e6;
+}
+.js-dropdown-list li:focus, .js-dropdown-list li:hover {
+  background: #ecf0f1;
+}
+.js-dropdown-list li:active {
+  background: #fbfcfc;
+}
+.js-dropdown-list{
+  margin: 0;
+  padding: 0px;
+}
+.js-link{
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-control-plaintext{
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+.form-control-plaintext:focus{
+  border-color: #000000;
+}
+.form-control-plaintext:focus-visible{
+  border: 1px solid #000;
 }
 
 @media (max-width:991.98px) {

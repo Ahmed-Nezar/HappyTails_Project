@@ -23,45 +23,119 @@
         <div class="d-flex justify-content-between align-items-center ftco-animate">
           <h4>Profile Settings</h4>
           <div class="ftco-animate">
-            <button class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile"><i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i></button>
+            <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
+              <span></span>
+              <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
+            </button>          
           </div>
         </div>
-				<div class="row ftco-animate">
-          <!-- <div class="col-md-2 border-right">
-              <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-          </div> -->
-          <div class="col-md-6">
-              <div class="pt-1">
-                  <div class="row">
-                      <div class="col-md-6 "><label class="labels">First Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                      <div class="col-md-6 mt-1"><label class="labels">Last Name</label><input type="text" class="form-control" value="" placeholder="last name"></div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                  </div>
+        <section class="dog-manythings mt-4">
+          <div class="dog-manythings__stats ftco-animate">
+            <div class="row">
+              <div class="col-md-6 mt-1">
+                <label class="labels">First Name</label>
+                <h5>Ryali</h5>
+                <input type="text" class="form-control editProf" placeholder="First Name" value="Ryali">
+              </div>
+              <div class="col-md-6 mt-1">
+                <label class="labels">Last Name</label>
+                <h5>Ryali</h5>
+                <input type="text" class="form-control editProf" value="Ryali" placeholder="Last Name">
               </div>
           </div>
-          <div class="col-md-6">
-            <div class="pt-2">
-              <div class="row mt-0">
-                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-12"><label class="labels">Address Line </label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-              </div>
-            </div>  
           </div>
-        </div>
+          <div class="dog-manythings__stats ftco-animate">
+            <div class="row mt-0">
+              <div class="col-md-12">
+                <label class="labels">Mobile Number</label>
+                <h5>011223344556</h5>
+                <input type="text" class="form-control editProf" placeholder="enter phone number" value="011223344556">
+              </div>
+            </div>   
+          </div>
+          <div class="dog-manythings__stats ftco-animate">
+            <div class="row mt-2">
+              <div class="col-md-12"><label class="labels">Email</label>
+                <h5>user@example.com</h5>
+                <input type="text" class="form-control editProf" placeholder="enter email id" value="user@example.com">
+              </div>
+            </div>
+          </div>
+          <div class="dog-manythings__stats ftco-animate">
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <label class="labels">Address Line </label>
+                <h5>5th street</h5>
+                <input type="text" class="form-control editProf" placeholder="enter address line 1" value="5th street">
+              </div>
+            </div>
+          </div>
+          <div class="dog-manythings__more">
+          </div>
+        </section>		
 			</div>
 		</section>
-
+    <div id="popup1" class="popupOverlay">
+      <div class="popup">
+        <h2>Add Pet</h2>
+        <a id="closePopup" class="close">&times;</a>
+        <section class="dog-manythings mt-4 pr-3">
+          <div class="dog-manythings__stats">
+            <p>Name</p>
+            <div class="col-md-11 px-0">
+              <input type="text" class="form-control" placeholder="Pet's Name" value="">
+            </div>
+          </div>
+          <div class="dog-manythings__stats">
+            <p>Breed</p>
+            <div class="col-md-11 px-0">
+              <input type="text" class="form-control" placeholder="Pet's Breed" value="">
+            </div>
+          </div>
+          <div class="dog-manythings__stats">
+            <p>Age</p>
+            <div class="col-md-11 px-0">
+              <input type="text" class="form-control" placeholder="Pet's Age" value="">
+            </div>
+          </div>
+          <div class="dog-manythings__stats">
+            <p>Gender</p>
+            <div class="col-md-11 px-0">
+            <div class="dropdown">
+              <div class="js-link">Select Pet's Gender<i class="fa fa-chevron-down mt-1"></i></div>
+              <ul class="js-dropdown-list">
+                <li>Male</li>
+                <li>Female</li>
+              </ul>
+            </div>
+          </div>
+          </div>
+          <div class="dog-manythings__stats">
+            <p>Color</p>
+            <div class="col-md-11 px-0">
+              <input type="text" class="form-control" placeholder="Pet's Hair/Fur color" value="">
+            </div>
+          </div>
+          <div class="mt-2 pr-3">
+            <label for="formFileMultiple" class="form-label">Upload Pet Pictures</label>
+            <input class="form-control" type="file" id="formFileMultiple" multiple style="border:none;">
+          </div>
+          <div class="dog-manythings__more">
+            <h5>More about Your Pet</h5>
+            <div class="mb-3">
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Tell us more about your pet (Health, Characteristics, Important Remarks, ..etc )"></textarea>
+            </div>
+         </div>
+        </section>
+      </div>
+    </div>
     <section class="ftco-section testimony-section">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center ftco-animate">
           <h4>My Pets</h4>
           <div class="ftco-animate">
-            <button class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Add New Pet"><i class="fa fa-plus" aria-hidden="true" style="margin-right: -2px;"></i></button>
-          </div>
+            <button id="myButton" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Add New Pet"><i class="fa fa-plus" aria-hidden="true" style="margin-right: -2px;"></i></button> 
+          </div> 
         </div>
         <div class="row ftco-animate">
           <div class="col-md-12">
@@ -153,4 +227,106 @@
             }
         });
     </script>
+    <script>
+      window.addEventListener("click", function (event) {
+          if (event.target == popup1) {
+            popup1.classList.remove("showPopup");
+          }
+      });
+      var myButton = document.getElementById("myButton");
+      var closePopup = document.getElementById("closePopup");
+      var popup1 = document.getElementById("popup1");
+      var dropdownList = document.getElementById("yourDropdownListId");
+      
+      myButton.addEventListener("click", function (event) {
+          event.stopPropagation();
+          popup1.classList.add("showPopup");
+      });
+      
+      closePopup.addEventListener("click", function () {
+          popup1.classList.remove("showPopup");
+      });
+      
+      window.addEventListener("click", function (event) {
+          if (!popup1.contains(event.target) && event.target !== dropdownList) {
+              popup1.classList.remove("showPopup");
+          }
+      });
+
+      $(function() {
+        var list = $('.js-dropdown-list');
+        var link = $('.js-link');
+        var popup = $('#popup1');
+        var mouseDownInsidePopup = false;
+    
+        function closeDropdown() {
+            list.slideUp(200);
+            link.html('Select one option<i class="fa fa-chevron-down mt-1"></i>');
+        }
+    
+        link.click(function(e) {
+            e.preventDefault();
+            list.slideToggle(200);
+        });
+    
+        list.find('li').click(function() {
+            var text = $(this).html();
+            var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+            link.html(text + icon);
+            list.slideUp(200);
+            if (text === '* Reset') {
+                link.html('Select one option' + icon);
+            }
+        });
+    
+        popup.mousedown(function() {
+            mouseDownInsidePopup = true;
+        });
+    
+        $(document).mouseup(function() {
+            if (mouseDownInsidePopup) {
+                mouseDownInsidePopup = false;
+            } else {
+                closeDropdown();
+            }
+        });
+    })
+      $(function() {
+        function showInputFields() {
+          $('.dog-manythings__stats .editProf').show();
+          $('.dog-manythings__stats h5').hide();
+        }
+      
+        function showH5Text() {
+          $('.dog-manythings__stats .editProf').hide();
+          $('.dog-manythings__stats h5').show();
+        }
+      
+        $('#editProfileBtn').click(function() {
+          if ($('.dog-manythings__stats .editProf').is(':visible')) {
+            showH5Text();
+            toggleButtonText();
+          } else {
+            showInputFields();
+            toggleButtonText();
+          }
+        });
+        function toggleButtonText() {
+          var button = $('#editProfileBtn');
+          var buttonText = button.find('span');
+          var icon = button.find('i.fa');
+      
+          if (icon.is(':visible')) {
+            icon.hide();
+            buttonText.text('Save Changes');
+          } else {
+            icon.show();
+            buttonText.text('');
+          }
+          
+        }
+      });
+
+  </script>
+  
 {% endblock scripts %}
