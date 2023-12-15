@@ -12,6 +12,8 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("petview/<int:id>/", views.viewPet, name="petView"),
     path("about/", views.about, name="about"),
-    path("login/", views.login, name="login"),
+    path('login/', auth_views.LoginView.as_view(template_name='Login.html',
+                                               extra_context={'page_name': 'Sign In'}),name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='Logout.html'), name='logout'),
     path("register/", views.signup, name="signup"),
 ]

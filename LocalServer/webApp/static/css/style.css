@@ -8041,6 +8041,20 @@ h1, h2, h3, h4, h5,
   color: rgba(0, 0, 0, 0.8);
   font-weight: 400; }
 
+.error-msg{
+  text-align: center;
+  color: rgb(208 13 13);
+  font-weight: 500;
+}
+
+.errors-container{
+  margin-bottom: 1.5rem;
+  background: #949494;
+  font-weight: 900;
+  border-radius: 10px;
+  padding: 15px 0;
+}
+
 .wrap {
   position: relative;
   z-index: 0;
