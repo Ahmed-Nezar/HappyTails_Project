@@ -28,41 +28,57 @@
                 </div>
                 <div class="dog-name__cta">
                   <div class="ftco-animate">
-                    <button class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Pet"><i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i></button>
+                    <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
+                      <span></span>
+                      <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
+                    </button>          
                   </div>
                 </div>
               </section>
               <section class="dog-gallery">
                 <input class="dog-gallery__input" id="gallery-image-1" type="radio" value="1" name="dog-image" checked="checked"/>
-                <label for="gallery-image-1"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute1.jpg" alt="Dog Image"/></label>
+                <label for="gallery-image-1"><img src="{% static 'images/malamute1.jpg' %}" alt="Dog Image"/></label>
                 <input class="dog-gallery__input" id="gallery-image-2" type="radio" value="2" name="dog-image"/>
-                <label for="gallery-image-2"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/></label>
+                <label for="gallery-image-2"><img src="{% static 'images/malamute2.jpg' %}" alt="Dog Image"/></label>
                 <input class="dog-gallery__input" id="gallery-image-3" type="radio" value="3" name="dog-image"/>
-                <label for="gallery-image-3"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/></label>
+                <label for="gallery-image-3"><img src="{% static 'images/malamute3.jpg' %}" alt="Dog Image"/></label>
                 <input class="dog-gallery__input" id="gallery-image-4" type="radio" value="4" name="dog-image"/>
-                <label for="gallery-image-4"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></label>
-                <div class="dog-gallery__images"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute1.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></div>
+                <label for="gallery-image-4"><img src="{% static 'images/malamute4.jpg' %}" alt="Dog Image"/></label>
+                <div class="dog-gallery__images"><img src="{% static 'images/malamute1.jpg' %}" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></div>
               </section>
               <section class="dog-manythings">
                 <div class="dog-manythings__stats">
                   <p>Name</p>
                   <h5>Ryali</h5>
+                  <input type="text" class="form-control editProf" placeholder="Pet Name" value="Ryali">
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Breed   </p>
                   <h5> Alaskan Malamute</h5>
+                  <input type="text" class="form-control editProf" placeholder="Pet Breed" value="Alaskan Malamute">
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Age</p>
                   <h5>10</h5>
+                  <input type="text" class="form-control editProf" placeholder="Pet Age" value="10">
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Gender</p>
                   <h5>Female</h5>
+                  <div class="col-md-11 px-0 editProf">
+                  <div class="dropdown">
+                    <div class="js-link">Select Pet's Gender<i class="fa fa-chevron-down mt-1"></i></div>
+                    <ul class="js-dropdown-list">
+                      <li>Male</li>
+                      <li>Female</li>
+                    </ul>
+                  </div>
+                </div>
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Color</p>
                   <h5>Brown & White</h5>
+                  <input type="text" class="form-control editProf" placeholder="Pet Color" value="Brown & White">
                 </div>
                 <div class="dog-manythings__more">
                   <h3>More about Rylai</h3>
@@ -81,4 +97,69 @@
   </body>
 {% endblock body %}
 {% block scripts %}
+<script>
+  $(function() {
+    var list = $('.js-dropdown-list');
+    var link = $('.js-link');
+    var popup = $('#popup1');
+    var mouseDownInsidePopup = false;
+
+    function closeDropdown() {
+        list.slideUp(200);
+        link.html('Select one option<i class="fa fa-chevron-down mt-1"></i>');
+    }
+
+    link.click(function(e) {
+        e.preventDefault();
+        list.slideToggle(200);
+    });
+
+    list.find('li').click(function() {
+        var text = $(this).html();
+        var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+        link.html(text + icon);
+        list.slideUp(200);
+        if (text === '* Reset') {
+            link.html('Select one option' + icon);
+        }
+    });
+
+})
+  $(function() {
+    function showInputFields() {
+      $('.dog-manythings__stats .editProf').show();
+      $('.dog-manythings__stats h5').hide();
+    }
+  
+    function showH5Text() {
+      $('.dog-manythings__stats .editProf').hide();
+      $('.dog-manythings__stats h5').show();
+    }
+  
+    $('#editProfileBtn').click(function() {
+      if ($('.dog-manythings__stats .editProf').is(':visible')) {
+        showH5Text();
+        toggleButtonText();
+      } else {
+        showInputFields();
+        toggleButtonText();
+      }
+    });
+    function toggleButtonText() {
+      var button = $('#editProfileBtn');
+      var buttonText = button.find('span');
+      var icon = button.find('i.fa');
+  
+      if (icon.is(':visible')) {
+        icon.hide();
+        buttonText.text('Save Changes');
+      } else {
+        icon.show();
+        buttonText.text('');
+      }
+      
+    }
+  });
+
+</script>
 {% endblock scripts %}
