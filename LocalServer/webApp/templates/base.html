@@ -61,6 +61,9 @@
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
+            {% if request.user.is_superuser %}
+                <li class="nav-item"><a href="/django-insecure-$hbr$!r_j5!usa!^j3$!=5)9sl(f$c2sol)$_a6z13=4jvu=((/" class="nav-link">Admin</a></li>
+            {% endif %}
             <li class="nav-item active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="{% url 'vet' %}" class="nav-link">Veterinarian</a></li>
             <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Pet Shop</a></li>

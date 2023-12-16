@@ -31,7 +31,7 @@
                     <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
                       <span></span>
                       <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
-                    </button>          
+                    </button>
                   </div>
                 </div>
               </section>
@@ -130,12 +130,12 @@
       $('.dog-manythings__stats .editProf').show();
       $('.dog-manythings__stats h5').hide();
     }
-  
+
     function showH5Text() {
       $('.dog-manythings__stats .editProf').hide();
       $('.dog-manythings__stats h5').show();
     }
-  
+
     $('#editProfileBtn').click(function() {
       if ($('.dog-manythings__stats .editProf').is(':visible')) {
         showH5Text();
@@ -149,7 +149,7 @@
       var button = $('#editProfileBtn');
       var buttonText = button.find('span');
       var icon = button.find('i.fa');
-  
+
       if (icon.is(':visible')) {
         icon.hide();
         buttonText.text('Save Changes');
@@ -157,7 +157,7 @@
         icon.show();
         buttonText.text('');
       }
-      
+
     }
   });
 

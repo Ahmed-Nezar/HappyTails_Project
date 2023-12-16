@@ -26,7 +26,7 @@
             <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
               <span></span>
               <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
-            </button>          
+            </button>
           </div>
         </div>
         <section class="dog-manythings mt-4">
@@ -51,7 +51,7 @@
                 <h5>011223344556</h5>
                 <input type="text" class="form-control editProf" placeholder="enter phone number" value="011223344556">
               </div>
-            </div>   
+            </div>
           </div>
           <div class="dog-manythings__stats ftco-animate">
             <div class="row mt-2">
@@ -72,7 +72,7 @@
           </div>
           <div class="dog-manythings__more">
           </div>
-        </section>		
+        </section>
 			</div>
 		</section>
     <div id="popup1" class="popupOverlay">
@@ -138,8 +138,8 @@
         <div class="d-flex justify-content-between align-items-center ftco-animate">
           <h4>My Pets</h4>
           <div class="ftco-animate">
-            <button id="myButton" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Add New Pet"><i class="fa fa-plus" aria-hidden="true" style="margin-right: -2px;"></i></button> 
-          </div> 
+            <button id="myButton" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Add New Pet"><i class="fa fa-plus" aria-hidden="true" style="margin-right: -2px;"></i></button>
+          </div>
         </div>
         <div class="row ftco-animate">
           <div class="col-md-12">
@@ -213,16 +213,16 @@
       var closePopup = document.getElementById("closePopup");
       var popup1 = document.getElementById("popup1");
       var dropdownList = document.getElementById("yourDropdownListId");
-      
+
       myButton.addEventListener("click", function (event) {
           event.stopPropagation();
           popup1.classList.add("showPopup");
       });
-      
+
       closePopup.addEventListener("click", function () {
           popup1.classList.remove("showPopup");
       });
-      
+
       window.addEventListener("click", function (event) {
           if (!popup1.contains(event.target) && event.target !== dropdownList) {
               popup1.classList.remove("showPopup");
@@ -234,17 +234,17 @@
         var link = $('.js-link');
         var popup = $('#popup1');
         var mouseDownInsidePopup = false;
-    
+
         function closeDropdown() {
             list.slideUp(200);
             link.html('Select one option<i class="fa fa-chevron-down mt-1"></i>');
         }
-    
+
         link.click(function(e) {
             e.preventDefault();
             list.slideToggle(200);
         });
-    
+
         list.find('li').click(function() {
             var text = $(this).html();
             var icon = '<i class="fa fa-chevron-down mt-1"></i>';
@@ -254,11 +254,11 @@
                 link.html('Select one option' + icon);
             }
         });
-    
+
         popup.mousedown(function() {
             mouseDownInsidePopup = true;
         });
-    
+
         $(document).mouseup(function() {
             if (mouseDownInsidePopup) {
                 mouseDownInsidePopup = false;
@@ -272,12 +272,12 @@
           $('.dog-manythings__stats .editProf').show();
           $('.dog-manythings__stats h5').hide();
         }
-      
+
         function showH5Text() {
           $('.dog-manythings__stats .editProf').hide();
           $('.dog-manythings__stats h5').show();
         }
-      
+
         $('#editProfileBtn').click(function() {
           if ($('.dog-manythings__stats .editProf').is(':visible')) {
             showH5Text();
@@ -291,7 +291,7 @@
           var button = $('#editProfileBtn');
           var buttonText = button.find('span');
           var icon = button.find('i.fa');
-      
+
           if (icon.is(':visible')) {
             icon.hide();
             buttonText.text('Save Changes');
@@ -299,10 +299,10 @@
             icon.show();
             buttonText.text('');
           }
-          
+
         }
       });
 
   </script>
-  
+
 {% endblock scripts %}

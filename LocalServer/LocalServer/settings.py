@@ -109,6 +109,8 @@ STATIC_URL = "static/"
 
 LOGIN_REDIRECT_URL = 'home'
 
+ADMIN_URL = 'django-insecure-$hbr$!r_j5!usa!^j3$!=5)9sl(f$c2sol)$_a6z13=4jvu=((/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
