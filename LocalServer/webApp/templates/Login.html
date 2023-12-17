@@ -56,23 +56,23 @@
             <div class="row">
                 <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate mx-auto">
                     <h2 class="mb-4">Login or Sign Up</h2>
-                    <h3>
+                    <h3 class="Error-List">
                         {% if messages %}
                             {% for message in messages %}
                                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                             {% endfor %}
                         {% endif %}
                     </h3>
-                    <form class="appointment" method="POST">
+                    <form id="LoginForm" class="appointment" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input name="username" type="text" class="form-control" placeholder="Email" required>
+                            <input id="username" name="username" type="text" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="form-group">
-                            <input name="password" type="password" class="form-control" placeholder="Password" required>
+                            <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Login" class="btn btn-primary py-3 px-4">
+                            <input id="btnLogin" type="button" value="Login" class="btn btn-primary py-3 px-4">
                         </div>
                     </form>
                     <p class="" style="color: white;"> <a href="{% url 'signup' %}" style="color: white; text-decoration: none;"><u><b>Don't have an account? Sign Up</b></u></a>
@@ -150,6 +150,33 @@
 {% endblock body %}
 {% block scripts %}
     <script>
+        $("#btnLogin").on('click', function () {
+            $(".Error-List").empty();
+            $(".Error-List").attr('class', "Error-List");
+            const formData = new FormData(document.getElementById("LoginForm"));
+            formData.append('username', $("#username").val());
+            formData.append('password', $("#password").val());
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            fetch('{% url 'checkLogin' %}', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+                .then(data => {
+                    const errors = data.errors;
+                    if (errors.length > 0) {
+                        for (const e of errors) {
+                            $(".Error-List").append(
+                                "<div class=\"alert alert-danger\">" + e + "</div>"
+                            );
+                        }
+                        $(".Error-List").attr('class', "Error-List Error-List-show");
+                    }else{
+                        $(".Error-List").attr('class', "Error-List");
+                        document.getElementById("LoginForm").submit();
+                    }
+                })
+        });
         $(".nav-link").each(function () {
             if ($(this).text() === "Login"){
                 $(this).parent(".nav-item").addClass('active');

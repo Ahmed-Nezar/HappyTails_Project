@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block head %}
 {% endblock head %}
-
 {% block body %}
   <body>
     <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_2.jpg' %}');" data-stellar-background-ratio="0.5">
@@ -19,62 +17,58 @@
     </section>
 
     <section class="ftco-section ftco-no-pb">
-			<div class="container">
-        <div class="d-flex justify-content-between align-items-center ftco-animate">
-          <h4>Profile Settings</h4>
-          <div class="ftco-animate">
-            <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
-              <span></span>
-              <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
-            </button>
-          </div>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center ftco-animate">
+              <h4>Profile Settings</h4>
+              <div class="ftco-animate">
+                <button id="editProfileBtn" class="btn btn-primary profile-button" type="button" data-toggle="tooltip" data-placement="left" title="Edit Profile">
+                  <span></span>
+                  <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: -4px;"></i>
+                </button>
+              </div>
+            </div>
+            <section class="dog-manythings mt-4">
+              <div class="dog-manythings__stats ftco-animate">
+                <div class="row">
+                  <div class="col-md-6 mt-1">
+                    <label class="labels">First Name</label>
+                    <input disabled type="text" class="form-control editProf save_fields" placeholder="First Name"
+                           value="{{ user.user.first_name }}">
+                  </div>
+                  <div class="col-md-6 mt-1">
+                    <label class="labels">Last Name</label>
+                    <input disabled type="text" class="form-control editProf save_fields" value="{{ user.user.last_name }}" placeholder="Last Name">
+                  </div>
+              </div>
+              </div>
+              <div class="dog-manythings__stats ftco-animate">
+                <div class="row mt-0">
+                  <div class="col-md-12">
+                    <label class="labels">Mobile Number</label>
+                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter phone number" value="{{ user.phone }}">
+                  </div>
+                </div>
+              </div>
+              <div class="dog-manythings__stats ftco-animate">
+                <div class="row mt-2">
+                  <div class="col-md-12"><label class="labels">Email</label>
+                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter email id" value="{{ user.user.email }}">
+                  </div>
+                </div>
+              </div>
+              <div class="dog-manythings__stats ftco-animate">
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <label class="labels">Address Line </label>
+                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter address line 1" value="{{ user.address }}">
+                  </div>
+                </div>
+              </div>
+              <div class="dog-manythings__more">
+              </div>
+            </section>
         </div>
-        <section class="dog-manythings mt-4">
-          <div class="dog-manythings__stats ftco-animate">
-            <div class="row">
-              <div class="col-md-6 mt-1">
-                <label class="labels">First Name</label>
-                <h5>Ryali</h5>
-                <input type="text" class="form-control editProf" placeholder="First Name" value="Ryali">
-              </div>
-              <div class="col-md-6 mt-1">
-                <label class="labels">Last Name</label>
-                <h5>Ryali</h5>
-                <input type="text" class="form-control editProf" value="Ryali" placeholder="Last Name">
-              </div>
-          </div>
-          </div>
-          <div class="dog-manythings__stats ftco-animate">
-            <div class="row mt-0">
-              <div class="col-md-12">
-                <label class="labels">Mobile Number</label>
-                <h5>011223344556</h5>
-                <input type="text" class="form-control editProf" placeholder="enter phone number" value="011223344556">
-              </div>
-            </div>
-          </div>
-          <div class="dog-manythings__stats ftco-animate">
-            <div class="row mt-2">
-              <div class="col-md-12"><label class="labels">Email</label>
-                <h5>user@example.com</h5>
-                <input type="text" class="form-control editProf" placeholder="enter email id" value="user@example.com">
-              </div>
-            </div>
-          </div>
-          <div class="dog-manythings__stats ftco-animate">
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <label class="labels">Address Line </label>
-                <h5>5th street</h5>
-                <input type="text" class="form-control editProf" placeholder="enter address line 1" value="5th street">
-              </div>
-            </div>
-          </div>
-          <div class="dog-manythings__more">
-          </div>
-        </section>
-			</div>
-		</section>
+    </section>
     <div id="popup1" class="popupOverlay">
       <div class="popup">
         <h2>Add Pet</h2>
@@ -129,7 +123,8 @@
               <div class="col-md-7 heading-section text-center ftco-animate">
                 <p><a href="" class="btn btn-primary mr-md-4 py-3 px-4">Add Pet<span class="ion-ios-arrow-forward"></span></a></p>
               </div>
-         </div>
+            </div>
+          </div>
         </section>
       </div>
     </div>
@@ -268,23 +263,19 @@
         });
     })
       $(function() {
-        function showInputFields() {
-          $('.dog-manythings__stats .editProf').show();
-          $('.dog-manythings__stats h5').hide();
-        }
-
-        function showH5Text() {
-          $('.dog-manythings__stats .editProf').hide();
-          $('.dog-manythings__stats h5').show();
-        }
-
         $('#editProfileBtn').click(function() {
-          if ($('.dog-manythings__stats .editProf').is(':visible')) {
-            showH5Text();
+          if ($(this).find('span').text() === 'Save Changes') {
             toggleButtonText();
+            $(".editProf").each(function () {
+                $(this).attr('disabled', true);
+                $(this).attr('class', 'form-control editProf save_fields');
+            })
           } else {
-            showInputFields();
             toggleButtonText();
+            $(".editProf").each(function () {
+                $(this).removeAttr('disabled');
+                $(this).attr('class', 'form-control editProf edit_fields');
+            })
           }
         });
         function toggleButtonText() {

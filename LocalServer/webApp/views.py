@@ -1,5 +1,7 @@
 import hmac
 import random
+
+from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import *
@@ -43,6 +45,10 @@ def profile(request):
         'nav': True,
         'page_name': "Profile",
     }
+
+    obj = Client.objects.filter(user=request.user).first()
+    if obj is not None:
+        context['user'] = obj
     return render(request, 'profile.html', context)
 
 
@@ -52,6 +58,34 @@ def about(request):
         'page_name': "About",
     }
     return render(request, 'about.html', context)
+
+
+def check_Login(request):
+    context = {
+        'nav': True,
+        'page_name': "checkLogin",
+    }
+    msg = []
+    msg = []
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate the user
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            # Successful authentication
+            return JsonResponse({'errors': []})
+        else:
+            # Authentication failed
+            msg.append("Invalid username or password")
+            context['errors'] = msg
+            return JsonResponse({'errors': msg})
+    else:
+        # Handle GET request or other methods
+        return JsonResponse({'errors': ['Invalid request method']})
 
 
 def signup(request):

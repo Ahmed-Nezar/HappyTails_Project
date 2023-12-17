@@ -8520,7 +8520,7 @@ h1, h2, h3, h4, h5,
     .ftco-intro .services {
       margin-top: -50px; } }
 .header-2_color {
-  color: #2a437a;
+  color: #2a437a; 
 }
 .services {
   display: block;
@@ -9826,7 +9826,7 @@ textarea.form-control {
     justify-content: center;
     grid-template-rows: repeat(2, minmax(fit-content, min-content));
   }
-
+  
   .animal_card {
     width: 100%;
     border-radius: 15px;
@@ -9849,7 +9849,7 @@ textarea.form-control {
     --borderRadius: 6px;
     --boxShadow: 0 2px 5px rgba(#333, 0.2);
   }
-
+  
   /*overall layout*/
   main {
     width: 90%;
@@ -9858,11 +9858,11 @@ textarea.form-control {
     color: var(--foregroundColor);
     text-align: left;
   }
-
+  
   main section {
     position: relative;
   }
-
+  
 /*typography*/
 strong {
   font-weight: 500;
@@ -10048,10 +10048,28 @@ button.secondary.active {
   margin-bottom: 15px;
   display: block;
   padding: 10px 15px;
-  border-radius: var(--borderRadius);
+  font-size: 18px;
   font-weight: 500;
   position: relative;
-  cursor: pointer;
+  cursor: text;
+}
+.Error-List{
+  opacity: 0;
+  height: 0;
+  transition: all 0.1s ease-in-out;
+}
+.Error-List-show{
+    opacity: 1;
+    height: 49px;
+}
+.editProf{
+  font-size: 20px;
+}
+.edit_fields{
+    border: 1px solid #ced4da;
+}
+.save_fields{
+    border: none;
 }
 .alert.non-collapsible:before, .alert.non-collapsible:after {
   content: none;
@@ -10327,16 +10345,16 @@ input.variation + label {
   display: flex;
  }
 
- .dog-manythings__stats .editProf{
-  display: none;
- }
-
 /* Owner's pets section */
 .item{
-  padding: 4rem 1.2rem 0;
+  padding: 4rem 1.2rem 0; 
 }
 /* Add Pet Popup */
 .popupOverlay {
+  z-index: -6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10354,7 +10372,6 @@ input.variation + label {
 }
 
 .popup {
-  margin: 70px auto;
   padding: 20px;
   background: #fff;
   border-radius: 5px;
@@ -10390,7 +10407,7 @@ input.variation + label {
 .dropdown {
   position: absolute;
   width: 100%;
-  background: white;
+  background: white; 
   border: 0.1em solid #c0cdd1;
   border-radius: .25rem;
 }
@@ -10438,12 +10455,12 @@ ul {
 
 @media (max-width:991.98px) {
   .item{
-    margin: 4rem -7.1rem 0;
+    margin: 4rem -7.1rem 0; 
   }
 }
 @media (max-width:767.98px) {
   .item{
-    margin: 0 0rem 0 -10rem;
+    margin: 0 0rem 0 -10rem; 
     /* padding: 4rem 1.2rem 0; */
   }
   /* .owl-carousel.owl-drag .owl-item {
@@ -10453,12 +10470,12 @@ ul {
 
 @media (max-width:575.98px) {
   .item{
-    margin: 0 0rem 0 15vw;
+    margin: 0 0rem 0 15vw; 
   }
 }
 @media (max-width:500px) {
   .item{
-    margin: 0 0rem 0 7vw;
+    margin: 0 0rem 0 7vw; 
   }
 }
 
@@ -10804,7 +10821,7 @@ ul {
   .dog-manythings__location {
     grid-column: 1/span 2;
   }
-}
+} 
 
 
 @-webkit-keyframes loader-rotate {

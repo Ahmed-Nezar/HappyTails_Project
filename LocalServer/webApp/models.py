@@ -1,31 +1,29 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 
 
 class Vet(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='vetuser', default=None)
     vet_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    email = models.EmailField()
     pet_num = models.IntegerField(default=0)
     clinic_hours = models.TextField()
 
     def __str__(self):
-        return f"Vet Number: {self.vet_id}, Vet Name: {self.name}"
+        return f"Vet Number: {self.vet_id}, Vet Name: {self.user.first_name} {self.user.last_name}"
 
 
 class Client(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='petowner', default=None)
     client_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=20, default="")
-    last_name = models.CharField(max_length=20, default="")
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    email = models.EmailField()
     pet_num = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Client ID: {self.client_id}, Client Name: {self.first_name} {self.last_name}"
+        return f"Client ID: {self.client_id}, Client Name: {self.user.first_name} {self.user.last_name}"
 
 
 class Pet(models.Model):
