@@ -9,7 +9,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Profile <i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Profile <i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">Profile</h1>
           </div>
         </div>
@@ -27,45 +27,56 @@
                 </button>
               </div>
             </div>
-            <section class="dog-manythings mt-4">
-              <div class="dog-manythings__stats ftco-animate">
-                <div class="row">
-                  <div class="col-md-6 mt-1">
-                    <label class="labels">First Name</label>
-                    <input disabled type="text" class="form-control editProf save_fields" placeholder="First Name"
-                           value="{{ user.user.first_name }}">
+            <h3 class="Error-List Error-List-show"></h3>
+            <section>
+              <form class="dog-manythings mt-4" method="POST" id="profileForm">
+                  {% csrf_token %}
+                  <div class="dog-manythings__stats ftco-animate">
+                    <div class="row">
+                      <div class="col-md-6 mt-1">
+                        <label class="labels">First Name</label>
+                        <input id="fName" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="First Name" autocomplete="nan" value="{{ user.user.first_name }}">
+                      </div>
+                      <div class="col-md-6 mt-1">
+                        <label class="labels">Last Name</label>
+                        <input id="lName" disabled type="text" class="form-control editProf save_fields"
+                               value="{{ user.user.last_name }}" autocomplete="nan" placeholder="Last Name">
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-6 mt-1">
-                    <label class="labels">Last Name</label>
-                    <input disabled type="text" class="form-control editProf save_fields" value="{{ user.user.last_name }}" placeholder="Last Name">
+                  <div class="dog-manythings__stats ftco-animate">
+                    <div class="row mt-0">
+                      <div class="col-md-12 mt-1">
+                        <label class="labels">Mobile Number</label>
+                        <input id="phone" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="enter phone number" autocomplete="nan" value="{{ user.phone }}">
+                      </div>
+                    </div>
                   </div>
-              </div>
-              </div>
-              <div class="dog-manythings__stats ftco-animate">
-                <div class="row mt-0">
-                  <div class="col-md-12">
-                    <label class="labels">Mobile Number</label>
-                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter phone number" value="{{ user.phone }}">
+                  <div class="dog-manythings__stats ftco-animate">
+                    <div class="row">
+                      <div class="col-md-6 mt-1"><label class="labels">Email</label>
+                        <input id="email" disabled type="email" class="form-control editProf save_fields"
+                               placeholder="enter email" autocomplete="nan" value="{{ user.user.email }}">
+                      </div>
+                      <div class="col-md-6 mt-1"><label class="labels">Username</label>
+                        <input id="uName" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="enter username" autocomplete="nan" value="{{ user.user.username }}">
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="dog-manythings__stats ftco-animate">
-                <div class="row mt-2">
-                  <div class="col-md-12"><label class="labels">Email</label>
-                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter email id" value="{{ user.user.email }}">
+                  <div class="dog-manythings__stats ftco-animate">
+                    <div class="row">
+                      <div class="col-md-12 mt-1">
+                        <label class="labels">Address Line </label>
+                        <input id="address" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="enter address line 1" autocomplete="nan" value="{{ user.address }}">
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="dog-manythings__stats ftco-animate">
-                <div class="row mt-2">
-                  <div class="col-md-12">
-                    <label class="labels">Address Line </label>
-                    <input disabled type="text" class="form-control editProf save_fields" placeholder="enter address line 1" value="{{ user.address }}">
-                  </div>
-                </div>
-              </div>
-              <div class="dog-manythings__more">
-              </div>
+                  <div class="dog-manythings__more" style="padding: 0;margin: 0"></div>
+              </form>
             </section>
         </div>
     </section>
@@ -262,6 +273,7 @@
             }
         });
     })
+      $(".Error-List").css('height', '0');
       $(function() {
         $('#editProfileBtn').click(function() {
           if ($(this).find('span').text() === 'Save Changes') {
@@ -270,6 +282,41 @@
                 $(this).attr('disabled', true);
                 $(this).attr('class', 'form-control editProf save_fields');
             })
+            $(".Error-List").css('height', '0');
+            const formData = new FormData(document.getElementById("profileForm"));
+            formData.append('username', $("#uName").val());
+            formData.append('first_name', $("#fName").val());
+            formData.append('last_name', $("#lName").val());
+            formData.append('phone', $("#phone").val());
+            formData.append('email', $("#email").val());
+            formData.append('address', $("#address").val());
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            fetch('{% url 'checkProfile' %}', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+                .then(data => {
+                    const errors = data.errors;
+                    if (errors.length > 0) {
+                        $(".Error-List").css('height', '35px'); let i = 0;
+                        $(".Error-List").empty();
+                        for (var e of errors) {
+                            if (i > 0){
+                                $(".Error-List").css('height', (35 + (i * 65)) + 'px');
+                            }else{
+                                $(".Error-List").css('height', '35px');
+                            }
+                            $(".Error-List").append(
+                                "<div class=\"alert alert-danger\">" + e + "</div>"
+                            );
+                            i++;
+                        }
+                        $(".Error-List").attr('class', "Error-List Error-List-show mt-2");
+                    }else{
+                        $(".Error-List").attr('class', "Error-List mt-2");
+                    }
+                })
           } else {
             toggleButtonText();
             $(".editProf").each(function () {

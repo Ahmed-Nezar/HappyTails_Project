@@ -52,6 +52,46 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+def editProfile(request):
+    context = {
+        'errors': [], 'data': []
+    }
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if request.POST.get('username').isnumeric():
+            context['errors'].append('Username Cannot Be Entirely Numeric')
+        elif not request.POST.get('username'):
+            context['errors'].append('Do Not Leave Username Blank')
+        if User.objects.filter(username=request.POST.get('username')):
+            if request.user.username != request.POST.get('username'):
+                context['errors'].append('Username Already Exists')
+        testUsr = User.objects.filter(email=request.POST.get('email'))
+        if testUsr:
+            for i in testUsr:
+                if i != request.user:
+                    context['errors'].append('Email Already Exists')
+        if not request.POST.get('email'):
+            context['errors'].append('Do Not Leave Email Blank')
+        if not request.POST.get('address'):
+            context['errors'].append('Do Not Leave Address Blank')
+        if not request.POST.get('phone').isnumeric():
+            context['errors'].append('Invalid Phone Number')
+        if request.POST.get('first_name').isnumeric() or request.POST.get('last_name').isnumeric():
+            context['errors'].append('First/Last Name Can’t Be Entirely Numeric')
+        if not request.POST.get('first_name') or not request.POST.get('last_name'):
+            context['errors'].append('Do Not Leave First/Last Name Blank')
+        if form.is_valid() and context['errors'] == []:
+            obj = Client.objects.get(user=request.user)
+            obj.address = request.POST.get('address')
+            obj.phone = request.POST.get('phone')
+            obj.save()
+            form.save()
+        return JsonResponse(context)
+    ProfileForm(instance=request.user)
+    return JsonResponse(context)
+
+
 def about(request):
     context = {
         'nav': True,
@@ -153,5 +193,6 @@ def viewPet(request, id):
     context = {
         'nav': True,
         'page_name': "Pet View",
+        'pet': Pet.objects.get(pet_id=id),
     }
     return render(request, 'Pet View.html', context)

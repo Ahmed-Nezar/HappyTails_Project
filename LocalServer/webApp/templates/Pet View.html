@@ -49,36 +49,40 @@
               <section class="dog-manythings">
                 <div class="dog-manythings__stats">
                   <p>Name</p>
-                  <h5>Ryali</h5>
-                  <input type="text" class="form-control editProf" placeholder="Pet Name" value="Ryali">
+                  <input id="name" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="Enter Pet Name" autocomplete="nan" value="{{ pet.name }}">
                 </div>
                 <div class="dog-manythings__stats">
-                  <p>Breed   </p>
-                  <h5> Alaskan Malamute</h5>
-                  <input type="text" class="form-control editProf" placeholder="Pet Breed" value="Alaskan Malamute">
+                  <p>Pet Type</p>
+                  <input id="type" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="Enter Pet Type" autocomplete="nan" value="{{ pet.type }}">
                 </div>
                 <div class="dog-manythings__stats">
-                  <p>Age</p>
-                  <h5>10</h5>
-                  <input type="text" class="form-control editProf" placeholder="Pet Age" value="10">
+                  <p>Years</p>
+                  <input id="years" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="Pet Years" autocomplete="nan" value="{{ pet.years }}">
+                </div>
+                <div class="dog-manythings__stats">
+                  <p>Months</p>
+                  <input id="months" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="Pet Months" autocomplete="nan" value="{{ pet.months }}">
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Gender</p>
-                  <h5>Female</h5>
-                  <div class="col-md-11 px-0 editProf">
-                  <div class="dropdown">
-                    <div class="js-link">Select Pet's Gender<i class="fa fa-chevron-down mt-1"></i></div>
-                    <ul class="js-dropdown-list">
-                      <li>Male</li>
-                      <li>Female</li>
-                    </ul>
+                  <div class="col-md-12 px-0">
+                      <div class="dropdown genderPetview">
+                        <div class="js-link">{{ pet.gender }}<i class="fa fa-chevron-down mt-1"></i></div>
+                        <ul class="js-dropdown-list">
+                          <li>Male</li>
+                          <li>Female</li>
+                        </ul>
+                      </div>
                   </div>
-                </div>
                 </div>
                 <div class="dog-manythings__stats">
                   <p>Color</p>
-                  <h5>Brown & White</h5>
-                  <input type="text" class="form-control editProf" placeholder="Pet Color" value="Brown & White">
+                  <input id="color" disabled type="text" class="form-control editProf save_fields"
+                               placeholder="Pet Color" autocomplete="nan" value="{{ pet.color }}">
                 </div>
                 <div class="dog-manythings__more">
                   <h3>More about Rylai</h3>
@@ -100,49 +104,95 @@
 <script>
   $(function() {
     var list = $('.js-dropdown-list');
-    var link = $('.js-link');
-    var popup = $('#popup1');
-    var mouseDownInsidePopup = false;
-
-    function closeDropdown() {
-        list.slideUp(200);
-        link.html('Select one option<i class="fa fa-chevron-down mt-1"></i>');
-    }
+    var link = $('.js-link')
 
     link.click(function(e) {
         e.preventDefault();
-        list.slideToggle(200);
+        if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
+            list.toggleClass('dropdown-active');
+            if (list.hasClass('dropdown-active')) {
+                $(".fa-chevron-down").css({
+                    "transform": "rotate(180deg)",
+                })
+            } else {
+                $(".fa-chevron-down").css({
+                    "transform": "rotate(0deg)",
+                })
+            }
+        }
     });
 
     list.find('li').click(function() {
-        var text = $(this).html();
-        var icon = '<i class="fa fa-chevron-down mt-1"></i>';
-        link.html(text + icon);
-        list.slideUp(200);
-        if (text === '* Reset') {
-            link.html('Select one option' + icon);
+        if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
+            $(".fa-chevron-down").css({
+                "transform": "rotate(180deg)",
+            })
+            var text = $(this).html();
+            var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+            link.html(text + icon);
         }
     });
 
 })
+  $(".fa-chevron-down").hide();
+  $(".genderPetview").css({'border': 'none'});
+  $('.js-dropdown-list').css({'border': 'none'});
+  $(".Error-List").css('height', '0');
   $(function() {
-    function showInputFields() {
-      $('.dog-manythings__stats .editProf').show();
-      $('.dog-manythings__stats h5').hide();
-    }
-
-    function showH5Text() {
-      $('.dog-manythings__stats .editProf').hide();
-      $('.dog-manythings__stats h5').show();
-    }
-
     $('#editProfileBtn').click(function() {
-      if ($('.dog-manythings__stats .editProf').is(':visible')) {
-        showH5Text();
+      if ($(this).find('span').text() === 'Save Changes') {
         toggleButtonText();
+        $(".genderPetview").css({'border': 'none'});
+        $('.js-dropdown-list').css({'border': 'none'});
+        $(".editProf").each(function () {
+            $(this).attr('disabled', true);
+            $(this).attr('class', 'form-control editProf save_fields');
+        })
+        $(".fa-chevron-down").hide();
+        $(".Error-List").css('height', '0');
+        const formData = new FormData(document.getElementById("profileForm"));
+        formData.append('username', $("#uName").val());
+        formData.append('first_name', $("#fName").val());
+        formData.append('last_name', $("#lName").val());
+        formData.append('phone', $("#phone").val());
+        formData.append('email', $("#email").val());
+        formData.append('address', $("#address").val());
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        fetch('{% url 'checkProfile' %}', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+            .then(data => {
+                const errors = data.errors;
+                if (errors.length > 0) {
+                    $(".Error-List").css('height', '35px'); let i = 0;
+                    $(".Error-List").empty();
+                    for (var e of errors) {
+                        if (i > 0){
+                            $(".Error-List").css('height', (35 + (i * 65)) + 'px');
+                        }else{
+                            $(".Error-List").css('height', '35px');
+                        }
+                        $(".Error-List").append(
+                            "<div class=\"alert alert-danger\">" + e + "</div>"
+                        );
+                        i++;
+                    }
+                    $(".Error-List").attr('class', "Error-List Error-List-show mt-2");
+                }else{
+                    $(".Error-List").attr('class', "Error-List mt-2");
+                }
+            })
       } else {
-        showInputFields();
+        $(".genderPetview").css({'border': ''});
+        $('.js-dropdown-list').css({'border': ''});
+        $(".fa-chevron-down").show();
         toggleButtonText();
+        $(".editProf").each(function () {
+            $(this).removeAttr('disabled');
+            $(this).attr('class', 'form-control editProf edit_fields');
+        })
       }
     });
     function toggleButtonText() {

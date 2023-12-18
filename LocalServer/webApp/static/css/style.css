@@ -10063,7 +10063,7 @@ button.secondary.active {
     height: 49px;
 }
 .editProf{
-  font-size: 20px;
+  font-size: 16px;
 }
 .edit_fields{
     border: 1px solid #ced4da;
@@ -10071,6 +10071,29 @@ button.secondary.active {
 .save_fields{
     border: none;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+}
+
+.form-control{
+  cursor: text;
+}
+
+.fa-chevron-down{
+  height: fit-content;
+  transform: rotate(0);
+  transition: all 0.3s ease-in-out;
+}
+
 .alert.non-collapsible:before, .alert.non-collapsible:after {
   content: none;
 }
@@ -10433,10 +10456,20 @@ ul {
   background: #fbfcfc;
 }
 .js-dropdown-list{
-  margin: 0;
-  padding: 0px;
+    display: block;
+    margin: 0;
+    padding: 0px;
+    height: 0;
+    overflow: hidden;
+    border-top: 0.02em solid #c0cdd1;
+    transition: all 0.3s ease-in-out;
+}
+.dropdown-active{
+  height: 85px;
 }
 .js-link{
+  font-size: 16px;
+  color: black;
   padding: 10px;
   display: flex;
   justify-content: space-between;
