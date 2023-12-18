@@ -73,6 +73,8 @@ def editProfile(request):
                     context['errors'].append('Email Already Exists')
         if not request.POST.get('email'):
             context['errors'].append('Do Not Leave Email Blank')
+        if  not request.POST.get('email').__contains__('@'):
+            context['errors'].append('Invalid Email')
         if not request.POST.get('address'):
             context['errors'].append('Do Not Leave Address Blank')
         if not request.POST.get('phone').isnumeric() or len(request.POST.get('phone')) != 11 :
