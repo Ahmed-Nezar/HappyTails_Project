@@ -140,6 +140,7 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, "{x} is Created Successfully".format(x=username))
+            Client.objects.create(user=User.objects.get(username=username), address=request.POST.get('address'),phone=request.POST.get('phone'))
             return redirect('login')
         else:
             if not form.cleaned_data.get('password1') == form.cleaned_data.get('password2'):
