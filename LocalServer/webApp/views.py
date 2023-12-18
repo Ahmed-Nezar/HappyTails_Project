@@ -74,10 +74,14 @@ def editProfile(request):
                     context['errors'].append('Email Already Exists')
         if not request.POST.get('email'):
             context['errors'].append('Do Not Leave Email Blank')
+        if  not request.POST.get('email').__contains__('@'):
+            context['errors'].append('Invalid Email')
         if not request.POST.get('address'):
             context['errors'].append('Do Not Leave Address Blank')
         if not request.POST.get('phone').isnumeric():
             context['errors'].append('Invalid Phone Number')
+        if len(request.POST.get('phone')) != 11:
+            context['errors'].append('Phone Number must be 11 digits')
         if request.POST.get('first_name').isnumeric() or request.POST.get('last_name').isnumeric():
             context['errors'].append('First/Last Name Can’t Be Entirely Numeric')
         if not request.POST.get('first_name') or not request.POST.get('last_name'):
