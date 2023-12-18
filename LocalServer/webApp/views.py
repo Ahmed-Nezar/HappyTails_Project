@@ -75,7 +75,7 @@ def editProfile(request):
             context['errors'].append('Do Not Leave Email Blank')
         if not request.POST.get('address'):
             context['errors'].append('Do Not Leave Address Blank')
-        if not request.POST.get('phone').isnumeric():
+        if not request.POST.get('phone').isnumeric() or len(request.POST.get('phone')) != 11 :
             context['errors'].append('Invalid Phone Number')
         if request.POST.get('first_name').isnumeric() or request.POST.get('last_name').isnumeric():
             context['errors'].append('First/Last Name Can’t Be Entirely Numeric')
