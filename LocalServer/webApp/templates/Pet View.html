@@ -124,12 +124,12 @@
 
     list.find('li').click(function() {
         if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
-            $(".fa-chevron-down").css({
-                "transform": "rotate(180deg)",
-            })
             var text = $(this).html();
             var icon = '<i class="fa fa-chevron-down mt-1"></i>';
             link.html(text + icon);
+            $(".fa-chevron-down").css({
+                "transform": "rotate(180deg)",
+            })
         }
     });
 
@@ -138,10 +138,30 @@
   $(".genderPetview").css({'border': 'none'});
   $('.js-dropdown-list').css({'border': 'none'});
   $(".Error-List").css('height', '0');
+  $(document).on('mousedown', function (e) {
+      if (!$(e.target).closest($(".genderPetview")).length && $('.js-dropdown-list').hasClass('dropdown-active')) {
+          $('.js-dropdown-list').toggleClass('dropdown-active');
+          $(".fa-chevron-down").css({
+              "transform": "rotate(0)",
+          })
+      }
+  });
   $(function() {
     $('#editProfileBtn').click(function() {
       if ($(this).find('span').text() === 'Save Changes') {
         toggleButtonText();
+        if ($('.js-dropdown-list').hasClass('dropdown-active')){
+            $('.js-dropdown-list').toggleClass('dropdown-active');
+            if ($('.js-dropdown-list').hasClass('dropdown-active')) {
+                $(".fa-chevron-down").css({
+                    "transform": "rotate(180deg)",
+                })
+            } else {
+                $(".fa-chevron-down").css({
+                    "transform": "rotate(0deg)",
+                })
+            }
+        }
         $(".genderPetview").css({'border': 'none'});
         $('.js-dropdown-list').css({'border': 'none'});
         $(".editProf").each(function () {
@@ -150,6 +170,7 @@
         })
         $(".fa-chevron-down").hide();
         $(".Error-List").css('height', '0');
+        {% comment %}
         const formData = new FormData(document.getElementById("profileForm"));
         formData.append('username', $("#uName").val());
         formData.append('first_name', $("#fName").val());
@@ -158,7 +179,7 @@
         formData.append('email', $("#email").val());
         formData.append('address', $("#address").val());
         formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-        {% comment %}
+
         fetch('{% url 'checkProfile' %}', {
             method: 'POST',
             body: formData,
