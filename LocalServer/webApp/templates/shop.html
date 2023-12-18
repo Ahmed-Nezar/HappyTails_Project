@@ -79,55 +79,28 @@
             </section>
           </div>
           <section class="results-section results--grid">
-            <div class="profile profile-default">
-              <div class="profile__image"><img src="{% static 'images/food.jpg' %}" alt="Doggo"/></div>
-              <div class="profile__info">
-                <h3>Pedigree</h3>
-                <p class="profile__info__extra">Food for puppies.</p>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Type</p>
-                <h5 class="profile__stats__info">Food</h5>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Size</p>
-                <h5>3Kg</h5>
-              </div>
-              <div class="profile__cta"><a class="button">Add To Cart</a></div>
-            </div>
-            <div class="profile profile-default">
-              <div class="profile__image"><img src="{% static 'images/Toy.jpg' %}" alt="Doggo"/></div>
-              <div class="profile__info">
-                <h3>Nylabone</h3>
-                <p class="profile__info__extra">Puppy ball.</p>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Type</p>
-                <h5 class="profile__stats__info">Toy</h5>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Size</p>
-                <h5>Small</h5>
-              </div>
-              <div class="profile__cta"><a class="button">Add To Cart</a></div>
-            </div>
-            <div class="profile profile-default">
-              <div class="profile__image"><img src="{% static 'images/Medicine.webp' %}" alt="Doggo"/></div>
-              <div class="profile__info">
-                <h3>Digton</h3>
-                <p class="profile__info__extra">Digestive enzyme secretion: Digyton facilitates the secretion of proteolytic, amylolytic and lipolytic enzymes that catalyze the digestion of food.</p>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Type</p>
-                <h5 class="profile__stats__info">Medicine</h5>
-              </div>
-              <div class="profile__stats">
-                <p class="profile__stats__title">Size</p>
-                <h5>30ml</h5>
-              </div>
-              <div class="profile__cta"><a class="button">Add To Cart</a></div>
-            </div>
-
+            {% for i in  items%}
+                <div class="profile profile-default">
+                  <div class="profile__image"><img src="{{ i.img.url }}" alt="Doggo"/></div>
+                  <div class="profile__info">
+                    <h3>{{ i.name }}</h3>
+                    <p class="profile__info__extra">{{ i.description }}</p>
+                  </div>
+                  <div class="profile__stats">
+                    <p class="profile__stats__title">Category</p>
+                    <h5 class="profile__stats__info">{{ i.category }}</h5>
+                  </div>
+                  <div class="profile__stats">
+                    <p class="profile__stats__title">Size</p>
+                    <h5 class="profile__stats__info">{{ i.size }}</h5>
+                  </div>
+                  <div class="profile__stats">
+                    <p class="profile__stats__title">Price</p>
+                    <h5 class="profile__stats__info">{{ i.price }}</h5>
+                  </div>
+                  <div class="profile__cta"><a class="button">Add To Cart</a></div>
+                </div>
+            {% endfor %}
           </section>
         </main>
     </section>

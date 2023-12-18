@@ -29,7 +29,12 @@ def store(request):
     context = {
         'nav': True,
         'page_name': "Pet Shop",
+        'items': item.objects.all(),
     }
+    for i in context['items']:
+        if str(i.img).__contains__('webApp'):
+            i.img = str(i.img)[7:]
+            i.save()
     return render(request, 'shop.html', context)
 
 

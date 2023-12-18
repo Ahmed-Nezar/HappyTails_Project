@@ -65,3 +65,33 @@ class Pet(models.Model):
         else:
             return f"Pet Name: {self.name}, Client Name: {self.client.user.first_name}, " \
                    f"Vet Name: {self.vet.user.first_name}"
+
+
+class item(models.Model):
+    List = (
+        ('Dog', 'Dog'),
+        ('Cat', 'Cat'),
+        ('Cat & Dog', 'Cat & Dog'),
+        ('Bird', 'Bird'),
+        ('Fish', 'Fish'),
+    )
+    name = models.CharField(max_length=20)
+    price = models.IntegerField(blank=True)
+    description = models.TextField(blank=True, max_length=150)
+    img = models.ImageField(upload_to='webApp/static/database/', blank=True, null=True)
+    category = models.CharField(max_length=20, default="", blank=True)
+    type = models.CharField(choices=List, max_length=10, default=1)
+    size = models.CharField(max_length=20, default="", blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class orderItem(models.Model):
+    user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='order', blank=True, null=True)
+    ordered = models.BooleanField(default=False, blank=True)
+    item = models.ForeignKey(item, on_delete=models.CASCADE, blank=True)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.item.name}"

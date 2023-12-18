@@ -8055,6 +8055,10 @@ h1, h2, h3, h4, h5,
   padding: 15px;
 }
 
+.profile__stats__title, .profile__stats__info{
+  text-align: center;
+}
+
 .wrap {
   position: relative;
   z-index: 0;
