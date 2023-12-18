@@ -14,6 +14,7 @@ from django.contrib.admin.models import *
 from django.db.models import Count
 from django.http import *
 from django.contrib import messages
+import re
 
 
 def home(request):
@@ -140,16 +141,29 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, "{x} is Created Successfully".format(x=username))
+            Client.objects.create(user=User.objects.get(username=username), address=request.POST.get('address'),
+                                  phone=request.POST.get('phone'))
             return redirect('login')
         else:
-            if not form.cleaned_data.get('password1') == form.cleaned_data.get('password2'):
-                msg.append("Password Doesn't Match")
+            # Password Validations
+            if form.cleaned_data.get('password2') is None:
+                if any(word in form.cleaned_data.get('password1').lower() for word in ['password', '123', 'qwerty']):
+                    msg.append(
+                        "• Your password can’t be too similar to your other personal information or a commonly used password")
+                if not(len(form.cleaned_data.get('password1')) >= 8 and not form.cleaned_data.get('password1').isnumeric()):
+                    msg.append("• Your password must contain at least 8 characters and cannot be entirely numeric")
+                if re.search(r'\b(\w)\1+\b', form.cleaned_data.get('password1')):  # Checking for repetitive characters
+                    msg.append("• Password contains too many repetitive characters")
+            else:
+                if not form.cleaned_data.get('password1') == form.cleaned_data.get('password2'):
+                    msg.append("• Password Doesn't Match")
+            # Username Validations
             if User.objects.filter(username__contains=str(request.POST.get('username'))):
-                msg.append("Username Already Exists")
+                msg.append("• Username Already Exists")
             if str(form.cleaned_data.get('username')).isnumeric():
-                msg.append("Username Must Contain Letters")
+                msg.append("• Username Must Contain Letters")
             if User.objects.filter(email__contains=str(request.POST.get('email'))):
-                msg.append("Email Already Exists")
+                msg.append("• Email Already Exists")
         context['errors'] = msg
         context['form'] = form
         return render(request, 'Sign_Up.html', context)
@@ -157,30 +171,6 @@ def signup(request):
         form = RegistrationForm()
     context['form'] = form
     return render(request, 'Sign_Up.html', context)
-
-
-def registration(request):
-    msg = []
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, "{x} is Created Successfully".format(x=username))
-            return redirect('login')
-        else:
-            if not form.cleaned_data.get('password1') == form.cleaned_data.get('password2'):
-                msg.append("Password Doesn't Match :(")
-            if User.objects.filter(username__contains=str(request.POST.get('username'))):
-                msg.append("Username Already Exists :(")
-            if str(form.cleaned_data.get('username')).isnumeric():
-                msg.append("Username Must Contain Letters :(")
-            if User.objects.filter(email__contains=str(request.POST.get('email'))):
-                msg.append("Email Already Exists :(")
-        return render(request, 'shoes/registration.html', {'form': form, 'page_name': 'Sign Up', 'errors': msg})
-    else:
-        form = RegistrationForm()
-    return render(request, 'shoes/registration.html', {'form': form, 'page_name': 'Sign Up'})
 
 
 class PasswordChange(PasswordChangeView):

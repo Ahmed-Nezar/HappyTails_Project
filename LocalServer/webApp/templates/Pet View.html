@@ -158,6 +158,7 @@
         formData.append('email', $("#email").val());
         formData.append('address', $("#address").val());
         formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        {% comment %}
         fetch('{% url 'checkProfile' %}', {
             method: 'POST',
             body: formData,
@@ -184,6 +185,7 @@
                     $(".Error-List").attr('class', "Error-List mt-2");
                 }
             })
+            {% endcomment %}
       } else {
         $(".genderPetview").css({'border': ''});
         $('.js-dropdown-list').css({'border': ''});

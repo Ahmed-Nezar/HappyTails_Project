@@ -8042,7 +8042,7 @@ h1, h2, h3, h4, h5,
   font-weight: 400; }
 
 .error-msg{
-  text-align: center;
+  text-align: left;
   color: rgb(208 13 13);
   font-weight: 500;
 }
@@ -8052,7 +8052,7 @@ h1, h2, h3, h4, h5,
   background: #949494;
   font-weight: 900;
   border-radius: 10px;
-  padding: 15px 0;
+  padding: 15px;
 }
 
 .wrap {
