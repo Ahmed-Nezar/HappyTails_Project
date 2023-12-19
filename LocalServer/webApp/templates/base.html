@@ -390,11 +390,18 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{%  static 'js/google-map.js' %}"></script>
   <script src="{%  static 'js/main.js' %}"></script>
-  <script>(function(){
- 
+  <script>$(document).ready(function() {
+    // Hide the cart on page load
+    $(".shopping-cart").hide();
+  
+    // Toggle cart visibility on click
     $("#cart").on("click", function() {
-      $(".shopping-cart").fadeToggle( "fast");
+      $(".shopping-cart").fadeToggle("fast");
     });
-    
-  })();</script>
+  
+    // Close cart on page unload (refresh or change pages)
+    $(window).on("beforeunload", function() {
+      $(".shopping-cart").hide();
+    });
+  });;</script>
 </html>
