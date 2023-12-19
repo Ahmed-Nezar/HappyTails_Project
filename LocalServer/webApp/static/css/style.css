@@ -10843,6 +10843,132 @@ ul {
   margin: 0 0 30px;
 }
 
+/* Appointments */
+.section-heading {
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate--small {
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calender--light {
+  background-color: #fff !important;
+}
+.calendar__header {
+  display: flex;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+.calendar__controls {
+  display: flex;
+  margin-right: 2rem;
+}
+.calendar__control-icon {
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  padding-bottom: 3px;
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+.calendar__control-icon:hover {
+  background-color: #ddd;
+}
+
+table.calendar__table > tbody td {
+  padding: 0;
+}
+
+table.calendar__table--center > thead td {
+  color: #9a9797;
+  font-weight: 600;
+  text-align: center !important;
+  text-transform: uppercase;
+}
+
+.calendar__table--center .calendar__item-title {
+  text-align: center !important;
+  margin: 0 auto 1rem;
+}
+
+.calendar__item {
+  cursor: pointer;
+  padding: .5em .75em;
+}
+
+.calendar__item-title {
+  min-width: 24px;
+  width: 24px;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+}
+
+.appointment__item-content {
+  display: flex;
+  border-radius: 6px;
+}
+
+.appointment__item-indicator {
+  align-self: center;
+  background-color: orange;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin-right: 0.5rem;
+}
+
+.appointment__item-title {
+  display: none;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (min-width: 768px) {
+  table.calendar__table {
+      table-layout: fixed;
+      width: 300px;
+  }
+  
+  .appointment__item-content {
+      padding: 0 0.5rem;
+  }
+  
+  .appointment__item-content:hover {
+      background-color: #00d1b2;
+  }
+
+  .appointment__item-title {
+      display: inline-flex;
+  }
+
+  .appointment__item-indicator {
+      height: 8px;
+      width: 8px;
+  }
+}
+
+
+/* BULMA SPECIFIC Styles */
+.card-header>.delete {
+  position: absolute;
+  right: .5rem;
+  top: .5rem;
+}
+
 @media (min-width: 768px) {
   .dog-info {
     display: grid;
