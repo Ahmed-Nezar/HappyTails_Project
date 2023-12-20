@@ -80,7 +80,7 @@ def editProfile(request):
             context['errors'].append('Invalid Phone Number')
         if len(request.POST.get('phone')) != 11:
             context['errors'].append('Phone Number must be 11 digits')
-        if request.POST.get('first_name').isnumeric() or request.POST.get('last_name').isnumeric():
+        if not request.POST.get('first_name').isalpha() or not request.POST.get('last_name').isalpha():
             context['errors'].append('First/Last Name Can’t Be Entirely Numeric')
         if not request.POST.get('first_name') or not request.POST.get('last_name'):
             context['errors'].append('Do Not Leave First/Last Name Blank')
