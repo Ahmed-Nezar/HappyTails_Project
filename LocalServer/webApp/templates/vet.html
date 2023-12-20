@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.7.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.7.0/umd/react-dom.production.min.js"></script>
+
 {% endblock head %}
 
 {% block body %}
@@ -12,7 +16,7 @@
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
           	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Veterinarian <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">Meet Our Veterinary Doctor</h1>
+            <h1 class="mb-0 bread">Meet Our Veterinary Staff</h1>
           </div>
         </div>
       </div>
@@ -22,7 +26,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
+						<div id="myButton" class="staff">
 							<div class="img-wrap d-flex align-items-stretch">
 								<div class="img align-self-stretch" style="background-image: url('{% static 'images/staff-1.jpg' %}');"></div>
 							</div>
@@ -185,9 +189,19 @@
 				</div>
 			</div>
 		</section>
+		
+		<div id="popup1" class="popupOverlay">
+			<div class="popup">
+				<h2>Vet Name</h2>
+				<a id="closePopup" class="close">&times;</a>
+				<div id="root" class="mt-2"></div>
+			</div>
+		</div>
   </body>
 {% endblock body %}
 {% block scripts %}
+<script src="{% static 'js/Appointments Schedule.js' %}"></script>
+
     <script>
         $(".nav-link").each(function () {
             if ($(this).text() === "Veterinarian"){
@@ -196,5 +210,57 @@
                 $(this).parent(".nav-item").removeClass('active');
             }
         });
+		var myButton = document.getElementById("myButton");
+		var closePopup = document.getElementById("closePopup");
+		var popup1 = document.getElementById("popup1");
+  
+
+		myButton.addEventListener("click", function (event) {
+			event.stopPropagation();
+			popup1.classList.add("showPopup");
+			$('html').css({'overflow': 'hidden',})
+		});
+  
+		closePopup.addEventListener("click", function () {
+			popup1.classList.remove("showPopup");
+			$('html').css({'overflow': '',})
+		});
+
+		var popup = $('#popup1');
+        var mouseDownInsidePopup = false;
+        popup.mousedown(function() {
+            mouseDownInsidePopup = true;
+        });
+		
     </script>
+	<script>
+		$(function() {
+			var list = $('.js-dropdown-list');
+			var link = $('.js-link')
+		
+			link.click(function(e) {
+				e.preventDefault();
+					list.toggleClass('dropdown-active');
+					if (list.hasClass('dropdown-active')) {
+						$(".fa-chevron-down").css({
+							"transform": "rotate(180deg)",
+						})
+					} else {
+						$(".fa-chevron-down").css({
+							"transform": "rotate(0deg)",
+						})
+					}
+			});
+		
+			list.find('li').click(function() {
+					$(".fa-chevron-down").css({
+						"transform": "rotate(180deg)",
+					})
+					var text = $(this).html();
+					var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+					link.html(text + icon);
+			});
+		
+		})
+	</script>
 {% endblock scripts %}

@@ -57,11 +57,11 @@
                 <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate mx-auto">
                     <h2 class="mb-4">Login or Sign Up</h2>
                     <h3 class="Error-List">
-                        {% if messages %}
+                        {% comment %}{% if messages %}{% endcomment %}
                             {% for message in messages %}
                                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                             {% endfor %}
-                        {% endif %}
+                        {% comment %}{% endif %}{% endcomment %}
                     </h3>
                     <form id="LoginForm" class="appointment" method="POST">
                         {% csrf_token %}
@@ -150,6 +150,17 @@
 {% endblock body %}
 {% block scripts %}
     <script>
+        $(".Error-List").css({
+        'opacity': '1',
+        })
+        if ($(".Error-List").find('.alert').length > 0){
+            $('body').append('<style>.Error-List-show{height: ' +
+            ($(".Error-List").find('.alert').length) * 52
+            + 'px }</style>');
+            $(".Error-List").attr('class', "Error-List Error-List-show");
+        }else{
+            $(".Error-List").attr('class', "Error-List");
+        }
         $("#btnLogin").on('click', function () {
             $(".Error-List").empty();
             $(".Error-List").attr('class', "Error-List");

@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5rem; }
 
 p {
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 1rem; }
 
 abbr[title],
@@ -9049,7 +9049,7 @@ textarea.form-control {
   height: inherit !important; }
 
 .footer {
-  background: #1a1a1a;
+  background: #1a1a1a !important;
   position: relative;
   z-index: 0;
   overflow: hidden;
@@ -10058,6 +10058,9 @@ button.secondary.active {
   position: relative;
   cursor: text;
 }
+.genderPetview{
+  cursor: pointer;
+}
 .Error-List{
   opacity: 0;
   height: 0;
@@ -10396,22 +10399,24 @@ input.variation + label {
 .showPopup {
   visibility: visible;
   opacity: 1;
-  z-index: 3;
+  z-index: 50;
 }
 
 .popup {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 60%;
   position: relative;
   transition: all 5s ease-in-out;
+  max-height: 80%;
+  overflow: auto;
 }
 
 .popup h2 {
   margin-top: 0;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
+  font-size: revert;
 }
 .popup .close {
   position: absolute;
@@ -10438,6 +10443,7 @@ input.variation + label {
   background: white; 
   border: 0.1em solid #c0cdd1;
   border-radius: .25rem;
+  display: block !important;
 }
 
 /*List*/
@@ -10447,21 +10453,39 @@ ul {
   list-style-type: none;
 }
 
-.js-dropdown-list li {
+.petData{
+  word-wrap: break-word;
+  max-width: 550px;
+}
+
+.typePetview, .typePetview2, .typePetview3{
+  cursor: pointer;
+  z-index: 2;
+}
+
+.typePetview{
+  z-index: 3;
+}
+
+.js-dropdown-list li, .js-dropdown-list2 li, .js-dropdown-list3 li{
   padding: 0.5em 1rem;
   cursor: pointer;
 }
-.js-dropdown-list li:not(:first-child) {
+.js-dropdown-list li:not(:first-child), .js-dropdown-list2 li:not(:first-child),
+.js-dropdown-list3 li:not(:first-child){
   border-top: 0.1em dashed #dde4e6;
 }
-.js-dropdown-list li:focus, .js-dropdown-list li:hover {
+.js-dropdown-list li:focus, .js-dropdown-list li:hover,
+.js-dropdown-list2 li:focus, .js-dropdown-list2 li:hover,
+.js-dropdown-list3 li:focus, .js-dropdown-list3 li:hover{
   background: #ecf0f1;
 }
-.js-dropdown-list li:active {
+.js-dropdown-list li:active, .js-dropdown-list2 li:active, .js-dropdown-list3 li:active {
   background: #fbfcfc;
 }
-.js-dropdown-list{
+.js-dropdown-list, .js-dropdown-list2, .js-dropdown-list3{
     display: block;
+    border: none;
     margin: 0;
     padding: 0px;
     height: 0;
@@ -10470,9 +10494,12 @@ ul {
     transition: all 0.3s ease-in-out;
 }
 .dropdown-active{
-  height: 85px;
+  height: 84px;
 }
-.js-link{
+.dropdown-active2{
+  height: 172px;
+}
+.js-link, .js-link2, .js-link3{
   font-size: 16px;
   color: black;
   padding: 10px;
@@ -10554,7 +10581,6 @@ ul {
   border-radius: 0 0 10px 10px;
   color: #fff;
 }
-
 
 
 @media (min-width: 500px) and (max-width: 992px) {
@@ -10795,6 +10821,13 @@ ul {
   width: 100%;
   margin-top: 8px;
 }
+#exampleFormControlTextarea1{
+    min-height: 145px;
+    max-height: 200px;
+}
+#profileForm, #petView_Form{
+    grid-template-columns: repeat(2, minmax(180px, 100%));
+}
 .dog-manythings__more {
   padding-top: 30px;
   margin: 30px 0;
@@ -10807,9 +10840,135 @@ ul {
   margin-right: 8px;
 }
 .dog-manythings h3 {
-  border-bottom: 0.5px solid var(--lightGrayColor);
+  /* border-bottom: 0.5px solid var(--lightGrayColor);
   padding-bottom: 15px;
-  margin: 0 0 30px;
+  margin: 0 0 30px; */
+}
+
+/* Appointments */
+.section-heading {
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate--small {
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calender--light {
+  background-color: #fff !important;
+}
+.calendar__header {
+  display: flex;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+.calendar__controls {
+  display: flex;
+  margin-right: 2rem;
+}
+.calendar__control-icon {
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  padding-bottom: 3px;
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+.calendar__control-icon:hover {
+  background-color: #ddd;
+}
+
+table.calendar__table > tbody td {
+  padding: 0;
+}
+
+table.calendar__table--center > thead td {
+  color: #9a9797;
+  font-weight: 600;
+  text-align: center !important;
+  text-transform: uppercase;
+}
+
+.calendar__table--center .calendar__item-title {
+  text-align: center !important;
+  margin: 0 auto 1rem;
+}
+
+.calendar__item {
+  cursor: pointer;
+  padding: .5em .75em;
+}
+
+.calendar__item-title {
+  min-width: 24px;
+  width: 24px;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+}
+
+.appointment__item-content {
+  display: flex;
+  border-radius: 6px;
+}
+
+.appointment__item-indicator {
+  align-self: center;
+  background-color: orange;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin-right: 0.5rem;
+}
+
+.appointment__item-title {
+  display: none;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (min-width: 768px) {
+  table.calendar__table {
+      table-layout: fixed;
+      width: 300px;
+  }
+  
+  .appointment__item-content {
+      padding: 0 0.5rem;
+  }
+  
+  .appointment__item-content:hover {
+      background-color: #00d1b2;
+  }
+
+  .appointment__item-title {
+      display: inline-flex;
+  }
+
+  .appointment__item-indicator {
+      height: 8px;
+      width: 8px;
+  }
+}
+
+
+/* BULMA SPECIFIC Styles */
+.card-header>.delete {
+  position: absolute;
+  right: .5rem;
+  top: .5rem;
 }
 
 @media (min-width: 768px) {
@@ -10849,7 +11008,7 @@ ul {
     grid-area: dog-manythings;
     margin-left: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 50%));
+    grid-template-columns: repeat(3, minmax(180px, 50%));
     grid-gap: 10px;
   }
   .dog-manythings__more {
@@ -10860,7 +11019,6 @@ ul {
     grid-column: 1/span 2;
   }
 } 
-
 
 @-webkit-keyframes loader-rotate {
   100% {
@@ -10899,6 +11057,7 @@ ul {
   color:#fff;
 }
 .shopping-cart {
+  display: none;
   margin: 20px 0;
   float: right;
   right:50px;
@@ -10960,4 +11119,186 @@ ul {
   font-size: 24px;
   margin-right: 7px;
   float: left;
+}
+/* SignUp Toggle Button */
+ @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap'); */
+
+*, *::after, *::before {
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  font: inherit;
+
+
+}
+
+body {
+  height:110vh;
+  font-family: 'Quicksand', sans-serif;
+
+}
+
+/* variables */
+:root {
+  /* colors */
+  --ri5-color-primary-hsl: 242, 69%, 52%;
+  --ri5-color-bg-hsl: 0, 0%, 100%;
+  --ri5-color-contrast-high-hsl: 230, 7%, 23%;
+  --ri5-color-contrast-higher-hsl: 230, 13%, 9%;
+  --ri5-color-bg-darker-hsl: 240, 4%, 90%;
+  --ri5-color-white-hsl: 0, 0%, 100%;
+
+  /* typography */
+  --ri5-text-sm: 0.833rem;
+  
+  --radio-switch-width: 186px;
+  --radio-switch-height: 46px;
+  --radio-switch-padding: 1px;
+  --radio-switch-radius: 100vw;
+  --radio-switch-animation-duration: 0.3s;
+}
+
+.radio-switch {
+  position: relative;
+  display: inline-flex;
+  padding: var(--radio-switch-padding);
+  border-radius: calc(var(--radio-switch-radius) * 1.4);
+  background-color: hsl(var(--ri5-color-bg-darker-hsl));
+}
+.radio-switch:focus-within, .radio-switch:active {
+  box-shadow: 0 0 0 2px hsla(var(--ri5-color-contrast-higher-hsl), 0.15);
+}
+
+.radio-switch__item {
+  position: relative;
+  display: inline-block;
+  height: calc(var(--radio-switch-height) - 2*var(--radio-switch-padding));
+  width: calc(var(--radio-switch-width)*0.5 - var(--radio-switch-padding));
+}
+
+.radio-switch__label {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-weight:700;
+  border-radius: var(--radio-switch-radius);
+  cursor: pointer;
+  font-size: var(--ri5-text-sm);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  transition: all var(--radio-switch-animation-duration);
+}
+.radio-switch__input:checked ~ .radio-switch__label {
+  color: hsl(var(--ri5-color-white-hsl));
+}
+.radio-switch__input:focus ~ .radio-switch__label {
+  background-color: hsla(var(--ri5-color-primary-hsl), 0.6);
+}
+.radio-switch__label :not(*):focus-within, .radio-switch__input:focus ~ .radio-switch__label {
+  background-color: transparent;
+}
+
+.radio-switch__marker {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+  border-radius: var(--radio-switch-radius);
+  background-color: #2d457c;
+  height: calc(var(--radio-switch-height) - 2*var(--radio-switch-padding));
+  width: calc(var(--radio-switch-width)*0.5 - var(--radio-switch-padding));
+  box-shadow: 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
+  transition: -webkit-transform var(--radio-switch-animation-duration);
+  transition: transform var(--radio-switch-animation-duration);
+  transition: transform var(--radio-switch-animation-duration), -webkit-transform var(--radio-switch-animation-duration);
+}
+.radio-switch__input:checked ~ .radio-switch__marker {
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+}
+
+/* utility classes */
+.ri5-sr-only {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+.centring{
+  margin-left: 23% !important;
+}
+/* Edit Appointments petView */
+.moreabout{
+  display: flex;
+  gap:348px;
+  align-items: center !important;
+}
+
+.btn-pet {
+  position: relative;
+  /* background: #000; */
+  /* height: 100vh; */
+  display: flex;
+  align-items: center;
+}
+.btn-pet .btn-link {
+  display: inline-block;
+  position: relative;
+  padding: 12px 24px;
+  background: #2a437a;
+  color: #fff !important;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  /* margin: 0 auto 20px; */
+  border-radius: 25px;
+  transition: all 0.25s ease-in;
+  z-index: 1;
+}
+.btn-pet .btn-link:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background: #2a437a;
+  z-index: -1;
+  border-radius: 25px;
+  transition: all 0.25s ease-in;
+}
+.btn-pet .btn-link:hover {
+  color: #fff;
+  background: #2a437a;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-pet .btn-link:hover:after {
+  color: #fff;
+  bottom: -5px;
+  background: #2a437a;
+  opacity: 0.75;
+}
+.btn-pet .btn-link:active {
+  color: #fff;
+  text-decoration: none;
+  background: #2a437a;
+  transform: translateY(5px);
+}
+.btn-pet .btn-link:active:after {
+  bottom: 0px;
 }

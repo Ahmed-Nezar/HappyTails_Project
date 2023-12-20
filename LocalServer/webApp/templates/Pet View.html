@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.7.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.7.0/umd/react-dom.production.min.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -24,7 +27,7 @@
             <div class="dog-info">
               <section class="dog-name">
                 <div class="dog-name__info">
-                  <h1>Rylai</h1>
+                  <h1 style="font-size: 2.5rem;">Rylai</h1>
                 </div>
                 <div class="dog-name__cta">
                   <div class="ftco-animate">
@@ -46,7 +49,9 @@
                 <label for="gallery-image-4"><img src="{% static 'images/malamute4.jpg' %}" alt="Dog Image"/></label>
                 <div class="dog-gallery__images"><img src="{% static 'images/malamute1.jpg' %}" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></div>
               </section>
-              <section class="dog-manythings">
+              <section>
+                  <form class="dog-manythings" id="petView_Form" method="POST">
+                    {% csrf_token %}
                 <div class="dog-manythings__stats">
                   <p>Name</p>
                   <input id="name" disabled type="text" class="form-control editProf save_fields"
@@ -71,7 +76,9 @@
                   <p>Gender</p>
                   <div class="col-md-12 px-0">
                       <div class="dropdown genderPetview">
-                        <div class="js-link">{{ pet.gender }}<i class="fa fa-chevron-down mt-1"></i></div>
+                          <div class="js-link"><span id="selected_text">{{ pet.gender }}</span>
+                              <i class="fa fa-chevron-down mt-1"></i>
+                          </div>
                         <ul class="js-dropdown-list">
                           <li>Male</li>
                           <li>Female</li>
@@ -85,14 +92,26 @@
                                placeholder="Pet Color" autocomplete="nan" value="{{ pet.color }}">
                 </div>
                 <div class="dog-manythings__more">
-                  <h3>More about Rylai</h3>
-                  <p> <strong>Characteristics: </strong>Gentle, playful</p>
-                  <p> <strong>Health: </strong>Vaccinations up to date. Neutered.</p>
-                  <p> <strong>Good with: </strong>Other pets and children</p>
-                  <p> <strong>Exercise Needs: </strong>High — requires daily walks</p>
-                  <p> <strong>Other Important Details:</strong>Requires medication for back pain</p>
-                  <p>Meet Rylai, a large dog with a heart of gold. Extremely good with people of all ages and even other pets (friends with all the cats in the shelter). She is very active and loves walks/hikes. Rylai sheds a lot so we hope you have a good vacuum cleaner.</p>
+                  <div class="moreabout">
+                    <h3 style="font-size: 1.75rem;">More about {{ pet.name }}</h3>
+                    <section class="btn-pet" id="myButton">
+                      <a class="btn-link">Edit Appointments</a>
+                    </section>
+                  </div>
+                  <div id="popup1" class="popupOverlay">
+                    <div class="popup">
+                      <h2>Vet Name</h2>
+                      <a id="closePopup" class="close">&times;</a>
+                      <div id="root" class="mt-2"></div>
+                    </div>
+                  </div>
+                  
+                  <p class="petData"> <strong>Doctor: </strong>{{ pet.vet.user.first_name }} {{ pet.vet.user.last_name }}</p>
+                  <p class="petData"> <strong>Appointments: </strong>{{ pet.appointments }}</p>
+                  <p class="petData"> <strong>Vaccination: </strong>{{ pet.vaccination }}</p>
+                  <p class="petData"> <strong>Medical Records: </strong>{{ pet.medical_record }}</p>
                 </div>
+                </form>
               </section>
             </div>
         </div>
@@ -101,6 +120,76 @@
   </body>
 {% endblock body %}
 {% block scripts %}
+<script src="{% static 'js/Appointments Schedule.js' %}"></script>
+
+    <script>
+        $(".nav-link").each(function () {
+            if ($(this).text() === "Veterinarian"){
+                $(this).parent(".nav-item").addClass('active');
+            }else{
+                $(this).parent(".nav-item").removeClass('active');
+            }
+        });
+		var myButton = document.getElementById("myButton");
+		var closePopup = document.getElementById("closePopup");
+		var popup1 = document.getElementById("popup1");
+  
+
+		myButton.addEventListener("click", function (event) {
+			event.stopPropagation();
+			popup1.classList.add("showPopup");
+			$('html').css({'overflow': 'hidden',})
+		});
+  
+		closePopup.addEventListener("click", function () {
+			popup1.classList.remove("showPopup");
+			$('html').css({'overflow': '',})
+		});
+
+		var popup = $('#popup1');
+        var mouseDownInsidePopup = false;
+        popup.mousedown(function() {
+            mouseDownInsidePopup = true;
+        });
+		
+    </script>
+	<script>
+		$(function() {
+			var list = $('.js-dropdown-list');
+			var link = $('.js-link')
+		
+			link.click(function(e) {
+				e.preventDefault();
+					list.toggleClass('dropdown-active');
+					if (list.hasClass('dropdown-active')) {
+						$(".fa-chevron-down").css({
+							"transform": "rotate(180deg)",
+						})
+					} else {
+						$(".fa-chevron-down").css({
+							"transform": "rotate(0deg)",
+						})
+					}
+			});
+		
+			list.find('li').click(function() {
+					$(".fa-chevron-down").css({
+						"transform": "rotate(180deg)",
+					})
+					var text = $(this).html();
+					var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+					link.html(text + icon);
+			});
+		
+		})
+	</script>
+
+
+
+
+
+
+
 <script>
   $(function() {
     var list = $('.js-dropdown-list');
@@ -124,11 +213,11 @@
 
     list.find('li').click(function() {
         if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
+            $('.js-dropdown-list').toggleClass('dropdown-active');
             var text = $(this).html();
-            var icon = '<i class="fa fa-chevron-down mt-1"></i>';
-            link.html(text + icon);
+            link.find('#selected_text').text(text);
             $(".fa-chevron-down").css({
-                "transform": "rotate(180deg)",
+                "transform": "rotate(0)",
             })
         }
     });
@@ -170,8 +259,7 @@
         })
         $(".fa-chevron-down").hide();
         $(".Error-List").css('height', '0');
-        {% comment %}
-        const formData = new FormData(document.getElementById("profileForm"));
+                const formData = new FormData(document.getElementById("profileForm"));
         formData.append('username', $("#uName").val());
         formData.append('first_name', $("#fName").val());
         formData.append('last_name', $("#lName").val());
@@ -206,7 +294,7 @@
                     $(".Error-List").attr('class', "Error-List mt-2");
                 }
             })
-            {% endcomment %}
+
       } else {
         $(".genderPetview").css({'border': ''});
         $('.js-dropdown-list').css({'border': ''});
