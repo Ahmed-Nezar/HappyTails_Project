@@ -10901,9 +10901,10 @@ ul {
 .shopping-cart {
   margin: 20px 0;
   float: right;
+  right:50px;
   background: white;
   width: 320px;
-  position: relative;
+  position: absolute;
   border-radius: 3px;
   padding: 20px;
   z-index: 3;
