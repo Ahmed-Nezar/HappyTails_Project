@@ -1,5 +1,17 @@
 {
-    const Helpers = {
+  const Dropdown = () => {
+    const handleDropdownToggle = () => {
+      const dropdownList = document.querySelector('.js-dropdown-list');
+      dropdownList.classList.toggle('show');
+    };
+  
+    const handleDropdownSelect = (selectedOption) => {
+      const link = document.querySelector('.js-link');
+      link.innerHTML = `${selectedOption}<i class="fa fa-chevron-down mt-1"></i>`;
+      handleDropdownToggle();
+    };
+  }
+  const Helpers = {
     isValidDate: (date) => {
       return (
         date &&
@@ -242,7 +254,7 @@
                 ),React.createElement(
                     "div",{class:"dropdown"},
                     React.createElement(
-                        "div",{class:"js-link"},"Select Pet",
+                        "div",{class:"js-link", onClick: handleDropdownToggle},"Select Pet",
                         React.createElement(
                             "i",{class:"fa fa-chevron-down mt-1"}
                         )
