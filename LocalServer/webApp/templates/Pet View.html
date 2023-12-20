@@ -46,7 +46,9 @@
                 <label for="gallery-image-4"><img src="{% static 'images/malamute4.jpg' %}" alt="Dog Image"/></label>
                 <div class="dog-gallery__images"><img src="{% static 'images/malamute1.jpg' %}" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></div>
               </section>
-              <section class="dog-manythings">
+              <section>
+                  <form class="dog-manythings" id="petView_Form" method="POST">
+                    {% csrf_token %}
                 <div class="dog-manythings__stats">
                   <p>Name</p>
                   <input id="name" disabled type="text" class="form-control editProf save_fields"
@@ -71,7 +73,9 @@
                   <p>Gender</p>
                   <div class="col-md-12 px-0">
                       <div class="dropdown genderPetview">
-                        <div class="js-link">{{ pet.gender }}<i class="fa fa-chevron-down mt-1"></i></div>
+                          <div class="js-link"><span id="selected_text">{{ pet.gender }}</span>
+                              <i class="fa fa-chevron-down mt-1"></i>
+                          </div>
                         <ul class="js-dropdown-list">
                           <li>Male</li>
                           <li>Female</li>
@@ -85,14 +89,13 @@
                                placeholder="Pet Color" autocomplete="nan" value="{{ pet.color }}">
                 </div>
                 <div class="dog-manythings__more">
-                  <h3>More about Rylai</h3>
-                  <p> <strong>Characteristics: </strong>Gentle, playful</p>
-                  <p> <strong>Health: </strong>Vaccinations up to date. Neutered.</p>
-                  <p> <strong>Good with: </strong>Other pets and children</p>
-                  <p> <strong>Exercise Needs: </strong>High — requires daily walks</p>
-                  <p> <strong>Other Important Details:</strong>Requires medication for back pain</p>
-                  <p>Meet Rylai, a large dog with a heart of gold. Extremely good with people of all ages and even other pets (friends with all the cats in the shelter). She is very active and loves walks/hikes. Rylai sheds a lot so we hope you have a good vacuum cleaner.</p>
+                  <h3>More about {{ pet.name }}</h3>
+                  <p class="petData"> <strong>Doctor: </strong>{{ pet.vet.user.first_name }} {{ pet.vet.user.last_name }}</p>
+                  <p class="petData"> <strong>Appointments: </strong>{{ pet.appointments }}</p>
+                  <p class="petData"> <strong>Vaccination: </strong>{{ pet.vaccination }}</p>
+                  <p class="petData"> <strong>Medical Records: </strong>{{ pet.medical_record }}</p>
                 </div>
+                </form>
               </section>
             </div>
         </div>
@@ -124,11 +127,11 @@
 
     list.find('li').click(function() {
         if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
+            $('.js-dropdown-list').toggleClass('dropdown-active');
             var text = $(this).html();
-            var icon = '<i class="fa fa-chevron-down mt-1"></i>';
-            link.html(text + icon);
+            link.find('#selected_text').text(text);
             $(".fa-chevron-down").css({
-                "transform": "rotate(180deg)",
+                "transform": "rotate(0)",
             })
         }
     });
@@ -170,8 +173,7 @@
         })
         $(".fa-chevron-down").hide();
         $(".Error-List").css('height', '0');
-        {% comment %}
-        const formData = new FormData(document.getElementById("profileForm"));
+                const formData = new FormData(document.getElementById("profileForm"));
         formData.append('username', $("#uName").val());
         formData.append('first_name', $("#fName").val());
         formData.append('last_name', $("#lName").val());
@@ -206,7 +208,7 @@
                     $(".Error-List").attr('class', "Error-List mt-2");
                 }
             })
-            {% endcomment %}
+
       } else {
         $(".genderPetview").css({'border': ''});
         $('.js-dropdown-list').css({'border': ''});

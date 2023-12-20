@@ -54,7 +54,6 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=40)
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
-        
 
     class Meta:
         model = User

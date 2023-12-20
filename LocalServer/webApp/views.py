@@ -50,11 +50,13 @@ def profile(request):
     context = {
         'nav': True,
         'page_name': "Profile",
+        'vets': []
     }
-
     obj = Client.objects.filter(user=request.user).first()
     if obj is not None:
         context['user'] = obj
+    for i in Vet.objects.all():
+        context['vets'].append(i)
     return render(request, 'profile.html', context)
 
 
@@ -192,6 +194,8 @@ def viewPet(request, id):
     context = {
         'nav': True,
         'page_name': "Pet View",
-        'pet': Pet.objects.get(pet_id=id),
+        'pet': []
     }
+    if Pet.objects.filter(pet_id=id):
+        context['pet'] = Pet.objects.get(pet_id=id)
     return render(request, 'Pet View.html', context)

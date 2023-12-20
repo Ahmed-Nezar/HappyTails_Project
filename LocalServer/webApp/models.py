@@ -60,7 +60,7 @@ class Pet(models.Model):
     vaccination = models.TextField(blank=True)
 
     def __str__(self):
-        if self.client is None:
+        if self.client or self.vet is None:
             return f"Pet Name: {self.name}"
         else:
             return f"Pet Name: {self.name}, Client Name: {self.client.user.first_name}, " \

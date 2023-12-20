@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5rem; }
 
 p {
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 1rem; }
 
 abbr[title],
@@ -10057,6 +10057,9 @@ button.secondary.active {
   position: relative;
   cursor: text;
 }
+.genderPetview{
+  cursor: pointer;
+}
 .Error-List{
   opacity: 0;
   height: 0;
@@ -10446,21 +10449,39 @@ ul {
   list-style-type: none;
 }
 
-.js-dropdown-list li {
+.petData{
+  word-wrap: break-word;
+  max-width: 550px;
+}
+
+.typePetview, .typePetview2, .typePetview3{
+  cursor: pointer;
+  z-index: 2;
+}
+
+.typePetview{
+  z-index: 3;
+}
+
+.js-dropdown-list li, .js-dropdown-list2 li, .js-dropdown-list3 li{
   padding: 0.5em 1rem;
   cursor: pointer;
 }
-.js-dropdown-list li:not(:first-child) {
+.js-dropdown-list li:not(:first-child), .js-dropdown-list2 li:not(:first-child),
+.js-dropdown-list3 li:not(:first-child){
   border-top: 0.1em dashed #dde4e6;
 }
-.js-dropdown-list li:focus, .js-dropdown-list li:hover {
+.js-dropdown-list li:focus, .js-dropdown-list li:hover,
+.js-dropdown-list2 li:focus, .js-dropdown-list2 li:hover,
+.js-dropdown-list3 li:focus, .js-dropdown-list3 li:hover{
   background: #ecf0f1;
 }
-.js-dropdown-list li:active {
+.js-dropdown-list li:active, .js-dropdown-list2 li:active, .js-dropdown-list3 li:active {
   background: #fbfcfc;
 }
-.js-dropdown-list{
+.js-dropdown-list, .js-dropdown-list2, .js-dropdown-list3{
     display: block;
+    border: none;
     margin: 0;
     padding: 0px;
     height: 0;
@@ -10469,9 +10490,12 @@ ul {
     transition: all 0.3s ease-in-out;
 }
 .dropdown-active{
-  height: 85px;
+  height: 84px;
 }
-.js-link{
+.dropdown-active2{
+  height: 172px;
+}
+.js-link, .js-link2, .js-link3{
   font-size: 16px;
   color: black;
   padding: 10px;
@@ -10794,6 +10818,13 @@ ul {
   width: 100%;
   margin-top: 8px;
 }
+#exampleFormControlTextarea1{
+    min-height: 145px;
+    max-height: 200px;
+}
+#profileForm, #petView_Form{
+    grid-template-columns: repeat(2, minmax(180px, 100%));
+}
 .dog-manythings__more {
   padding-top: 30px;
   margin: 30px 0;
@@ -10848,7 +10879,7 @@ ul {
     grid-area: dog-manythings;
     margin-left: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 50%));
+    grid-template-columns: repeat(3, minmax(180px, 50%));
     grid-gap: 10px;
   }
   .dog-manythings__more {
