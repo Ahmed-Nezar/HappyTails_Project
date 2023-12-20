@@ -9049,7 +9049,7 @@ textarea.form-control {
   height: inherit !important; }
 
 .footer {
-  background: #1a1a1a;
+  background: #1a1a1a !important;
   position: relative;
   z-index: 0;
   overflow: hidden;
@@ -10399,22 +10399,24 @@ input.variation + label {
 .showPopup {
   visibility: visible;
   opacity: 1;
-  z-index: 3;
+  z-index: 50;
 }
 
 .popup {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 60%;
   position: relative;
   transition: all 5s ease-in-out;
+  max-height: 80%;
+  overflow: auto;
 }
 
 .popup h2 {
   margin-top: 0;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
+  font-size: revert;
 }
 .popup .close {
   position: absolute;
@@ -10441,6 +10443,7 @@ input.variation + label {
   background: white; 
   border: 0.1em solid #c0cdd1;
   border-radius: .25rem;
+  display: block !important;
 }
 
 /*List*/
@@ -10578,7 +10581,6 @@ ul {
   border-radius: 0 0 10px 10px;
   color: #fff;
 }
-
 
 
 @media (min-width: 500px) and (max-width: 992px) {
@@ -11017,7 +11019,6 @@ table.calendar__table--center > thead td {
     grid-column: 1/span 2;
   }
 } 
-
 
 @-webkit-keyframes loader-rotate {
   100% {
