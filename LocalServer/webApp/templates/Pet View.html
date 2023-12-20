@@ -24,7 +24,7 @@
             <div class="dog-info">
               <section class="dog-name">
                 <div class="dog-name__info">
-                  <h1>Rylai</h1>
+                  <h1 class="petNameTitle">{{ pet.name }}</h1>
                 </div>
                 <div class="dog-name__cta">
                   <div class="ftco-animate">
@@ -47,55 +47,56 @@
                 <div class="dog-gallery__images"><img src="{% static 'images/malamute1.jpg' %}" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute2.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute3.jpg" alt="Dog Image"/><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/malamute4.jpg" alt="Dog Image"/></div>
               </section>
               <section>
+                  <h3 class="Error-List Error-List-show"></h3>
                   <form class="dog-manythings" id="petView_Form" method="POST">
                     {% csrf_token %}
-                <div class="dog-manythings__stats">
-                  <p>Name</p>
-                  <input id="name" disabled type="text" class="form-control editProf save_fields"
-                               placeholder="Enter Pet Name" autocomplete="nan" value="{{ pet.name }}">
-                </div>
-                <div class="dog-manythings__stats">
-                  <p>Pet Type</p>
-                  <input id="type" disabled type="text" class="form-control editProf save_fields"
-                               placeholder="Enter Pet Type" autocomplete="nan" value="{{ pet.type }}">
-                </div>
-                <div class="dog-manythings__stats">
-                  <p>Years</p>
-                  <input id="years" disabled type="text" class="form-control editProf save_fields"
-                               placeholder="Pet Years" autocomplete="nan" value="{{ pet.years }}">
-                </div>
-                <div class="dog-manythings__stats">
-                  <p>Months</p>
-                  <input id="months" disabled type="text" class="form-control editProf save_fields"
-                               placeholder="Pet Months" autocomplete="nan" value="{{ pet.months }}">
-                </div>
-                <div class="dog-manythings__stats">
-                  <p>Gender</p>
-                  <div class="col-md-12 px-0">
-                      <div class="dropdown genderPetview">
-                          <div class="js-link"><span id="selected_text">{{ pet.gender }}</span>
-                              <i class="fa fa-chevron-down mt-1"></i>
+                    <div class="dog-manythings__stats">
+                      <p>Name</p>
+                      <input id="name" disabled type="text" class="form-control editProf save_fields"
+                                   placeholder="Enter Pet Name" autocomplete="nan" value="{{ pet.name }}">
+                    </div>
+                    <div class="dog-manythings__stats">
+                      <p>Pet Type</p>
+                      <input disabled type="text" class="form-control save_fields"
+                             placeholder="Enter Pet Type" autocomplete="nan" value="{{ pet.type }}">
+                    </div>
+                    <div class="dog-manythings__stats">
+                      <p>Years</p>
+                      <input id="years" disabled type="text" class="form-control editProf save_fields"
+                                   placeholder="Pet Years" autocomplete="nan" value="{{ pet.years }}">
+                    </div>
+                    <div class="dog-manythings__stats">
+                      <p>Months</p>
+                      <input id="months" disabled type="text" class="form-control editProf save_fields"
+                                   placeholder="Pet Months" autocomplete="nan" value="{{ pet.months }}">
+                    </div>
+                    <div class="dog-manythings__stats">
+                      <p>Gender</p>
+                      <div class="col-md-12 px-0">
+                          <div class="dropdown genderPetview">
+                              <div class="js-link"><span id="selected_gender">{{ pet.gender }}</span>
+                                  <i class="fa fa-chevron-down mt-1"></i>
+                              </div>
+                            <ul class="js-dropdown-list">
+                              <li>Male</li>
+                              <li>Female</li>
+                            </ul>
                           </div>
-                        <ul class="js-dropdown-list">
-                          <li>Male</li>
-                          <li>Female</li>
-                        </ul>
                       </div>
-                  </div>
-                </div>
-                <div class="dog-manythings__stats">
-                  <p>Color</p>
-                  <input id="color" disabled type="text" class="form-control editProf save_fields"
-                               placeholder="Pet Color" autocomplete="nan" value="{{ pet.color }}">
-                </div>
-                <div class="dog-manythings__more">
-                  <h3>More about {{ pet.name }}</h3>
-                  <p class="petData"> <strong>Doctor: </strong>{{ pet.vet.user.first_name }} {{ pet.vet.user.last_name }}</p>
-                  <p class="petData"> <strong>Appointments: </strong>{{ pet.appointments }}</p>
-                  <p class="petData"> <strong>Vaccination: </strong>{{ pet.vaccination }}</p>
-                  <p class="petData"> <strong>Medical Records: </strong>{{ pet.medical_record }}</p>
-                </div>
-                </form>
+                    </div>
+                    <div class="dog-manythings__stats">
+                      <p>Color</p>
+                      <input id="color" disabled type="text" class="form-control editProf save_fields"
+                                   placeholder="Pet Color" autocomplete="nan" value="{{ pet.color }}">
+                    </div>
+                    <div class="dog-manythings__more">
+                        <h3>More about <span class="petNameTitle">{{ pet.name }}</span></h3>
+                      <p class="petData"> <strong>Doctor: </strong>{{ pet.vet.user.first_name }} {{ pet.vet.user.last_name }}</p>
+                      <p class="petData"> <strong>Appointments: </strong>{{ pet.appointments }}</p>
+                      <p class="petData"> <strong>Vaccination: </strong>{{ pet.vaccination }}</p>
+                      <p class="petData"> <strong>Medical Records: </strong>{{ pet.medical_record }}</p>
+                    </div>
+                  </form>
               </section>
             </div>
         </div>
@@ -129,7 +130,7 @@
         if ($("#editProfileBtn").find('span').text() === 'Save Changes') {
             $('.js-dropdown-list').toggleClass('dropdown-active');
             var text = $(this).html();
-            link.find('#selected_text').text(text);
+            link.find('#selected_gender').text(text);
             $(".fa-chevron-down").css({
                 "transform": "rotate(0)",
             })
@@ -173,16 +174,15 @@
         })
         $(".fa-chevron-down").hide();
         $(".Error-List").css('height', '0');
-                const formData = new FormData(document.getElementById("profileForm"));
-        formData.append('username', $("#uName").val());
-        formData.append('first_name', $("#fName").val());
-        formData.append('last_name', $("#lName").val());
-        formData.append('phone', $("#phone").val());
-        formData.append('email', $("#email").val());
-        formData.append('address', $("#address").val());
+        const formData = new FormData(document.getElementById("petView_Form"));
+        formData.append('name', $("#name").val());
+        formData.append('years', $("#years").val());
+        formData.append('months', $("#months").val());
+        formData.append('gender', $("#selected_gender").text());
+        formData.append('color', $("#color").val());
         formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-        fetch('{% url 'checkProfile' %}', {
+        fetch('{% url 'editPet' pet.pet_id %}', {
             method: 'POST',
             body: formData,
         })
@@ -205,6 +205,7 @@
                     }
                     $(".Error-List").attr('class', "Error-List Error-List-show mt-2");
                 }else{
+                    $(".petNameTitle").text($("#name").val());
                     $(".Error-List").attr('class', "Error-List mt-2");
                 }
             })

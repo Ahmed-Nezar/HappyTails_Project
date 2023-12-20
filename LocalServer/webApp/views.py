@@ -53,7 +53,7 @@ def profile(request):
 
 def editProfile(request):
     context = {
-        'errors': [], 'data': []
+        'errors': []
     }
 
     if request.method == 'POST':
@@ -72,7 +72,7 @@ def editProfile(request):
                     context['errors'].append('Email Already Exists')
         if not request.POST.get('email'):
             context['errors'].append('Do Not Leave Email Blank')
-        if  not request.POST.get('email').__contains__('@'):
+        if not request.POST.get('email').__contains__('@'):
             context['errors'].append('Invalid Email')
         if not request.POST.get('address'):
             context['errors'].append('Do Not Leave Address Blank')
@@ -92,6 +92,38 @@ def editProfile(request):
             form.save()
         return JsonResponse(context)
     ProfileForm(instance=request.user)
+    return JsonResponse(context)
+
+
+def editPet(request, id):
+    context = {
+        'errors': []
+    }
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        years = request.POST.get('years')
+        months = request.POST.get('months')
+        gender = request.POST.get('gender')
+        color = request.POST.get('color')
+        if name == "" or years == "" or months == "" or gender == "" or color == "":
+            context['errors'].append('Please Don’t Leave Any Field Blank')
+            return JsonResponse(context)
+        if not name.isalpha():
+            context['errors'].append('Name Must Contain Letters Only')
+        if not years.isnumeric():
+            context['errors'].append('Years Must Be Numeric')
+        if not months.isnumeric():
+            context['errors'].append('Months Must Be Numeric')
+        if not color.replace(" ", "").isalpha():
+            context['errors'].append('Color Must Contain Letters Only')
+        if not context['errors']:
+            obj = Pet.objects.get(pet_id=id)
+            obj.name = name
+            obj.years = years
+            obj.months = months
+            obj.gender = gender
+            obj.color = color
+            obj.save()
     return JsonResponse(context)
 
 
@@ -152,7 +184,8 @@ def signup(request):
                 if any(word in form.cleaned_data.get('password1').lower() for word in ['password', '123', 'qwerty']):
                     msg.append(
                         "• Your password can’t be too similar to your other personal information or a commonly used password")
-                if not(len(form.cleaned_data.get('password1')) >= 8 and not form.cleaned_data.get('password1').isnumeric()):
+                if not (len(form.cleaned_data.get('password1')) >= 8 and not form.cleaned_data.get(
+                        'password1').isnumeric()):
                     msg.append("• Your password must contain at least 8 characters and cannot be entirely numeric")
                 if re.search(r'\b(\w)\1+\b', form.cleaned_data.get('password1')):  # Checking for repetitive characters
                     msg.append("• Password contains too many repetitive characters")
