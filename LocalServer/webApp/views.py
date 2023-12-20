@@ -1,17 +1,8 @@
-import hmac
-import random
-
 from django.contrib.auth import authenticate
-from django.core.mail import send_mail
-from django.conf import settings
 from django.shortcuts import *
-import datetime
 from .forms import *
 from .models import *
-from random import randint
 from django.contrib.auth.views import *
-from django.contrib.admin.models import *
-from django.db.models import Count
 from django.http import *
 from django.contrib import messages
 import re
