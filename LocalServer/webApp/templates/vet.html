@@ -25,19 +25,19 @@
     <section class="ftco-section bg-light">
 			<div class="container">
 				<div class="row">
-                    {% for i in vets %}
-                        <div class="col-md-6 col-lg-3 ftco-animate">
-                            <div class="staff vetBtn" id="myButton">
-                                <input type="hidden" value="{{ i.vet_id }}">
-                                <div class="img-wrap d-flex align-items-stretch">
-                                    <div class="img align-self-stretch" style="background-image: url('/static/images/staff {{ i.vet_id }}.jpg');"></div>
-                                </div>
-                                <div class="text pt-3 px-3 pb-4 text-center">
-                                    <h3 class="mb-0">{{ i.user.first_name }} {{ i.user.last_name }}</h3>
-                                </div>
-                            </div>
-					    </div>
-                    {% endfor %}
+        {% for i in vets %}
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="staff vetBtn" id="myButton">
+                    <input type="hidden" value="{{ i.vet_id }}">
+                    <div class="img-wrap d-flex align-items-stretch">
+                        <div class="img align-self-stretch" style="background-image: url('/static/images/staff {{ i.vet_id }}.jpg');"></div>
+                    </div>
+                    <div class="text pt-3 px-3 pb-4 text-center">
+                        <h3 class="mb-0">{{ i.user.first_name }} {{ i.user.last_name }}</h3>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 				</div>
 			</div>
 		</section>
@@ -53,7 +53,7 @@
 {% endblock body %}
 {% block scripts %}
 
-    <script>
+  <script>
         $(".nav-link").each(function () {
             if ($(this).text() === "Veterinarian"){
                 $(this).parent(".nav-item").addClass('active');
@@ -65,16 +65,16 @@
 		var closePopup = document.getElementById("closePopup");
 		var popup1 = document.getElementById("popup1");
 
-        var vet_id = 0;
-        $(".vetBtn").each(function () {
-            $(this).on('mousedown', function (event) {
-                vet_id = $(this).find("input").val();
-                event.stopPropagation();
-                $("#vetSelected").text($(this).find("h3").text());
-                popup1.classList.add("showPopup");
-                $('html').css({'overflow': 'hidden',})
-            })
+    var vet_id = 0;
+    $(".vetBtn").each(function () {
+        $(this).on('mousedown', function (event) {
+            vet_id = $(this).find("input").val();
+            event.stopPropagation();
+            $("#vetSelected").text($(this).find("h3").text());
+            popup1.classList.add("showPopup");
+            $('html').css({'overflow': 'hidden',})
         })
+    })
   
 		closePopup.addEventListener("click", function () {
 			popup1.classList.remove("showPopup");
@@ -87,7 +87,7 @@
             mouseDownInsidePopup = true;
         });
 		
-    </script>
+  </script>
 	<script>
 		$(document).on('click', function (e) {
             if (!$(e.target).closest($(".js-dropdown-list4, .js-link4")).length

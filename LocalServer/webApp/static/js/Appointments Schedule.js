@@ -151,8 +151,8 @@ const handlePetSelection = (e) => {
       onInputChange({ target: { name: "selectedPet", value: selectedPet } });
     };
     const toggleDropdown = () => {
-      $('.js-dropdown-list').toggleClass('dropdown-active');
-      if ($('.js-dropdown-list').hasClass('dropdown-active')) {
+      $('.js-dropdown-list4').toggleClass('dropdown-active');
+      if ($('.js-dropdown-list4').hasClass('dropdown-active')) {
           $(".fa-chevron-down").css({
               "transform": "rotate(180deg)",
           })
@@ -259,12 +259,12 @@ const handlePetSelection = (e) => {
                 ),React.createElement(
                     "div",{class:"dropdown", onClick: toggleDropdown },
                     React.createElement(
-                        "div",{class:"js-link",style:{width: "7rem",padding:"5px 10px"}}, selectedPet ||"Select Pet",
+                        "div",{class:"js-link4",style:{width: "7rem",padding:"5px 10px"}}, selectedPet ||"Select Pet",
                         React.createElement(
                             "i",{class:"fa fa-chevron-down mt-1"},
                         )
                     ),React.createElement(
-                        "ul",{class:"js-dropdown-list"},
+                        "ul",{class:"js-dropdown-list4"},
                         React.createElement(
                             "li",{class:"",onClick: handlePetSelection},"Pet1"
                         ),
@@ -323,13 +323,18 @@ const handlePetSelection = (e) => {
   
   const CalendarHeader = (props) => {
     const { onPrevMonthClick, onNextMonthClick, monthName, year } = props;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const isPastMonth = year < currentYear || (year === currentYear && currentMonth > 0);
     return /*#__PURE__*/ React.createElement(
       "div",
       { className: "calendar__header" } /*#__PURE__*/,
+      
       React.createElement(
         "div",
         { className: "calendar__controls" } /*#__PURE__*/,
-        React.createElement(
+        !isPastMonth && React.createElement(
           "div",
           {
             className: "calendar__control-icon",

@@ -10537,7 +10537,8 @@ ul {
 }
 
 .dropdown-active{
-  height: 95px;
+  height: 86px;
+  overflow: auto;
 }
 .dropdown-active2{
   height: 172px;
@@ -10918,7 +10919,7 @@ ul {
 }
 .calendar__controls {
   display: flex;
-  margin-right: 2rem;
+  margin-right: .3rem;
 }
 .calendar__control-icon {
   border-radius: 50%;
