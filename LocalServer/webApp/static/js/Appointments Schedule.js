@@ -404,7 +404,12 @@ const handlePetSelection = (e) => {
         )
       );
     }
-    return /*#__PURE__*/ React.createElement("td", { key: index }, "\xA0");
+  return React.createElement('td', { key: index, className: 'disabled' },
+    React.createElement('div', { className: 'calendar__item' },
+      React.createElement('div', { className: 'calendar__item-title' }, '\xA0')
+    )
+  );
+    // return /*#__PURE__*/ React.createElement("td", { key: index }, "\xA0");
   };
   
   const CalenderRowList = ({
@@ -416,6 +421,7 @@ const handlePetSelection = (e) => {
     const _getCalendarDays = (date) => {
         const year = date.getFullYear();
         const month = date.getMonth();
+        const today = new Date();
         const firstDayOfMonth = new Date(year, month, 1).getDay(); // Day of the week (0 - 6)
         const numberOfDaysInMonth = new Date(year, month + 1, 0).getDate();
         let calendarDays = [];
@@ -424,12 +430,17 @@ const handlePetSelection = (e) => {
         for (let i = 0; i < firstDayOfMonth; i++) {
           calendarDays.push(-1);
         }
-      
+
         // Build calendar days
+        // for (let i = 1; i <= numberOfDaysInMonth; i++) {
+        //   calendarDays.push(i);
+        // }
         for (let i = 1; i <= numberOfDaysInMonth; i++) {
-          calendarDays.push(i);
-        }
+          const currentDate = new Date(year, month, i);
+          const isBeforeToday = currentDate < today;
       
+          calendarDays.push(isBeforeToday ? -1 : i);
+        }
         return calendarDays;
       };
     const _getCalendarBody = (calendarDays) => {

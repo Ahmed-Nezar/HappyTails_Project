@@ -10978,7 +10978,9 @@ table.calendar__table--center > thead td {
 .appointment__item-title {
   display: none;
 }
-
+td.disabled {
+  background-color: darkgray;
+}
 
 /* MEDIA QUERIES */
 
