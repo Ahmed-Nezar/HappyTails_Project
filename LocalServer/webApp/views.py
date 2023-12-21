@@ -1,20 +1,23 @@
-import hmac
-import random
-
 from django.contrib.auth import authenticate
-from django.core.mail import send_mail
-from django.conf import settings
 from django.shortcuts import *
-import datetime
 from .forms import *
 from .models import *
-from random import randint
 from django.contrib.auth.views import *
-from django.contrib.admin.models import *
-from django.db.models import Count
 from django.http import *
 from django.contrib import messages
 import re
+
+
+def setAccType(context, request):
+    if request.user.is_authenticated:
+        if Vet.objects.filter(user=request.user):
+            context['type'] = "vet"
+        elif Client.objects.filter(user=request.user):
+            context['type'] = "client"
+        else:
+            context['type'] = "none"
+    else:
+        context['type'] = "guest"
 
 
 def home(request):
@@ -22,6 +25,7 @@ def home(request):
         'nav': True,
         'page_name': "Home",
     }
+    setAccType(context, request)
     return render(request, 'index.html', context)
 
 
@@ -31,6 +35,7 @@ def store(request):
         'page_name': "Pet Shop",
         'items': item.objects.all(),
     }
+    setAccType(context, request)
     for i in context['items']:
         if str(i.img).__contains__('webApp'):
             i.img = str(i.img)[7:]
@@ -43,6 +48,7 @@ def vet(request):
         'nav': True,
         'page_name': "Vet",
     }
+    setAccType(context, request)
     return render(request, 'vet.html', context)
 
 
@@ -50,11 +56,19 @@ def profile(request):
     context = {
         'nav': True,
         'page_name': "Profile",
+        'vets': []
     }
-
-    obj = Client.objects.filter(user=request.user).first()
+    setAccType(context, request)
+    if context['type'] == "vet":
+        obj = Vet.objects.filter(user=request.user).first()
+    elif context['type'] == "client":
+        obj = Client.objects.filter(user=request.user).first()
+    else:
+        obj = None
     if obj is not None:
         context['user'] = obj
+    for i in Vet.objects.all():
+        context['vets'].append(i)
     return render(request, 'profile.html', context)
 
 
@@ -62,7 +76,6 @@ def editProfile(request):
     context = {
         'errors': []
     }
-
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user)
         if request.POST.get('username').isnumeric():
@@ -139,6 +152,7 @@ def about(request):
         'nav': True,
         'page_name': "About",
     }
+    setAccType(context, request)
     return render(request, 'about.html', context)
 
 
@@ -147,7 +161,6 @@ def check_Login(request):
         'nav': True,
         'page_name': "checkLogin",
     }
-    msg = []
     msg = []
 
     if request.method == "POST":
@@ -175,6 +188,7 @@ def signup(request):
         'nav': True,
         'page_name': "Register"
     }
+    setAccType(context, request)
     msg = []
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -182,7 +196,11 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, "{x} is Created Successfully".format(x=username))
-            Client.objects.create(user=User.objects.get(username=username), address=request.POST.get('address'),
+            if request.POST.get('radio-switch-name') == "vet":
+                Vet.objects.create(user=User.objects.get(username=username), address=request.POST.get('address'),
+                                   phone=request.POST.get('phone'))
+            elif request.POST.get('radio-switch-name') == "client":
+                Client.objects.create(user=User.objects.get(username=username), address=request.POST.get('address'),
                                   phone=request.POST.get('phone'))
             return redirect('login')
         else:
@@ -225,6 +243,60 @@ def viewPet(request, id):
     context = {
         'nav': True,
         'page_name': "Pet View",
-        'pet': Pet.objects.get(pet_id=id),
+        'pet': []
     }
+    setAccType(context, request)
+    if Pet.objects.filter(pet_id=id):
+        context['pet'] = Pet.objects.get(pet_id=id)
     return render(request, 'Pet View.html', context)
+
+
+def refreshItems(request):
+    context = {
+        'items': []
+    }
+    for i in item.objects.all():
+        context['items'].append(i)
+    return JsonResponse(context)
+
+
+def addPet(request):
+    context = {
+        'errors': []
+    }
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        years = request.POST.get('years')
+        months = request.POST.get('months')
+        gender = request.POST.get('gender')
+        type = request.POST.get('type')
+        vetName = request.POST.get('vet')
+        color = request.POST.get('color')
+        vacc = request.POST.get('vacc')
+        vet = None
+        print(gender)
+        if name == "" or years == "" or months == "" or gender.__contains__("Select") or \
+                type.__contains__("Select") or vetName.__contains__("Select") or color == "":
+            context['errors'].append('Please Don’t Leave Any Field Blank')
+            return JsonResponse(context)
+        for i in Vet.objects.all():
+            concatenated = i.user.first_name + " " + i.user.last_name
+            if concatenated == vetName:
+                vet = i
+                break
+        if vet is None:
+            context['errors'].append('Vet Does Not Exist')
+            return JsonResponse(context)
+        if not name.isalpha():
+            context['errors'].append('Name Must Contain Letters Only')
+        if not years.isnumeric():
+            context['errors'].append('Years Must Be Numeric')
+        if not months.isnumeric():
+            context['errors'].append('Months Must Be Numeric')
+        if not color.replace(" ", "").isalpha():
+            context['errors'].append('Color Must Contain Letters Only')
+        if not context['errors']:
+            Pet.objects.create(client=Client.objects.get(user=request.user), vet=vet,
+                               name=name, years=years, color=color, type=type,
+                               months=months, gender=gender, vaccination=vacc)
+    return JsonResponse(context)

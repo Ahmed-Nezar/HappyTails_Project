@@ -35,8 +35,8 @@
       <div class="row">
         <div class="col-md-6 d-flex align-items-center">
           <p class="my-0 phone pl-md-2">
-            <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +2010101010</a>
-            <a href="#"><span class="fa fa-paper-plane mr-1"></span>happytails@gmail.com</a>
+            <a href="tel:+2010101010" class="mr-2"><span class="fa fa-phone mr-1"></span> +2010101010</a>
+            <a href="mailto:happytails@gmail.com"><span class="fa fa-paper-plane mr-1"></span>happytails@gmail.com</a>
           </p>
         </div>
         <div class="col-md-6 d-flex justify-content-md-end">
@@ -66,19 +66,20 @@
             <a
               href="/django-insecure-$hbr$!r_j5!usa!^j3$!=5)9sl(f$c2sol)$_a6z13=4jvu=((/"
               class="nav-link"
-              >Admin</a
-            >
+              >Admin</a>
           </li>
           {% endif %}
           <li class="nav-item active">
             <a href="{% url 'home' %}" class="nav-link">Home</a>
           </li>
-          <li class="nav-item">
-            <a href="{% url 'vet' %}" class="nav-link">Veterinarian</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'shop' %}" class="nav-link">Pet Shop</a>
-          </li>
+          {% if type == "guest" or type == "client" %}
+              <li class="nav-item">
+                <a href="{% url 'vet' %}" class="nav-link">Veterinarian</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'shop' %}" class="nav-link">Pet Shop</a>
+              </li>
+          {% endif %}
           {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a href="{% url 'profile' %}" class="nav-link">Profile</a>
@@ -104,7 +105,7 @@
         <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
         <div class="shopping-cart-total">
           <span class="lighter-text">Total:</span>
-          <span class="main-color-text">EGP0</span>
+          <span class="main-color-text">EGP 0</span>
         </div>
       </div> <!--end shopping-cart-header -->
   
@@ -112,21 +113,21 @@
         <li class="clearfix">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
           <span class="item-name">Sony DSC-RX100M III</span>
-          <span class="item-price">$849.99</span>
+          <span class="item-price">$ 849.99</span>
           <span class="item-quantity">Quantity: 01</span>
         </li>
   
         <li class="clearfix">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item2.jpg" alt="item1" />
           <span class="item-name">KS Automatic Mechanic...</span>
-          <span class="item-price">$1,249.99</span>
+          <span class="item-price">$ 1,249.99</span>
           <span class="item-quantity">Quantity: 01</span>
         </li>
   
         <li class="clearfix">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item3.jpg" alt="item1" />
           <span class="item-name">Kindle, 6" Glare-Free To...</span>
-          <span class="item-price">$129.99</span>
+          <span class="item-price">$ 129.99</span>
           <span class="item-quantity">Quantity: 01</span>
         </li>
       </ul>

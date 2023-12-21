@@ -168,6 +168,10 @@ img {
   vertical-align: middle;
   border-style: none; }
 
+.petNameTitle{
+  font-size: 2.5rem
+}
+
 svg {
   overflow: hidden;
   vertical-align: middle; }
@@ -10061,7 +10065,7 @@ button.secondary.active {
 .genderPetview{
   cursor: pointer;
 }
-.Error-List{
+.Error-List, .Error-List2{
   opacity: 0;
   height: 0;
   transition: all 0.1s ease-in-out;
@@ -10402,13 +10406,17 @@ input.variation + label {
   z-index: 50;
 }
 
+.add-alert{
+   margin-top: 15px !important;
+}
+
 .popup {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
   position: relative;
   transition: all 5s ease-in-out;
-  max-height: 80%;
+  max-height: 86%;
   overflow: auto;
 }
 

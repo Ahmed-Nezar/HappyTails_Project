@@ -65,12 +65,14 @@
                     </div>
                     <ul class="radio-switch ">
                         <li class="radio-switch__item">
-                          <input class="radio-switch__input ri5-sr-only" type="radio" name="radio-switch-name" id="radio-1" value="" checked>
+                          <input class="radio-switch__input ri5-sr-only" type="radio"
+                                 name="radio-switch-name" id="radio-1" value="vet">
                           <label class="radio-switch__label" for="radio-1">Vet</label>
                         </li>
                       
                         <li class="radio-switch__item">
-                          <input class="radio-switch__input ri5-sr-only" type="radio" name="radio-switch-name" id="radio-2" value="">
+                          <input class="radio-switch__input ri5-sr-only" type="radio"
+                                 name="radio-switch-name" id="radio-2" value="client" checked>
                           <label class="radio-switch__label" for="radio-2">Pet Owner</label>
                           <div aria-hidden="true" class="radio-switch__marker"></div>
                         </li>
@@ -78,7 +80,6 @@
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary py-3 px-4">Sign Up</button>
                     </div>
-                      </div>
                     
                 </form>
                 <p style="color: white;"><a href="{% url 'login' %}" style="color: white; text-decoration: none;"><u><b>Already have an account? Login</b></u></a></p>
