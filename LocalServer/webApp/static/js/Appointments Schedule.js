@@ -1,16 +1,4 @@
 {
-  const Dropdown = () => {
-    const handleDropdownToggle = () => {
-      const dropdownList = document.querySelector('.js-dropdown-list');
-      dropdownList.classList.toggle('show');
-    };
-  
-    const handleDropdownSelect = (selectedOption) => {
-      const link = document.querySelector('.js-link');
-      link.innerHTML = `${selectedOption}<i class="fa fa-chevron-down mt-1"></i>`;
-      handleDropdownToggle();
-    };
-  }
   const Helpers = {
     isValidDate: (date) => {
       return (
@@ -68,7 +56,7 @@
     onAppointmentDelete,
     onCancelClick
   }) => {
-    const { title, description, date, time } = appointment;
+    const { title, description, date, time, selectedPet } = appointment;
     return /*#__PURE__*/ React.createElement(
       "div",
       { className: "p-1" } /*#__PURE__*/,
@@ -117,8 +105,9 @@
                 'p',
                 { className: 'appointment__detail-date' },
                 ' ',
-                `${Helpers.getFormattedDate(date)}, ${time}`
-            )
+                `${Helpers.getFormattedDate(date)}, ${time}, `,
+                React.createElement('span',{ className: 'has-text-weight-bold' },'Pet:'), ' ',`${selectedPet || 'N/A'}`,
+            ),
           ) /*#__PURE__*/,
   
           React.createElement(
@@ -154,9 +143,26 @@
     onAppointmentFormSubmit,
     onAppointmentFormCancel
   }) => {
-    const { title, description, date, time } = appointment;
+    const { title, description, date, time, selectedPet, isDropdownActive } = appointment;
     isEditMode = isEditMode || false;
     const formTitle = isEditMode ? "Update Appointment" : "Add New Appointment";
+    const handlePetSelection = (e) => {
+      const selectedPet = e.target.textContent;
+      onInputChange({ target: { name: "selectedPet", value: selectedPet } });
+    };
+    const toggleDropdown = () => {
+      $('.js-dropdown-list').toggleClass('dropdown-active');
+      if ($('.js-dropdown-list').hasClass('dropdown-active')) {
+          $(".fa-chevron-down").css({
+              "transform": "rotate(180deg)",
+          })
+      } else {
+          $(".fa-chevron-down").css({
+              "transform": "rotate(0deg)",
+          })
+      }
+    };
+  
     return /*#__PURE__*/ React.createElement(
       "div",
       null /*#__PURE__*/,
@@ -236,7 +242,7 @@
                     { class: "control" }, /*#__PURE__*/
                     React.createElement("input", {
                         name: "time",
-                        value: time, // Make sure you have a 'time' state in your component
+                        value: time, 
                         className: "input",
                         type: "time",
                         onChange: onInputChange,
@@ -252,19 +258,19 @@
                     { className: "label" },
                     "Pet",
                 ),React.createElement(
-                    "div",{class:"dropdown"},
+                    "div",{class:"dropdown", onClick: toggleDropdown },
                     React.createElement(
-                        "div",{class:"js-link", onClick: handleDropdownToggle},"Select Pet",
+                        "div",{class:"js-link",style:{width: "7rem"}}, selectedPet ||"Select Pet",
                         React.createElement(
-                            "i",{class:"fa fa-chevron-down mt-1"}
+                            "i",{class:"fa fa-chevron-down mt-1"},
                         )
                     ),React.createElement(
                         "ul",{class:"js-dropdown-list"},
                         React.createElement(
-                            "li",{class:""},"Pet1"
+                            "li",{class:"",onClick: handlePetSelection},"Pet1"
                         ),
                         React.createElement(
-                            "li",{class:""},"Pet2"
+                            "li",{class:"",onClick: handlePetSelection},"Pet2"
                         )
                     )
                 )
@@ -719,6 +725,10 @@
     handleAppointmentFormSubmit(e) {
       e.preventDefault();
       const { appointments, appointment } = this.state;
+      if (!appointment.selectedPet) {
+        alert("Please choose a pet.");
+        return;
+      }
       if (appointments.hasOwnProperty(appointment.id)) {
         alert("An appointment already exists on this day.");
         return;
