@@ -245,7 +245,8 @@ input[type="month"] {
 
 textarea {
   overflow: auto;
-  resize: vertical; }
+  resize: vertical; 
+  max-height: 200px;}
 
 fieldset {
   min-width: 0;

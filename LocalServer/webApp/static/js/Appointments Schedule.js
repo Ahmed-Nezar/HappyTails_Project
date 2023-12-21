@@ -260,7 +260,7 @@
                 ),React.createElement(
                     "div",{class:"dropdown", onClick: toggleDropdown },
                     React.createElement(
-                        "div",{class:"js-link",style:{width: "7rem"}}, selectedPet ||"Select Pet",
+                        "div",{class:"js-link",style:{width: "7rem",padding:"5px 10px"}}, selectedPet ||"Select Pet",
                         React.createElement(
                             "i",{class:"fa fa-chevron-down mt-1"},
                         )

@@ -17,14 +17,14 @@
       </div>
     </section>
 
-    <section class="ftco-section ftco-no-pt">
+    <section class="ftco-section ftco-no-pt ">
         <input class="variation" id="bluepurple" type="radio" value="1" name="color" checked="checked"/>
         <main>
-          <section class="results-header">
+          <section class="results-header ftco-animate">
             <h1>All your pet's needs in one place</h1>
           </section>
           <div class="filter-section__wrapper">
-            <section class="filter-section">
+            <section class="filter-section ftco-animate">
               <h6>Filters</h6>
               <div class="filters">
                 <h5 class="filters__title">Animal Type</h5>
@@ -80,7 +80,7 @@
           </div>
           <section class="results-section results--grid">
             {% for i in  items%}
-                <div class="profile profile-default">
+                <div class="profile profile-default ftco-animate">
                   <div class="profile__image"><img src="{{ i.img.url }}" alt="Doggo"/></div>
                   <div class="profile__info">
                     <h3>{{ i.name }}</h3>
