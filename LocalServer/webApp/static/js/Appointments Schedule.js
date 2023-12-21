@@ -1,5 +1,5 @@
 {
-  const Helpers = {
+    const Helpers = {
     isValidDate: (date) => {
       return (
         date &&
@@ -162,7 +162,6 @@
           })
       }
     };
-  
     return /*#__PURE__*/ React.createElement(
       "div",
       null /*#__PURE__*/,
@@ -242,7 +241,7 @@
                     { class: "control" }, /*#__PURE__*/
                     React.createElement("input", {
                         name: "time",
-                        value: time, 
+                        value: time,
                         className: "input",
                         type: "time",
                         onChange: onInputChange,
