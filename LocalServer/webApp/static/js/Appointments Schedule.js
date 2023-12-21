@@ -146,7 +146,7 @@
     const { title, description, date, time, selectedPet, isDropdownActive } = appointment;
     isEditMode = isEditMode || false;
     const formTitle = isEditMode ? "Update Appointment" : "Add New Appointment";
-    const handlePetSelection = (e) => {
+const handlePetSelection = (e) => {
       const selectedPet = e.target.textContent;
       onInputChange({ target: { name: "selectedPet", value: selectedPet } });
     };
@@ -724,7 +724,7 @@
     handleAppointmentFormSubmit(e) {
       e.preventDefault();
       const { appointments, appointment } = this.state;
-      if (!appointment.selectedPet) {
+if (!appointment.selectedPet) {
         alert("Please choose a pet.");
         return;
       }
