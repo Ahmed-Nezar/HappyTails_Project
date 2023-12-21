@@ -10150,10 +10150,10 @@ select:-webkit-autofill:focus {
 
 .status-primary {
   background: var(--primaryShade1);
-  color: #0277bd;
+  color: var(--primaryShade5);
 }
 .status-primary:before, .status-primary:after {
-  background: #0277bd;
+  background: var(--primaryShade5);
 }
 
 /*tooltips*/
@@ -11140,7 +11140,7 @@ table.calendar__table--center > thead td {
 .shopping-cart .shopping-cart-items .item-quantity {
   color: #abb0be;
 }
-.badge {
+.cartBadge {
   /* background-color: #6394f8; */
   border-radius: 10px;
   color: white;
