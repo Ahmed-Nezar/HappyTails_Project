@@ -93,7 +93,7 @@
                 </div>
                 <div class="dog-manythings__more">
                   <div class="moreabout">
-                    <h3 style="font-size: 1.75rem;">More about <span class="petNameTitle">{{ pet.name }}</span></h3>
+                    <h3 style="font-size: 1.75rem;">More about {{ pet.name }}</h3>
                     <section class="btn-pet" id="myButton">
                       <a class="btn-link">Edit Appointments</a>
                     </section>
@@ -154,7 +154,36 @@
 
 </script>
 
+{% comment %} <script>
+    $(function() {
+        var list = $('.js-dropdown-list');
+        var link = $('.js-link')
 
+        link.click(function(e) {
+            e.preventDefault();
+                list.toggleClass('dropdown-active');
+                if (list.hasClass('dropdown-active')) {
+                    $(".fa-chevron-down").css({
+                        "transform": "rotate(180deg)",
+                    })
+                } else {
+                    $(".fa-chevron-down").css({
+                        "transform": "rotate(0deg)",
+                    })
+                }
+        });
+
+        list.find('li').click(function() {
+                $(".fa-chevron-down").css({
+                    "transform": "rotate(180deg)",
+                })
+                var text = $(this).html();
+                var icon = '<i class="fa fa-chevron-down mt-1"></i>';
+                link.html(text + icon);
+        });
+
+    })
+</script> {% endcomment %}
 
 <script>
   $(function() {

@@ -11289,8 +11289,8 @@ body {
 /* Edit Appointments petView */
 .moreabout{
   display: flex;
-  gap:348px;
   align-items: center !important;
+  justify-content: space-between;
 }
 
 .btn-pet {
