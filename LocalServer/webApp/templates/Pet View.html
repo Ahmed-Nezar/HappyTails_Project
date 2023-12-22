@@ -98,13 +98,7 @@
                       <a class="btn-link">Edit Appointments</a>
                     </section>
                   </div>
-                  <div id="popup1" class="popupOverlay">
-                    <div class="popup">
-                      <h2>{{ pet.name }}</h2>
-                      <a id="closePopup" class="close">&times;</a>
-                      <div id="root" class="mt-2"></div>
-                    </div>
-                  </div>
+
                   
                   <p class="petData"> <strong>Doctor: </strong>{{ pet.vet.user.first_name }} {{ pet.vet.user.last_name }}</p>
                   <p class="petData"> <strong>Appointments: </strong>{{ pet.appointments }}</p>
@@ -118,6 +112,13 @@
       </div>
     </section>
   </body>
+    <div id="popup1" class="popupOverlay">
+        <div class="popup">
+          <h2>{{ pet.name }}</h2>
+          <a id="closePopup" class="close">&times;</a>
+          <div id="root" class="mt-2"></div>
+        </div>
+    </div>
 {% endblock body %}
 {% block scripts %}
 
