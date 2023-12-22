@@ -10922,11 +10922,12 @@ ul {
   margin-right: .3rem;
 }
 .calendar__control-icon {
+  margin-left: 5px;
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
-  padding-bottom: 3px;
-  padding-left: 2px;
+  padding-bottom: 4px;
+  padding-left: 6px;
   padding-right: 4px;
 }
 
