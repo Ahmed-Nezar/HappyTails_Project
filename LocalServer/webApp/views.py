@@ -63,7 +63,8 @@ def profile(request):
     context = {
         'nav': True,
         'page_name': "Profile",
-        'vets': []
+        'vets': [],
+        'pets': []
     }
     setAccType(context, request)
     if context['type'] == "vet":
@@ -76,6 +77,8 @@ def profile(request):
         context['user'] = obj
     for i in Vet.objects.all():
         context['vets'].append(i)
+    for i in Pet.objects.all():
+        context['pets'].append(i)
     return render(request, 'profile.html', context)
 
 
@@ -281,7 +284,9 @@ def addAppointment(request):
         client = None
         pet = None
         time = time.replace(",", "")
-        string = f"Title: {title}\nDescription: {desc}\nTime: {time}\n\n"
+        if Vet.objects.filter(vet_id=vetID):
+            vet = Vet.objects.get(vet_id=vetID)
+        string = f"Title: {title}\nDescription: {desc}\nTime: {time}\nVet: {vet.user.first_name} {vet.user.last_name}\n\n"
         for i in Pet.objects.all():
             temp = i.appointments.split("\n\n")
             for idx, appointment in enumerate(temp):
@@ -297,8 +302,6 @@ def addAppointment(request):
                             pet.save()
                             break
         if not context['errors']:
-            if Vet.objects.filter(vet_id=vetID):
-                vet = Vet.objects.get(vet_id=vetID)
             if Client.objects.filter(user=request.user):
                 client = Client.objects.get(user=request.user)
             if Pet.objects.filter(client=client, name=petName):
@@ -311,9 +314,10 @@ def addAppointment(request):
                     pet.appointments = "\n\n".join(allApp)
                     pet.appointments = pet.appointments.replace("\n\n\n\n", "\n\n")
                     pet.save()
+                    context['vetSel'] = [f"{vet.user.first_name} {vet.user.last_name}"]
                     break
             if oldApp == pet.appointments:
-                pet.appointments += f"Title: {title}\nDescription: {desc}\nTime: {time}\n\n"
+                pet.appointments += string
                 pet.save()
         for i in context['errors']:
             print(i)
@@ -335,8 +339,6 @@ def delAppointment(request):
         pet = None
         time = time.replace(",", "")
         if not context['errors']:
-            if Vet.objects.filter(vet_id=vetID):
-                vet = Vet.objects.get(vet_id=vetID)
             if Client.objects.filter(user=request.user):
                 client = Client.objects.get(user=request.user)
             if Pet.objects.filter(client=client, name=petName):

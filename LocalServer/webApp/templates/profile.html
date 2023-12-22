@@ -192,21 +192,40 @@
         <div class="row ftco-animate">
           <div class="col-md-12">
             <div class="carousel-testimony owl-carousel ftco-owl">
-              <div class="item">
-                <div class="profile profile-smallimg">
-                  <div class="profile__image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/dog.png" alt="Doggo"/></div>
-                  <div class="profile__info">
-                    <h3>Doggo Dogg</h3>
-                    <p class="profile__info__extra">A very good boi that loves playing fetch and ice-cream! Gentle with everyone. Scared of the rain.</p>
+              {% for i in pets %}
+                  <div class="item">
+                    <div class="profile profile-smallimg">
+                      {% if i.name == "Rony" %}
+                        <div class="profile__image"><img style="object-fit: fill;"
+                                                         src="{% static 'images/rony.JPG' %}" alt="Doggo"/></div>
+                      {% else %}
+                        {% if i.name == "Thunder" %}
+                            <div class="profile__image"><img src="{% static 'images/thunder.jpg' %}" alt="Doggo"/></div>
+                        {% else %}
+                            <div class="profile__image"><img src="{% static 'images/miracles.png' %}" alt="Doggo"/></div>
+                        {% endif %}
+                      {% endif %}
+                      <div class="profile__info">
+                        <h3>{{ i.name }}</h3>
+                        {% if i.name == "Rony" %}
+                            <p class="profile__info__extra">A fearless and friendly giant, the majestic German Shepherd Long Hair. Adores belly rubs, welcomes all with a wagging tail, and is ready for any adventure. A loyal companion, embracing everyone with warmth and courage.</p>
+                        {% else %}
+                          {% if i.name == "Thunder" %}
+                              <p class="profile__info__extra">A mysterious and majestic feline, with eyes that sparkle like lightning. Enjoys lounging by the window, observing birds, and secretly loves getting brushed. Startles at the sound of keys but basks in sunbeams like royalty.</p>
+                          {% else %}
+                              <p class="profile__info__extra">A radiant bundle of joy, the playful Golden Retriever thrives on games and cuddles. Enthusiastic about every adventure, spreading love and happiness with every tail wag. Miracles brightens every moment with contagious enthusiasm.</p>
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                      <div class="profile__stats">
+                        <p class="profile__stats__title" style="margin-bottom: 0">Type</p>
+                        <h5 class="profile__stats__info">{{ i.type }}</h5>
+                      </div>
+                      <div class="profile__cta"><a class="button" href="{% url 'petView' i.pet_id %}">View Pet</a></div>
+                    </div>
                   </div>
-                  <div class="profile__stats">
-                    <p class="profile__stats__title" style="margin-bottom: 0">Type</p>
-                    <h5 class="profile__stats__info">Puppy</h5>
-                  </div>
-                  <div class="profile__cta"><a class="button" href="{% url 'petView' 1 %}">View Pet</a></div>
-                </div>
-              </div>
-              <div class="item">
+              {% endfor %}
+              {% comment %}<div class="item">
                 <div class="profile profile-smallimg">
                   <div class="profile__image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/567707/dog.png" alt="Doggo"/></div>
                   <div class="profile__info">
@@ -233,7 +252,7 @@
                   </div>
                   <div class="profile__cta"><a class="button" href="{% url 'petView' 3 %}">View Pet</a></div>
                 </div>
-              </div>
+              </div>{% endcomment %}
             </div>
           </div>
         </div>

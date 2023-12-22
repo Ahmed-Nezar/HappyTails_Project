@@ -132,6 +132,28 @@ sub {
 sup {
   top: -.5em; }
 
+.social-media-btn {
+  border: none;
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent; }
+  .social-media-btn:hover {
+    border: none;
+    color: #0056b3;
+    text-decoration: underline; }
+
+.social-media-btn:not([href]):not([tabindex]) {
+  /* color: inherit; */
+  border: none;
+  text-decoration: none; }
+  .social-media-btn:not([href]):not([tabindex]):hover, .social-media-btn:not([href]):not([tabindex]):focus {
+    border: none;
+    color: inherit;
+    text-decoration: none; }
+  .social-media-btn:not([href]):not([tabindex]):focus {
+    border: none;
+    outline: 0; }
+
 a {
   color: #007bff;
   text-decoration: none;
@@ -8097,16 +8119,16 @@ h1, h2, h3, h4, h5,
 }
 .social-media {
   display: inline-block; }
-  .social-media p a {
+  .social-media p button {
     width: 40px;
     height: 40px;
     margin-right: 1px; }
-    .social-media p a span {
+    .social-media p button span {
       color: #fff; }
-    .social-media p a:hover {
+    .social-media p button:hover {
       background: #2a437a;
       border-color: #2a437a; }
-      .social-media p a:hover span {
+      .social-media p button:hover span {
         color: #fff; }
 
 .ftco-navbar-light {
@@ -10506,6 +10528,7 @@ ul {
 }
 
 .js-dropdown-list4 {
+    width: 100%;
     position: absolute;
     right: 0;
     background: white;

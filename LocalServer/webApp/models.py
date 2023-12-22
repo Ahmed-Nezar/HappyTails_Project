@@ -71,7 +71,6 @@ class item(models.Model):
     List = (
         ('Dog', 'Dog'),
         ('Cat', 'Cat'),
-        ('Cat & Dog', 'Cat & Dog'),
         ('Bird', 'Bird'),
         ('Fish', 'Fish'),
     )

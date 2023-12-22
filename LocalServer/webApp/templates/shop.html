@@ -30,7 +30,7 @@
                 <h5 class="filters__title">Animal Type</h5>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-1" type="checkbox"/>
+                    <input name="type" id="checkbox-1" type="radio"/>
                     <label for="checkbox-1">Dog<span class="box"></span>
                       <div class="tooltip top" data-tooltip="Younger than 18 months."><span><i class="icon-info"></i></span></div>
                     </label>
@@ -38,19 +38,19 @@
                 </div>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-2" type="checkbox"/>
+                    <input name="type" id="checkbox-2" type="radio"/>
                     <label for="checkbox-2">Cat<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-3" type="checkbox"/>
+                    <input name="type" id="checkbox-3" type="radio"/>
                     <label for="checkbox-3">Bird<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-4" type="checkbox"/>
+                    <input name="type" id="checkbox-4" type="radio"/>
                     <label for="checkbox-4">Fish<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>
@@ -59,19 +59,19 @@
                 <h5 class="filters__title">Category</h5>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-5" type="checkbox"/>
+                    <input name="Category" class="catRad" id="checkbox-5" type="radio"/>
                     <label for="checkbox-5">Food<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-6" type="checkbox"/>
+                    <input name="Category" class="catRad" id="checkbox-6" type="radio"/>
                     <label for="checkbox-6">Medicine<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>
                 <div class="filters__item">
                   <div class="checkbox">
-                    <input id="checkbox-7" type="checkbox"/>
+                    <input name="Category" class="catRad" id="checkbox-7" type="radio"/>
                     <label for="checkbox-7">Toys<span class="box"></span></label>
                   </div><span class="badge status-primary">0</span>
                 </div>  
@@ -79,7 +79,7 @@
             </section>
           </div>
           <section class="results-section results--grid">
-            {% for i in  items%}
+            {% for i in  items %}
                 <div class="profile profile-default ftco-animate">
                   <div class="profile__image"><img src="{{ i.img.url }}" alt="Doggo"/></div>
                   <div class="profile__info">
@@ -114,5 +114,124 @@
                 $(this).parent(".nav-item").removeClass('active');
             }
         });
+        const itemList = [];
+        {% for i in items %}
+            itemList.push(
+                {
+                    "name": "{{ i.name }}",
+                    "id": "{{ i.id }}",
+                    "desc": "{{ i.description }}",
+                    "cat": "{{ i.category }}",
+                    "type": "{{ i.type }}",
+                    "price": "{{ i.price }}",
+                    "size": "{{ i.size }}",
+                    "img": "{{ i.img.url }}",
+                }
+            );
+        {% endfor %}
+        const listContainer = $(".results-section");
+        function updateList(dict){
+            listContainer.find('.profile-default').toggleClass('fadeInUp').toggleClass('fadeOutDown')
+            setTimeout(function () {
+                listContainer.empty();
+                for (let i = 0; i < dict.length; i++) {
+                    listContainer.append(
+                        '<div class="profile profile-default ftco-animate fadeInUp ftco-animated">' +
+                        '<div class="profile__image"><img src="'+ dict[i]['img'] +'" alt="Doggo"/></div>' +
+                        '<div class="profile__info">' +
+                        '<h3>' + dict[i]['name'] + '</h3>' +
+                        '<p class="profile__info__extra">' + dict[i]['desc'] + '</p>' +
+                        '</div>' +
+                        '<div class="profile__stats">' +
+                        '<p class="profile__stats__title">Category</p>' +
+                        '<h5 class="profile__stats__info">' + dict[i]['cat'] + '</h5>' +
+                        '</div>' +
+                        '<div class="profile__stats">' +
+                        '<p class="profile__stats__title">Size</p>' +
+                        '<h5 class="profile__stats__info">' + dict[i]['size'] + '</h5>' +
+                        '</div>' +
+                        '<div class="profile__stats">' +
+                        '<p class="profile__stats__title">Price</p>' +
+                        '<h5 class="profile__stats__info">' + dict[i]['price'] + '</h5>' +
+                        '</div>' +
+                        '<div class="profile__cta"><a class="button">Add To Cart</a></div>' +
+                        '</div>'
+                    );
+                }
+            }, 300)
+        }
+        function catChecker(){
+            if ($('#checkbox-5').is(':checked') || $('#checkbox-6').is(':checked') || $('#checkbox-7').is(':checked') ){
+                return filteredItems2;
+            }else{
+                return itemList;
+            }
+        }
+        function typeChecker(){
+            if ($('#checkbox-1').is(':checked') || $('#checkbox-2').is(':checked')
+                || $('#checkbox-3').is(':checked') || $('#checkbox-4').is(':checked')  ){
+                return filteredItems1;
+            }else{
+                return itemList;
+            }
+        }
+        var filteredItems1 = [], filteredItems2 = [];
+        updateList(itemList);
+        $('#checkbox-1').click(function() {
+            if (!$('#checkbox-1').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems1 = catChecker().filter(item => item.type === "Dog");
+                updateList(filteredItems1);
+            }
+        })
+        $('#checkbox-2').click(function() {
+            if (!$('#checkbox-2').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems1 = catChecker().filter(item => item.type === "Cat");
+                updateList(filteredItems1);
+            }
+        })
+        $('#checkbox-3').click(function() {
+            if (!$('#checkbox-3').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems1 = catChecker().filter(item => item.type === "Bird");
+                updateList(filteredItems1);
+            }
+        })
+        $('#checkbox-4').click(function() {
+            if (!$('#checkbox-4').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems1 = catChecker().filter(item => item.type === "Fish");
+                updateList(filteredItems1);
+            }
+        })
+        $('#checkbox-5').click(function() {
+            if (!$('#checkbox-5').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems2 = typeChecker().filter(item => item.cat === "Food");
+                updateList(filteredItems2);
+            }
+        })
+        $('#checkbox-6').click(function() {
+            if (!$('#checkbox-6').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems2 = typeChecker().filter(item => item.cat === "Medicine");
+                updateList(filteredItems2);
+            }
+        })
+        $('#checkbox-7').click(function() {
+            if (!$('#checkbox-7').is(':checked')) {
+                updateList(itemList);
+            }else{
+                filteredItems2 = typeChecker().filter(item => item.cat === "Toys");
+                updateList(filteredItems2);
+            }
+        })
     </script>
 {% endblock scripts %}
