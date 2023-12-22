@@ -10448,6 +10448,7 @@ input.variation + label {
 /*Dropdown*/
 .dropdown {
   position: absolute;
+  cursor: pointer;
   width: 100%;
   background: white; 
   border: 0.1em solid #c0cdd1;
@@ -10476,23 +10477,24 @@ ul {
   z-index: 3;
 }
 
-.js-dropdown-list li, .js-dropdown-list2 li, .js-dropdown-list3 li{
+.js-dropdown-list li, .js-dropdown-list2 li, .js-dropdown-list3 li, .js-dropdown-list4 li{
   padding: 0.5em 1rem;
   cursor: pointer;
 }
 .js-dropdown-list li:not(:first-child), .js-dropdown-list2 li:not(:first-child),
-.js-dropdown-list3 li:not(:first-child){
+.js-dropdown-list3 li:not(:first-child), .js-dropdown-list4 li:not(:first-child){
   border-top: 0.1em dashed #dde4e6;
 }
 .js-dropdown-list li:focus, .js-dropdown-list li:hover,
 .js-dropdown-list2 li:focus, .js-dropdown-list2 li:hover,
-.js-dropdown-list3 li:focus, .js-dropdown-list3 li:hover{
+.js-dropdown-list3 li:focus, .js-dropdown-list3 li:hover,
+.js-dropdown-list4 li:focus, .js-dropdown-list4 li:hover{
   background: #ecf0f1;
 }
-.js-dropdown-list li:active, .js-dropdown-list2 li:active, .js-dropdown-list3 li:active {
+.js-dropdown-list li:active, .js-dropdown-list2 li:active, .js-dropdown-list3 li:active, .js-dropdown-list4 li:active {
   background: #fbfcfc;
 }
-.js-dropdown-list, .js-dropdown-list2, .js-dropdown-list3{
+.js-dropdown-list, .js-dropdown-list2, .js-dropdown-list3, .js-dropdown-list4{
     display: block;
     border: none;
     margin: 0;
@@ -10502,13 +10504,22 @@ ul {
     border-top: 0.02em solid #c0cdd1;
     transition: all 0.3s ease-in-out;
 }
+
+.js-dropdown-list4 {
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 0.1em solid #c0cdd1;
+    overflow: auto;
+}
+
 .dropdown-active{
-  height: 84px;
+  height: 95px;
 }
 .dropdown-active2{
   height: 172px;
 }
-.js-link, .js-link2, .js-link3{
+.js-link, .js-link2, .js-link3, .js-link4{
   font-size: 16px;
   color: black;
   padding: 10px;

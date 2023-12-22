@@ -52,7 +52,6 @@
               <section>
                   <h3 class="Error-List Error-List-show"></h3>
                   <form class="dog-manythings" id="petView_Form" method="POST">
-                    {% csrf_token %}
                     <div class="dog-manythings__stats">
                       <p>Name</p>
                       <input id="name" disabled type="text" class="form-control editProf save_fields"
@@ -125,7 +124,7 @@
 
 <script>
     $(".nav-link").each(function () {
-        if ($(this).text() === "Veterinarian"){
+        if ($(this).text() === "Profile"){
             $(this).parent(".nav-item").addClass('active');
         }else{
             $(this).parent(".nav-item").removeClass('active');
@@ -155,36 +154,7 @@
 
 </script>
 
-<script>
-    $(function() {
-        var list = $('.js-dropdown-list');
-        var link = $('.js-link')
 
-        link.click(function(e) {
-            e.preventDefault();
-                list.toggleClass('dropdown-active');
-                if (list.hasClass('dropdown-active')) {
-                    $(".fa-chevron-down").css({
-                        "transform": "rotate(180deg)",
-                    })
-                } else {
-                    $(".fa-chevron-down").css({
-                        "transform": "rotate(0deg)",
-                    })
-                }
-        });
-
-        list.find('li').click(function() {
-                $(".fa-chevron-down").css({
-                    "transform": "rotate(180deg)",
-                })
-                var text = $(this).html();
-                var icon = '<i class="fa fa-chevron-down mt-1"></i>';
-                link.html(text + icon);
-        });
-
-    })
-</script>
 
 <script>
   $(function() {
@@ -220,7 +190,10 @@
 
 })
   $(".fa-chevron-down").hide();
-  $(".genderPetview").css({'border': 'none'});
+  $(".genderPetview").css({
+      'border': 'none',
+      'cursor': 'text',
+  });
   $('.js-dropdown-list').css({'border': 'none'});
   $(".Error-List").css('height', '0');
   $(document).on('mousedown', function (e) {
@@ -247,7 +220,10 @@
                 })
             }
         }
-        $(".genderPetview").css({'border': 'none'});
+        $(".genderPetview").css({
+            'border': 'none',
+            'cursor': 'text',
+            });
         $('.js-dropdown-list').css({'border': 'none'});
         $(".editProf").each(function () {
             $(this).attr('disabled', true);
@@ -292,7 +268,10 @@
             })
 
       } else {
-        $(".genderPetview").css({'border': ''});
+        $(".genderPetview").css({
+            'border': '',
+            'cursor': 'pointer',
+        });
         $('.js-dropdown-list').css({'border': ''});
         $(".fa-chevron-down").show();
         toggleButtonText();

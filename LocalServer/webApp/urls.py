@@ -18,6 +18,8 @@ urlpatterns = [
     path('profile-check/', views.editProfile, name='checkProfile'),
     path('petView-check/<int:id>/', views.editPet, name='editPet'),
     path('addPet/', views.addPet, name='addPet'),
+    path('addApp/', views.addAppointment, name='addApp'),
+    path('delApp/', views.delAppointment, name='delApp'),
     path('logout/', auth_views.LogoutView.as_view(template_name='Logout.html'), name='logout'),
     path("register/", views.signup, name="signup"),
 ]

@@ -377,7 +377,9 @@ const handlePetSelection = (e) => {
     if (day > 0) {
       return /*#__PURE__*/ React.createElement(
         "td",
-        { key: index } /*#__PURE__*/,
+        {
+            key: index ,
+        } /*#__PURE__*/,
         React.createElement(
           "div",
           {
@@ -389,7 +391,6 @@ const handlePetSelection = (e) => {
             "div",
             {
               className: "calendar__item-title",
-              onClick: (e) => e.stopPropagation()
             },
             day
           ),
@@ -737,7 +738,7 @@ if (!appointment.selectedPet) {
       this.setState({
         appointments: currentAppointments
       });
-  
+
       // reset form
       e.currentTarget.reset();
       this.setState({

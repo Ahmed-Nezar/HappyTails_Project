@@ -1,3 +1,4 @@
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth import authenticate
 from django.shortcuts import *
 from .forms import *
@@ -47,8 +48,14 @@ def vet(request):
     context = {
         'nav': True,
         'page_name': "Vet",
+        'pets': [],
+        'vets': []
     }
     setAccType(context, request)
+    for i in Pet.objects.all():
+        context['pets'].append(i)
+    for i in Vet.objects.all():
+        context['vets'].append(i)
     return render(request, 'vet.html', context)
 
 
@@ -260,6 +267,91 @@ def refreshItems(request):
     return JsonResponse(context)
 
 
+def addAppointment(request):
+    context = {
+        'errors': []
+    }
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('desc')
+        time = request.POST.get('time')
+        petName = request.POST.get('petName')
+        vetID = request.POST.get('vet_id')
+        vet = None
+        client = None
+        pet = None
+        time = time.replace(",", "")
+        string = f"Title: {title}\nDescription: {desc}\nTime: {time}\n\n"
+        for i in Pet.objects.all():
+            temp = i.appointments.split("\n\n")
+            for idx, appointment in enumerate(temp):
+                if time in appointment and petName != i.name:
+                    pet = Pet.objects.get(client=Client.objects.get(user=request.user), name=i.name)
+                    listApp = pet.appointments.split("\n\n")
+                    print(listApp)
+                    for ind, app in enumerate(listApp):
+                        if time in app:
+                            listApp.pop(ind)
+                            print(listApp)
+                            pet.appointments = "\n\n".join(listApp)
+                            pet.save()
+                            break
+        if not context['errors']:
+            if Vet.objects.filter(vet_id=vetID):
+                vet = Vet.objects.get(vet_id=vetID)
+            if Client.objects.filter(user=request.user):
+                client = Client.objects.get(user=request.user)
+            if Pet.objects.filter(client=client, name=petName):
+                pet = Pet.objects.get(client=client, name=petName)
+            allApp = pet.appointments.split("\n\n")
+            oldApp = pet.appointments
+            for idx, appointment in enumerate(allApp):
+                if time in appointment:
+                    allApp[idx] = string
+                    pet.appointments = "\n\n".join(allApp)
+                    pet.appointments = pet.appointments.replace("\n\n\n\n", "\n\n")
+                    pet.save()
+                    break
+            if oldApp == pet.appointments:
+                pet.appointments += f"Title: {title}\nDescription: {desc}\nTime: {time}\n\n"
+                pet.save()
+        for i in context['errors']:
+            print(i)
+    return JsonResponse(context)
+
+
+def delAppointment(request):
+    context = {
+        'errors': []
+    }
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('desc')
+        time = request.POST.get('time')
+        petName = request.POST.get('petName')
+        vetID = request.POST.get('vet_id')
+        vet = None
+        client = None
+        pet = None
+        time = time.replace(",", "")
+        if not context['errors']:
+            if Vet.objects.filter(vet_id=vetID):
+                vet = Vet.objects.get(vet_id=vetID)
+            if Client.objects.filter(user=request.user):
+                client = Client.objects.get(user=request.user)
+            if Pet.objects.filter(client=client, name=petName):
+                pet = Pet.objects.get(client=client, name=petName)
+            allApp = pet.appointments.split("\n\n")
+            for idx, appointment in enumerate(allApp):
+                if time in appointment:
+                    allApp.pop(idx)
+                    print(allApp)
+                    pet.appointments = "\n\n".join(allApp)
+                    pet.save()
+                    break
+    return JsonResponse(context)
+
+
 def addPet(request):
     context = {
         'errors': []
@@ -287,7 +379,7 @@ def addPet(request):
         if vet is None:
             context['errors'].append('Vet Does Not Exist')
             return JsonResponse(context)
-        if not name.isalpha():
+        if not name.replace(" ", "").isalpha():
             context['errors'].append('Name Must Contain Letters Only')
         if not years.isnumeric():
             context['errors'].append('Years Must Be Numeric')
