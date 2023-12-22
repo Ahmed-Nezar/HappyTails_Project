@@ -61,7 +61,6 @@
                 $(this).parent(".nav-item").removeClass('active');
             }
         });
-		{#var myButton = document.getElementById("myButton");#}
 		var closePopup = document.getElementById("closePopup");
 		var popup1 = document.getElementById("popup1");
 
@@ -128,8 +127,7 @@
       };
 
       const AppointmentItem = ({ dateKey, appointment, onAppointmentItemClick }) => {
-        const { title, vet } = appointment;
-        return /*#__PURE__*/ React.createElement(
+        return  React.createElement(
           "div",
           {
             className: "appointment__item",
@@ -137,13 +135,13 @@
             onClick: onAppointmentItemClick
           },
           appointment &&
-            appointment.title /*#__PURE__*/ &&
+            appointment.title  &&
             React.createElement(
               "div",
-              { className: "appointment__item-content" } /*#__PURE__*/,
+              { className: "appointment__item-content" } ,
               React.createElement("div", {
                 className: "appointment__item-indicator"
-              }) /*#__PURE__*/,
+              }) ,
               React.createElement(
                 "div",
                 { className: "appointment__item-title truncate--small" },
@@ -161,50 +159,50 @@
         onAppointmentDelete,
         onCancelClick
       }) => {
-        const { title, description, date, time, selectedPet, vet } = appointment;
-        return /*#__PURE__*/ React.createElement(
+        const { title, description, date, time, selectedPet } = appointment;
+        return  React.createElement(
           "div",
-          { className: "p-1" } /*#__PURE__*/,
+          { className: "p-1" } ,
           React.createElement(
             "div",
             { className: "section-heading" },
             "Appointment Detail"
-          ) /*#__PURE__*/,
+          ) ,
 
           React.createElement(
             "div",
-            { className: "content appointment__detail" } /*#__PURE__*/,
+            { className: "content appointment__detail" } ,
             React.createElement(
               "div",
-              { className: "card" } /*#__PURE__*/,
+              { className: "card" } ,
               React.createElement(
                 "div",
-                { className: "card-header has-background-primary" } /*#__PURE__*/,
+                { className: "card-header has-background-primary" } ,
                 React.createElement(
                   "div",
                   { className: "card-header-title appointment__detail-title" },
                   title
-                ) /*#__PURE__*/,
+                ) ,
 
                 React.createElement("button", {
                   className: "delete p-0",
                   onClick: onCancelClick
                 })
-              ) /*#__PURE__*/,
+              ) ,
 
               React.createElement(
                 "div",
-                { className: "card-content" } /*#__PURE__*/,
+                { className: "card-content" } ,
                 React.createElement(
                   "div",
-                  { className: "content" } /*#__PURE__*/,
+                  { className: "content" } ,
                   React.createElement(
                     "p",
                     { className: "appointment__detail-description" },
                     " ",
                     description,
                     " "
-                  ) /*#__PURE__*/,
+                  ) ,
                    React.createElement(
                        'form', {method: 'POST', id: 'deleteForm', style: {display: 'none'}},
                    ),
@@ -215,13 +213,13 @@
                     React.createElement('span', { className: 'timeselected' }, `${Helpers.getFormattedDate(date)}, ${time}`),
                     ', ',
                     React.createElement('span',{ className: 'has-text-weight-bold' },'Pet:'), ' ',
-                    React.createElement('span',{ className: 'petSelectedDel' },`${selectedPet || 'N/A'}`),
+                    React.createElement('span',{ className: 'has-text-weight-bol petSelectedDel' },'Pet:'), ' ',`${selectedPet || 'N/A'}`,
                 ),
-              ) /*#__PURE__*/,
+              ) ,
 
               React.createElement(
                 "footer",
-                { className: "card-footer p-0" } /*#__PURE__*/,
+                { className: "card-footer p-0" } ,
                 React.createElement(
                   "a",
                   {
@@ -229,7 +227,7 @@
                     onClick: onAppointmentEdit
                   },
                   "Edit"
-                ) /*#__PURE__*/,
+                ) ,
                 React.createElement(
                   "a",
                   {
@@ -252,10 +250,10 @@
         onAppointmentFormSubmit,
         onAppointmentFormCancel
       }) => {
-        const { title, description, date, time, selectedPet, isDropdownActive } = appointment;
+        const { title, description, date, time, selectedPet} = appointment;
         isEditMode = isEditMode || false;
         const formTitle = isEditMode ? "Update Appointment" : "Add New Appointment";
-    const handlePetSelection = (e) => {
+      const handlePetSelection = (e) => {
           const selectedPet = e.target.textContent;
           onInputChange({ target: { name: "selectedPet", value: selectedPet } });
         };
@@ -271,14 +269,14 @@
               })
           }
         };
-        return /*#__PURE__*/ React.createElement(
+        return  React.createElement(
           "div",
-          null /*#__PURE__*/,
+          null ,
           React.createElement(
             "div",
-            { className: "section-heading" } /*#__PURE__*/,
+            { className: "section-heading" } ,
             React.createElement("h3", null, formTitle)
-          ) /*#__PURE__*/,
+          ) ,
 
           React.createElement(
             "form",
@@ -288,18 +286,18 @@
               method: "POST",
               onSubmit: onAppointmentFormSubmit,
               "data-datakey": Helpers.getFormattedDate(date)
-            } /*#__PURE__*/,
+            } ,
             React.createElement(
               "div",
-              { className: "field" } /*#__PURE__*/,
+              { className: "field" } ,
               React.createElement(
                 "label",
                 { className: "label" },
                 "Title"
-              ) /*#__PURE__*/,
+              ) ,
               React.createElement(
                 "div",
-                { className: "control" } /*#__PURE__*/,
+                { className: "control" } ,
                 React.createElement("input", {
                   name: "title",
                   value: title,
@@ -311,19 +309,19 @@
                   required: true
                 })
               )
-            ) /*#__PURE__*/,
+            ) ,
 
             React.createElement(
               "div",
-              { class: "field" } /*#__PURE__*/,
+              { class: "field" } ,
               React.createElement(
                 "label",
                 { class: "label" },
                 "Description"
-              ) /*#__PURE__*/,
+              ) ,
               React.createElement(
                 "div",
-                { class: "control" } /*#__PURE__*/,
+                { class: "control" } ,
                 React.createElement(
                   "textarea",
                   {
@@ -336,22 +334,22 @@
                   description
                 )
               )
-            ) /*#__PURE__*/,
+            ) ,
             React.createElement(
             "div",
             { class: "field is-grouped", style: {justifyContent: "space-around"}},
-             /*#__PURE__*/
+             
                 React.createElement(
                     "div",
-                    { class: "field" }, /*#__PURE__*/
+                    { class: "field" }, 
                     React.createElement(
                     "label",
                     { class: "label" },
                     "Time"
-                    ) /*#__PURE__*/,
+                    ) ,
                     React.createElement(
                         "div",
-                        { class: "control" }, /*#__PURE__*/
+                        { class: "control" }, 
                         React.createElement("input", {
                             name: "time",
                             id: "time",
@@ -361,7 +359,7 @@
                             onChange: onInputChange,
                             required: true
                         })
-                    ) /*#__PURE__*/
+                    ) 
                 ),
                 React.createElement(
                     "div",
@@ -394,7 +392,7 @@
             React.createElement(
             'p',
             { className: 'is-italic mb-3' },
-            /*#__PURE__*/ React.createElement(
+             React.createElement(
                 'span',
                 { className: 'has-text-weight-bold' },
                 'Appointment Date:'
@@ -408,20 +406,20 @@
             ),
             React.createElement(
               "div",
-              { class: "field is-grouped" } /*#__PURE__*/,
+              { class: "field is-grouped" } ,
               React.createElement(
                 "div",
-                { class: "control" } /*#__PURE__*/,
+                { class: "control" } ,
                 React.createElement(
                   "button",
                   { type: "button", ID: "SetAppBtn",  class: "button is-primary", onClick: onAppointmentFormSubmit },
                   "Save"
                 )
-              ) /*#__PURE__*/,
+              ) ,
 
               React.createElement(
                 "div",
-                { class: "control" } /*#__PURE__*/,
+                { class: "control" } ,
                 React.createElement(
                   "button",
                   {
@@ -440,30 +438,34 @@
 
       const CalendarHeader = (props) => {
         const { onPrevMonthClick, onNextMonthClick, monthName, year } = props;
-        return /*#__PURE__*/ React.createElement(
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth();
+        const currentYear = currentDate.getFullYear();
+        const isPastMonth = year < currentYear || (year === currentYear && currentMonth > 0);     
+        return  React.createElement(
           "div",
-          { className: "calendar__header" } /*#__PURE__*/,
+          { className: "calendar__header" } ,
           React.createElement(
             "div",
-            { className: "calendar__controls" } /*#__PURE__*/,
-            React.createElement(
+            { className: "calendar__controls" } ,
+            !isPastMonth && React.createElement(
               "div",
               {
                 className: "calendar__control-icon",
                 onClick: onPrevMonthClick
-              } /*#__PURE__*/,
+              } ,
               React.createElement("span", { className: "icon is-medium" }, "<")
-            ) /*#__PURE__*/,
+            ) ,
 
             React.createElement(
               "div",
               {
                 className: "calendar__control-icon",
                 onClick: onNextMonthClick
-              } /*#__PURE__*/,
+              } ,
               React.createElement("span", { className: "icon is-medium" }, ">")
             )
-          ) /*#__PURE__*/,
+          ) ,
 
           React.createElement(
             "div",
@@ -492,18 +494,18 @@
         };
         const appointment = _getDayAppointment(appointments, dateKey);
         if (day > 0) {
-          return /*#__PURE__*/ React.createElement(
+          return  React.createElement(
             "td",
             {
                 key: index ,
-            } /*#__PURE__*/,
+            } ,
             React.createElement(
               "div",
               {
                 className: "calendar__item",
                 onClick: onCalendarItemClick,
                 "data-datekey": dateKey
-              } /*#__PURE__*/,
+              } ,
               React.createElement(
                 "div",
                 {
@@ -512,7 +514,7 @@
                 day
               ),
               appointment &&
-                /*#__PURE__*/ React.createElement(AppointmentItem, {
+                 React.createElement(AppointmentItem, {
                   date: date,
                   dateKey: dateKey,
                   appointment: appointment,
@@ -521,7 +523,10 @@
             )
           );
         }
-        return /*#__PURE__*/ React.createElement("td", { key: index }, "\xA0");
+        return React.createElement('td', { key: index, className: 'disabled' },
+               React.createElement('div', { className: 'calendar__item' },
+               React.createElement('div', { className: 'calendar__item-title' }, '\xA0'))
+                );
       };
 
       const CalenderRowList = ({
@@ -533,6 +538,7 @@
         const _getCalendarDays = (date) => {
             const year = date.getFullYear();
             const month = date.getMonth();
+            const today = new Date();
             const firstDayOfMonth = new Date(year, month, 1).getDay(); // Day of the week (0 - 6)
             const numberOfDaysInMonth = new Date(year, month + 1, 0).getDate();
             let calendarDays = [];
@@ -544,9 +550,11 @@
 
             // Build calendar days
             for (let i = 1; i <= numberOfDaysInMonth; i++) {
-              calendarDays.push(i);
+              const currentDate = new Date(year, month, i);
+              const isBeforeToday = currentDate < today;
+          
+              calendarDays.push(isBeforeToday ? -1 : i);
             }
-
             return calendarDays;
           };
         const _getCalendarBody = (calendarDays) => {
@@ -555,7 +563,7 @@
           let itemCount = 1;
           calendarDays.map((dayNumber, index) => {
             rowItems.push(
-              /*#__PURE__*/ React.createElement(CalendarRowItem, {
+               React.createElement(CalendarRowItem, {
                 date: date,
                 day: dayNumber,
                 index: index,
@@ -567,7 +575,7 @@
 
             if (itemCount % 7 === 0) {
               rows.push(
-                /*#__PURE__*/ React.createElement(
+                 React.createElement(
                   "tr",
                   { key: `row_${index}` },
                   rowItems
@@ -581,7 +589,7 @@
           // handle edge case: when remaining rowitems is less than a mulitple of 7
           if (rowItems.length > 0) {
             rows.push(
-              /*#__PURE__*/ React.createElement("tr", { key: "row_last" }, rowItems)
+               React.createElement("tr", { key: "row_last" }, rowItems)
             );
           }
           return rows;
@@ -597,31 +605,31 @@
           onAppointmentItemClick,
           appointments
         } = props;
-        return /*#__PURE__*/ React.createElement(
+        return  React.createElement(
           "table",
           {
             className:
               "table is-bordered is-fullwidth calendar__table calendar__table--center"
-          } /*#__PURE__*/,
+          } ,
           React.createElement(
             "thead",
-            null /*#__PURE__*/,
+            null ,
             React.createElement(
               "tr",
-              null /*#__PURE__*/,
-              React.createElement("td", null, "Sun") /*#__PURE__*/,
-              React.createElement("td", null, "Mon") /*#__PURE__*/,
-              React.createElement("td", null, "Tue") /*#__PURE__*/,
-              React.createElement("td", null, "Wed") /*#__PURE__*/,
-              React.createElement("td", null, "Thu") /*#__PURE__*/,
-              React.createElement("td", null, "Fri") /*#__PURE__*/,
+              null ,
+              React.createElement("td", null, "Sun") ,
+              React.createElement("td", null, "Mon") ,
+              React.createElement("td", null, "Tue") ,
+              React.createElement("td", null, "Wed") ,
+              React.createElement("td", null, "Thu") ,
+              React.createElement("td", null, "Fri") ,
               React.createElement("td", null, "Sat")
             )
-          ) /*#__PURE__*/,
+          ) ,
 
           React.createElement(
             "tbody",
-            null /*#__PURE__*/,
+            null ,
             React.createElement(CalenderRowList, {
               date: date,
               onCalendarItemClick: onCalendarItemClick,
@@ -663,15 +671,15 @@
         const year = date.getFullYear();
         const monthName = MONTH_NAMES[date.getMonth()];
 
-        return /*#__PURE__*/ React.createElement(
+        return  React.createElement(
           "div",
-          { className: "calendar calender--light p-1" } /*#__PURE__*/,
+          { className: "calendar calender--light p-1" } ,
           React.createElement(CalendarHeader, {
             onPrevMonthClick: onPrevMonthClick,
             onNextMonthClick: onNextMonthClick,
             monthName: monthName,
             year: year
-          }) /*#__PURE__*/,
+          }) ,
 
           React.createElement(CalendarBody, {
             date: date,
@@ -842,7 +850,7 @@
 
         handleAppointmentFormSubmit(e) {
           const { appointments, appointment } = this.state;
-    if (!appointment.selectedPet) {
+      if (!appointment.selectedPet) {
             alert("Please choose a pet.");
             return;
           }
@@ -959,15 +967,15 @@
           } = this.state;
           const isActivateSideView =
             isNewAppointment || isViewAppointment || isEditAppointment;
-          return /*#__PURE__*/ React.createElement(
+          return  React.createElement(
             "div",
-            { className: "container" } /*#__PURE__*/,
+            { className: "container" } ,
             React.createElement(
               "div",
-              { className: "columns" } /*#__PURE__*/,
+              { className: "columns" } ,
               React.createElement(
                 "div",
-                { className: "column" } /*#__PURE__*/,
+                { className: "column" } ,
                 React.createElement(Calendar, {
                   date: calendarData.currentDate,
                   onPrevMonthClick: this.handlePrevMonthClick,
@@ -979,11 +987,11 @@
               ),
 
               isActivateSideView &&
-                /*#__PURE__*/ React.createElement(
+                 React.createElement(
                   "div",
                   { className: "column is-one-third" },
                   isNewAppointment &&
-                    /*#__PURE__*/ React.createElement(AppointmentForm, {
+                     React.createElement(AppointmentForm, {
                       appointment: appointment,
                       onInputChange: this.handleInputChange,
                       onAppointmentFormSubmit: this.handleAppointmentFormSubmit,
@@ -991,7 +999,7 @@
                     }),
 
                   isViewAppointment &&
-                    /*#__PURE__*/ React.createElement(AppointmentDetail, {
+                     React.createElement(AppointmentDetail, {
                       appointment: appointment,
                       onAppointmentEdit: this.handleAppointmentEdit,
                       onAppointmentDelete: this.handleAppointmentDelete,
@@ -999,7 +1007,7 @@
                     }),
 
                   isEditAppointment &&
-                    /*#__PURE__*/ React.createElement(AppointmentForm, {
+                     React.createElement(AppointmentForm, {
                       appointment: appointment,
                       onInputChange: this.handleInputChange,
                       onAppointmentFormSubmit: this.handleAppointmentUpdateFormSubmit,
@@ -1012,7 +1020,7 @@
       }
 
       ReactDOM.render(
-        /*#__PURE__*/ React.createElement(App, null),
+         React.createElement(App, null),
         document.getElementById("root")
       );
     };

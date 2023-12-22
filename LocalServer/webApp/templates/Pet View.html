@@ -21,7 +21,7 @@
       </div>
     </section>
 
-    <section class="ftco-section ftco-degree-bg ftco-no-pt">
+    <section class="ftco-section ftco-degree-bg ftco-no-pt ftco-animate">
       <div class="container">
         <div class="row">
             <div class="dog-info">
@@ -100,7 +100,7 @@
                   </div>
                   <div id="popup1" class="popupOverlay">
                     <div class="popup">
-                      <h2>Vet Name</h2>
+                      <h2>{{ pet.name }}</h2>
                       <a id="closePopup" class="close">&times;</a>
                       <div id="root" class="mt-2"></div>
                     </div>
@@ -120,7 +120,6 @@
   </body>
 {% endblock body %}
 {% block scripts %}
-<script src="{% static 'js/Appointments Schedule.js' %}"></script>
 
 <script>
     $(".nav-link").each(function () {
@@ -153,38 +152,6 @@
     });
 
 </script>
-
-{% comment %} <script>
-    $(function() {
-        var list = $('.js-dropdown-list');
-        var link = $('.js-link')
-
-        link.click(function(e) {
-            e.preventDefault();
-                list.toggleClass('dropdown-active');
-                if (list.hasClass('dropdown-active')) {
-                    $(".fa-chevron-down").css({
-                        "transform": "rotate(180deg)",
-                    })
-                } else {
-                    $(".fa-chevron-down").css({
-                        "transform": "rotate(0deg)",
-                    })
-                }
-        });
-
-        list.find('li').click(function() {
-                $(".fa-chevron-down").css({
-                    "transform": "rotate(180deg)",
-                })
-                var text = $(this).html();
-                var icon = '<i class="fa fa-chevron-down mt-1"></i>';
-                link.html(text + icon);
-        });
-
-    })
-</script> {% endcomment %}
-
 <script>
   $(function() {
     var list = $('.js-dropdown-list');
@@ -326,5 +293,911 @@
     }
   });
 
+</script>
+<script>
+  {
+    const Helpers = {
+    isValidDate: (date) => {
+      return (
+        date &&
+        Object.prototype.toString.call(date) === "[object Date]" &&
+        !isNaN(date)
+      );
+    },
+    getFormattedDate: (date) => {
+        const year = date.getFullYear();
+        let month = "" + (date.getMonth() + 1); // Add 1 to get the correct month
+        let day = "" + date.getDate();
+
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+
+        return `${year}/${month}/${day}`;
+      },
+
+    getUpdatedObject: (oldObject, updatedObject) => {
+      return Object.assign({}, oldObject, updatedObject);
+    }
+  };
+
+  const AppointmentItem = ({ dateKey, appointment, onAppointmentItemClick }) => {
+    return  React.createElement(
+      "div",
+      {
+        className: "appointment__item",
+        "data-datekey": dateKey,
+        onClick: onAppointmentItemClick
+      },
+      appointment &&
+        appointment.title  &&
+        React.createElement(
+          "div",
+          { className: "appointment__item-content" } ,
+          React.createElement("div", {
+            className: "appointment__item-indicator"
+          }) ,
+          React.createElement(
+            "div",
+            { className: "appointment__item-title truncate--small" },
+            " ",
+            appointment.title,
+            " "
+          )
+        )
+    );
+  };
+
+  const AppointmentDetail = ({
+    appointment,
+    onAppointmentEdit,
+    onAppointmentDelete,
+    onCancelClick
+  }) => {
+    const { title, description, date, time, selectedPet } = appointment;
+    return  React.createElement(
+      "div",
+      { className: "p-1" } ,
+      React.createElement(
+        "div",
+        { className: "section-heading" },
+        "Appointment Detail"
+      ) ,
+
+      React.createElement(
+        "div",
+        { className: "content appointment__detail" } ,
+        React.createElement(
+          "div",
+          { className: "card" } ,
+          React.createElement(
+            "div",
+            { className: "card-header has-background-primary" } ,
+            React.createElement(
+              "div",
+              { className: "card-header-title appointment__detail-title" },
+              title
+            ) ,
+
+            React.createElement("button", {
+              className: "delete p-0",
+              onClick: onCancelClick
+            })
+          ) ,
+
+          React.createElement(
+            "div",
+            { className: "card-content" } ,
+            React.createElement(
+              "div",
+              { className: "content" } ,
+              React.createElement(
+                "p",
+                { className: "appointment__detail-description" },
+                " ",
+                description,
+                " "
+              ) ,
+               React.createElement(
+                   'form', {method: 'POST', id: 'deleteForm', style: {display: 'none'}},
+               ),
+            React.createElement(
+                'p',
+                { className: 'appointment__detail-date' },
+                ' ',
+                React.createElement('span', { className: 'timeselected' }, `${Helpers.getFormattedDate(date)}, ${time}`),
+                ', ',
+                React.createElement('span',{ className: 'has-text-weight-bold' },'Pet:'), ' ',
+                React.createElement('span',{ className: 'has-text-weight-bol petSelectedDel' },'Pet:'), ' ',`${selectedPet || 'N/A'}`,
+            ),
+          ) ,
+
+          React.createElement(
+            "footer",
+            { className: "card-footer p-0" } ,
+            React.createElement(
+              "a",
+              {
+                className: "button br-0 p-2 mr-4 mt-2 is-warning card-footer-item",
+                onClick: onAppointmentEdit
+              },
+              "Edit"
+            ) ,
+            React.createElement(
+              "a",
+              {
+                className: "button br-0 p-2 mt-2 is-danger card-footer-item",
+                onClick: onAppointmentDelete
+              },
+              "Delete"
+            )
+          )
+        )
+      )
+    )
+    );
+  };
+
+  const AppointmentForm = ({
+    isEditMode,
+    appointment,
+    onInputChange,
+    onAppointmentFormSubmit,
+    onAppointmentFormCancel
+  }) => {
+    const { title, description, date, time, selectedPet} = appointment;
+    isEditMode = isEditMode || false;
+    const formTitle = isEditMode ? "Update Appointment" : "Add New Appointment";
+  const handlePetSelection = (e) => {
+      const selectedPet = e.target.textContent;
+      onInputChange({ target: { name: "selectedPet", value: selectedPet } });
+    };
+    const toggleDropdown = () => {
+      $('.js-dropdown-list4').toggleClass('dropdown-active');
+      if ($('.js-dropdown-list4').hasClass('dropdown-active')) {
+          $(".fa-chevron-down").css({
+              "transform": "rotate(180deg)",
+          })
+      } else {
+          $(".fa-chevron-down").css({
+              "transform": "rotate(0deg)",
+          })
+      }
+    };
+    return  React.createElement(
+      "div",
+      null ,
+      React.createElement(
+        "div",
+        { className: "section-heading" } ,
+        React.createElement("h3", null, formTitle)
+      ) ,
+
+      React.createElement(
+        "form",
+        {
+          className: "has-background-white-ter p-3",
+          id: "appointmentForm",
+          method: "POST",
+          onSubmit: onAppointmentFormSubmit,
+          "data-datakey": Helpers.getFormattedDate(date)
+        } ,
+        React.createElement(
+          "div",
+          { className: "field" } ,
+          React.createElement(
+            "label",
+            { className: "label" },
+            "Title"
+          ) ,
+          React.createElement(
+            "div",
+            { className: "control" } ,
+            React.createElement("input", {
+              name: "title",
+              value: title,
+              className: "input",
+              id: "title",
+              type: "text",
+              placeholder: "Enter Title",
+              onChange: onInputChange,
+              required: true
+            })
+          )
+        ) ,
+
+        React.createElement(
+          "div",
+          { class: "field" } ,
+          React.createElement(
+            "label",
+            { class: "label" },
+            "Description"
+          ) ,
+          React.createElement(
+            "div",
+            { class: "control" } ,
+            React.createElement(
+              "textarea",
+              {
+                name: "description",
+                class: "textarea",
+                id: "description",
+                placeholder: "Enter Description",
+                onChange: onInputChange
+              },
+              description
+            )
+          )
+        ) ,
+        React.createElement(
+        "div",
+        { class: "field is-grouped", style: {justifyContent: "space-around"}},
+         
+            React.createElement(
+                "div",
+                { class: "field" }, 
+                React.createElement(
+                "label",
+                { class: "label" },
+                "Time"
+                ) ,
+                React.createElement(
+                    "div",
+                    { class: "control" }, 
+                    React.createElement("input", {
+                        name: "time",
+                        id: "time",
+                        value: time,
+                        className: "input",
+                        type: "time",
+                        onChange: onInputChange,
+                        required: true
+                    })
+                ) 
+            ),
+        ),
+        React.createElement(
+        'p',
+        { className: 'is-italic mb-3' },
+         React.createElement(
+            'span',
+            { className: 'has-text-weight-bold' },
+            'Appointment Date:'
+        ),
+        React.createElement('span', {ID: 'appDate'},
+            ' ',
+            Helpers.getFormattedDate(date),
+            ' ',
+            time
+            ),
+        ),
+        React.createElement(
+          "div",
+          { class: "field is-grouped" } ,
+          React.createElement(
+            "div",
+            { class: "control" } ,
+            React.createElement(
+              "button",
+              { type: "button", ID: "SetAppBtn",  class: "button is-primary", onClick: onAppointmentFormSubmit },
+              "Save"
+            )
+          ) ,
+
+          React.createElement(
+            "div",
+            { class: "control" } ,
+            React.createElement(
+              "button",
+              {
+                type: "button",
+                class: "button",
+                onClick: onAppointmentFormCancel
+              },
+              "Cancel"
+            )
+          )
+        )
+
+    )
+    );
+  };
+
+  const CalendarHeader = (props) => {
+    const { onPrevMonthClick, onNextMonthClick, monthName, year } = props;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const isPastMonth = year < currentYear || (year === currentYear && currentMonth > 0);     
+    return  React.createElement(
+      "div",
+      { className: "calendar__header" } ,
+      React.createElement(
+        "div",
+        { className: "calendar__controls" } ,
+        !isPastMonth && React.createElement(
+          "div",
+          {
+            className: "calendar__control-icon",
+            onClick: onPrevMonthClick
+          } ,
+          React.createElement("span", { className: "icon is-medium" }, "<")
+        ) ,
+
+        React.createElement(
+          "div",
+          {
+            className: "calendar__control-icon",
+            onClick: onNextMonthClick
+          } ,
+          React.createElement("span", { className: "icon is-medium" }, ">")
+        )
+      ) ,
+
+      React.createElement(
+        "div",
+        { className: "calendar__title" },
+        monthName,
+        " ",
+        year
+      )
+    );
+  };
+
+  const CalendarRowItem = (props) => {
+    const {
+      day,
+      date,
+      index,
+      onCalendarItemClick,
+      onAppointmentItemClick,
+      appointments
+    } = props;
+    const dateKey = Helpers.getFormattedDate(
+      new Date(date.getFullYear(), date.getMonth(), day)
+    );
+    const _getDayAppointment = (appointments, dateKey) => {
+      return appointments.hasOwnProperty(dateKey) ? appointments[dateKey] : null;
+    };
+    const appointment = _getDayAppointment(appointments, dateKey);
+    if (day > 0) {
+      return  React.createElement(
+        "td",
+        {
+            key: index ,
+        } ,
+        React.createElement(
+          "div",
+          {
+            className: "calendar__item",
+            onClick: onCalendarItemClick,
+            "data-datekey": dateKey
+          } ,
+          React.createElement(
+            "div",
+            {
+              className: "calendar__item-title",
+            },
+            day
+          ),
+          appointment &&
+             React.createElement(AppointmentItem, {
+              date: date,
+              dateKey: dateKey,
+              appointment: appointment,
+              onAppointmentItemClick: onAppointmentItemClick
+            })
+        )
+      );
+    }
+    return React.createElement('td', { key: index, className: 'disabled' },
+           React.createElement('div', { className: 'calendar__item' },
+           React.createElement('div', { className: 'calendar__item-title' }, '\xA0'))
+            );
+  };
+
+  const CalenderRowList = ({
+    date,
+    onCalendarItemClick,
+    onAppointmentItemClick,
+    appointments
+  }) => {
+    const _getCalendarDays = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const today = new Date();
+        const firstDayOfMonth = new Date(year, month, 1).getDay(); // Day of the week (0 - 6)
+        const numberOfDaysInMonth = new Date(year, month + 1, 0).getDate();
+        let calendarDays = [];
+
+        // Insert leading empty cells based on the first day of the month
+        for (let i = 0; i < firstDayOfMonth; i++) {
+          calendarDays.push(-1);
+        }
+
+        // Build calendar days
+        for (let i = 1; i <= numberOfDaysInMonth; i++) {
+          const currentDate = new Date(year, month, i);
+          const isBeforeToday = currentDate < today;
+      
+          calendarDays.push(isBeforeToday ? -1 : i);
+        }
+        return calendarDays;
+      };
+    const _getCalendarBody = (calendarDays) => {
+      let rows = [];
+      let rowItems = [];
+      let itemCount = 1;
+      calendarDays.map((dayNumber, index) => {
+        rowItems.push(
+           React.createElement(CalendarRowItem, {
+            date: date,
+            day: dayNumber,
+            index: index,
+            onCalendarItemClick: onCalendarItemClick,
+            onAppointmentItemClick: onAppointmentItemClick,
+            appointments: appointments
+          })
+        );
+
+        if (itemCount % 7 === 0) {
+          rows.push(
+             React.createElement(
+              "tr",
+              { key: `row_${index}` },
+              rowItems
+            )
+          );
+          rowItems = [];
+        }
+        itemCount++;
+      });
+
+      // handle edge case: when remaining rowitems is less than a mulitple of 7
+      if (rowItems.length > 0) {
+        rows.push(
+           React.createElement("tr", { key: "row_last" }, rowItems)
+        );
+      }
+      return rows;
+    };
+
+    return _getCalendarBody(_getCalendarDays(date));
+  };
+
+  const CalendarBody = (props) => {
+    const {
+      date,
+      onCalendarItemClick,
+      onAppointmentItemClick,
+      appointments
+    } = props;
+    return  React.createElement(
+      "table",
+      {
+        className:
+          "table is-bordered is-fullwidth calendar__table calendar__table--center"
+      } ,
+      React.createElement(
+        "thead",
+        null ,
+        React.createElement(
+          "tr",
+          null ,
+          React.createElement("td", null, "Sun") ,
+          React.createElement("td", null, "Mon") ,
+          React.createElement("td", null, "Tue") ,
+          React.createElement("td", null, "Wed") ,
+          React.createElement("td", null, "Thu") ,
+          React.createElement("td", null, "Fri") ,
+          React.createElement("td", null, "Sat")
+        )
+      ) ,
+
+      React.createElement(
+        "tbody",
+        null ,
+        React.createElement(CalenderRowList, {
+          date: date,
+          onCalendarItemClick: onCalendarItemClick,
+          onAppointmentItemClick: onAppointmentItemClick,
+          appointments: appointments
+        })
+      )
+    );
+  };
+
+  const Calendar = (props) => {
+    /**
+     * Week Days => Sunday (0) - Saturday (6)
+     * Months => January (0) - December (11)
+     */
+    const MONTH_NAMES = {
+      0: "January",
+      1: "February",
+      2: "March",
+      3: "April",
+      4: "May",
+      5: "June",
+      6: "July",
+      7: "August",
+      8: "September",
+      9: "October",
+      10: "November",
+      11: "December"
+    };
+
+    const {
+      date,
+      onPrevMonthClick,
+      onNextMonthClick,
+      onCalendarItemClick,
+      onAppointmentItemClick,
+      appointments
+    } = props;
+    const year = date.getFullYear();
+    const monthName = MONTH_NAMES[date.getMonth()];
+
+    return  React.createElement(
+      "div",
+      { className: "calendar calender--light p-1" } ,
+      React.createElement(CalendarHeader, {
+        onPrevMonthClick: onPrevMonthClick,
+        onNextMonthClick: onNextMonthClick,
+        monthName: monthName,
+        year: year
+      }) ,
+
+      React.createElement(CalendarBody, {
+        date: date,
+        onCalendarItemClick: onCalendarItemClick,
+        onAppointmentItemClick: onAppointmentItemClick,
+        appointments: appointments
+      })
+    );
+  };
+
+  class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        calendarData: {
+          currentDate: new Date()
+        },
+
+        appointments: {},
+        appointment: {
+          id: null,
+          title: "",
+          description: "",
+          date: null
+        },
+
+        isNewAppointment: false,
+        isEditAppointment: false,
+        isViewAppointment: false
+      };
+
+      this.handlePrevMonthClick = this.handlePrevMonthClick.bind(this);
+      this.handleNextMonthClick = this.handleNextMonthClick.bind(this);
+      this.handleCalendarItemClick = this.handleCalendarItemClick.bind(this);
+      this.handleAppointmentItemClick = this.handleAppointmentItemClick.bind(
+        this
+      );
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.handleAppointmentFormSubmit = this.handleAppointmentFormSubmit.bind(
+        this
+      );
+      this.handleAppointmentUpdateFormSubmit = this.handleAppointmentUpdateFormSubmit.bind(
+        this
+      );
+      this.handleAppointmentActionCancel = this.handleAppointmentActionCancel.bind(
+        this
+      );
+      this.resetSideViews = this.resetSideViews.bind(this);
+      this.handleAppointmentEdit = this.handleAppointmentEdit.bind(this);
+      this.handleAppointmentDelete = this.handleAppointmentDelete.bind(this);
+    }
+
+    get initialAppointmentState() {
+      return {
+        id: null,
+        title: "",
+        description: "",
+        date: null
+      };
+    }
+
+    getPrevMonthDate(date) {
+      /**
+       *
+       * check if previous month is less than  January (0)
+       * and decrement year by one and set previous month to December (11)
+       *
+       * returns new Date()
+       */
+      if (!Helpers.isValidDate(date)) {
+        throw new Error("ArgumentError: Invalid Date");
+      }
+      let prevMonth = date.getMonth() - 1;
+      let year = date.getFullYear();
+      if (prevMonth < 0) {
+        year -= 1;
+        prevMonth = 11;
+      }
+      return new Date(year, prevMonth);
+    }
+
+    getNextMonthDate(date) {
+      /**
+       *
+       * checks if next month is more than December (11)
+       * and increment year by one and set next month to January (0)
+       *
+       * returns new Date()
+       */
+      if (!Helpers.isValidDate(date)) {
+        throw new Error("ArgumentError: Invalid Date");
+      }
+      let nextMonth = date.getMonth() + 1;
+      let year = date.getFullYear();
+      if (nextMonth > 11) {
+        year += 1;
+        nextMonth = 0;
+      }
+      return new Date(year, nextMonth);
+    }
+
+    handlePrevMonthClick() {
+      this.setState({
+        calendarData: {
+          currentDate: this.getPrevMonthDate(this.state.calendarData.currentDate)
+        }
+      });
+    }
+    handleNextMonthClick() {
+      this.setState({
+        calendarData: {
+          currentDate: this.getNextMonthDate(this.state.calendarData.currentDate)
+        }
+      });
+    }
+
+    handleInputChange(e) {
+      let tempAppointment = { ...this.state.appointment };
+      if (e.target.name === 'time') {
+        // Update the time property
+        tempAppointment.time = e.target.value;
+      } else {
+        // Update other properties as usual
+        tempAppointment[e.target.name] = e.target.value;
+      }
+
+      this.setState({
+        appointment: tempAppointment
+      });
+    }
+
+    resetSideViews() {
+      this.setState({
+        isEditAppointment: false,
+        isNewAppointment: false,
+        isViewAppointment: false
+      });
+    }
+
+    handleCalendarItemClick(e) {
+      e.stopPropagation();
+      this.resetSideViews();
+      const dataKey = e.currentTarget.dataset.datekey;
+      const dateFields = dataKey.split("/");
+      const itemDate = new Date(dateFields[0], dateFields[1], dateFields[2]);
+      const newAppointment = this.initialAppointmentState;
+      newAppointment.id = dataKey;
+      newAppointment.date = new Date(dateFields[0], dateFields[1] - 1, dateFields[2]);;
+      this.setState({
+        appointment: newAppointment,
+        isNewAppointment: true
+      });
+    }
+
+    handleAppointmentItemClick(e) {
+      e.stopPropagation();
+      this.resetSideViews();
+      const dataKey = e.currentTarget.dataset.datekey;
+      const { appointments } = this.state;
+      if (appointments.hasOwnProperty(dataKey)) {
+        this.setState({
+          isViewAppointment: true,
+          appointment: { ...appointments[dataKey] }
+        });
+      }
+    }
+
+    handleAppointmentFormSubmit(e) {
+      const { appointments, appointment } = this.state;
+  if (!appointment.selectedPet) {
+        alert("Please choose a pet.");
+        return;
+      }
+      if (appointments.hasOwnProperty(appointment.id)) {
+        alert("An appointment already exists on this day.");
+        return;
+      }
+      const currentAppointments = { ...appointments };
+      currentAppointments[appointment.id] = appointment;
+      this.setState({
+        appointments: currentAppointments
+      });
+
+      this.setState({
+        appointment: this.initialAppointmentState,
+        isNewAppointment: false
+      });
+
+      const formData = new FormData(document.getElementById("appointmentForm"));
+        formData.append('title', $("#title").val());
+        formData.append('desc', $("#description").val());
+        formData.append('time', $("#appDate").text());
+        formData.append('petName', $(".selected-pet").text());
+        formData.append('vet_id', vet_id);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        fetch('{% url 'addApp' %}', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+    }
+
+    handleAppointmentEdit(e) {
+      this.setState({
+        isViewAppointment: false,
+        isEditAppointment: true
+      });
+    }
+
+    handleAppointmentDelete(e) {
+      const { appointments, appointment } = this.state;
+      if (
+        appointments.hasOwnProperty(appointment.id) &&
+        confirm("Are you sure you want to delete this Appointment?")
+      ) {
+        const currentAppointments = { ...appointments };
+        delete currentAppointments[appointment.id];
+        this.setState({
+          appointments: currentAppointments
+        });
+
+        const formData = new FormData(document.getElementById("deleteForm"));
+        console.log($(".card-header-title appointment__detail-title").text())
+        formData.append('title', $(".appointment__detail-title").text());
+        formData.append('desc', $(".appointment__detail-description").text());
+        formData.append('time', $(".timeselected").text());
+        formData.append('petName', $(".petSelectedDel").text());
+        formData.append('vet_id', vet_id);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        fetch('{% url 'delApp' %}', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        console.log("Yeaa Deleted")
+      }
+      this.resetSideViews();
+    }
+
+    handleAppointmentUpdateFormSubmit(e) {
+
+      const { appointments, appointment } = this.state;
+      if (appointments.hasOwnProperty(appointment.id)) {
+        const currentAppointments = { ...appointments };
+        {#appointment.date = new Date(Date.now());#}
+        currentAppointments[appointment.id] = appointment;
+        this.setState({
+          appointments: currentAppointments
+        });
+        this.resetSideViews();
+        this.setState({
+          appointment: this.initialAppointmentState
+        });
+
+        const formData = new FormData(document.getElementById("appointmentForm"));
+        formData.append('title', $("#title").val());
+        formData.append('desc', $("#description").val());
+        formData.append('time', $("#appDate").text());
+        formData.append('petName', $(".selected-pet").text());
+        formData.append('vet_id', vet_id);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        fetch('{% url 'addApp' %}', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            const errors = data.errors;
+            if (errors.length > 0) {
+                console.log("FUUUUUCCCKKKKKKKK")
+            }else{
+                console.log("YEAAAAAA")
+            }
+        })
+      }
+    }
+
+    handleAppointmentActionCancel(e) {
+      this.resetSideViews();
+      this.setState({
+        appointment: this.initialAppointmentState
+      });
+    }
+
+    render() {
+      const {
+        calendarData,
+        appointments,
+        isEditAppointment,
+        isNewAppointment,
+        isViewAppointment,
+        appointment
+      } = this.state;
+      const isActivateSideView =
+        isNewAppointment || isViewAppointment || isEditAppointment;
+      return  React.createElement(
+        "div",
+        { className: "container" } ,
+        React.createElement(
+          "div",
+          { className: "columns" } ,
+          React.createElement(
+            "div",
+            { className: "column" } ,
+            React.createElement(Calendar, {
+              date: calendarData.currentDate,
+              onPrevMonthClick: this.handlePrevMonthClick,
+              onNextMonthClick: this.handleNextMonthClick,
+              onCalendarItemClick: this.handleCalendarItemClick,
+              onAppointmentItemClick: this.handleAppointmentItemClick,
+              appointments: appointments
+            })
+          ),
+
+          isActivateSideView &&
+             React.createElement(
+              "div",
+              { className: "column is-one-third" },
+              isNewAppointment &&
+                 React.createElement(AppointmentForm, {
+                  appointment: appointment,
+                  onInputChange: this.handleInputChange,
+                  onAppointmentFormSubmit: this.handleAppointmentFormSubmit,
+                  onAppointmentFormCancel: this.handleAppointmentActionCancel
+                }),
+
+              isViewAppointment &&
+                 React.createElement(AppointmentDetail, {
+                  appointment: appointment,
+                  onAppointmentEdit: this.handleAppointmentEdit,
+                  onAppointmentDelete: this.handleAppointmentDelete,
+                  onCancelClick: this.handleAppointmentActionCancel
+                }),
+
+              isEditAppointment &&
+                 React.createElement(AppointmentForm, {
+                  appointment: appointment,
+                  onInputChange: this.handleInputChange,
+                  onAppointmentFormSubmit: this.handleAppointmentUpdateFormSubmit,
+                  onAppointmentFormCancel: this.handleAppointmentActionCancel
+                })
+            )
+        )
+      );
+    }
+  }
+
+  ReactDOM.render(
+     React.createElement(App, null),
+    document.getElementById("root")
+  );
+};
 </script>
 {% endblock scripts %}

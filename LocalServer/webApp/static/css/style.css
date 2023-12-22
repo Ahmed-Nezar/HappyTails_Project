@@ -10351,7 +10351,7 @@ input.variation + label {
 .profile-default .profile a:active, .profile a:focus {
   top: 0;
   box-shadow: none;
-  background: #0277bd;
+  /* background: #0277bd; */
 }
 
 /*FILTERS*/
